@@ -1,0 +1,18 @@
+{
+  "shared":{
+    "buttons": {
+      "back": "Back",
+      "next": "Next",
+      "submit": "Submit"
+  }
+},
+"welcome":{
+  "username": "Username",
+  "password": "Password",
+  "enterUsername": "Enter your email here",
+  "enterPassword": "Enter your password here",
+  "title": "WELCOME TO LIONSENTRY!",
+  "createAccount": "Create Account",
+  "login": "Sign In"
+}
+}
