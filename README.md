@@ -18,3 +18,7 @@ Repository for LionSentry react front-end
 ## Accessing the App 🌐
 
 - **Web Application**: Accessible at http://localhost:19006/
+
+## Note
+
+UI will be updated to new version.
