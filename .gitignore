@@ -1,3 +1,7 @@
+src/util/firebase/firebaseConfigData.ts
+
+.expo
+
 # Logs
 logs
 *.log
