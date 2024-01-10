@@ -27,3 +27,9 @@ Repository for LionSentry react front-end
 ## Note
 
 UI will be updated to new version.
+
+## Building for Web Deployment
+
+```
+npm run build:web
+```
