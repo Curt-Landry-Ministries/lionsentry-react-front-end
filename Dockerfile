@@ -5,13 +5,13 @@ FROM node:18.16.1
 WORKDIR /app
 
 # Copy package.json and package-lock.json (if available) to the working directory
-COPY client/package*.json ./
+COPY package*.json ./
 
 # Install the project dependencies
 RUN npm install
 
-# Copy the entire project to the working directory
-COPY client/ ./
-
 # Run the app using npm
-CMD ["npm", "run", "web"]
+CMD ["npm", "run", "build"]
+
+# Copy the entire project to the working directory
+COPY ./web-build ./
