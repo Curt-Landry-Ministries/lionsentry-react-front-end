@@ -1,0 +1,61 @@
+
+Create Account
+https://api.lionsentry.com/auth_server/create-user-manually
+
+request
+
+headers
+'Content-Type' : 'application/json'
+
+body
+{
+    "email": "email@email.com",
+    "password": "Password"
+}
+
+response
+{
+    "message": "User created successfully",
+    "uid": "oPemEbViuwd7TsXvFkhW8mQYmto2"
+}
+
+Login to Account
+https://api.lionsentry.com/auth_server/get-id-token
+
+request
+
+headers
+'Content-Type' : 'application/json'
+
+{
+    "email": "email@email.com",
+    "password": "Password"
+}
+
+response
+{
+    "idToken": "idToken"
+}
+
+
+Save UserID
+https://api.lionsentry.com/app_server/save-user-data-point
+
+request
+
+headers
+'Content-Type' : 'application/json'
+'Authorization' : 'Bearer ${authToken}'
+
+{
+    "targetUserId": "targetUserId",
+    "dataPoint": "dataPoint",
+    "action" : "action",
+    "value" : "value"
+}
+
+response
+{
+    "message": "User logged in:",
+    "email": "email@emailcom"
+}
