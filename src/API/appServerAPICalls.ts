@@ -1,6 +1,15 @@
 // apiCalls.ts
 
-const BASE_URL = "http://localhost:5001"; // Your App server URL
+const LOCAL_TESTING: string = "false"; // change to true when testing locally
+let BASE_URL: string;
+
+if (LOCAL_TESTING === "true"){
+  BASE_URL = "http://localhost:5002"; 
+}
+else {
+  BASE_URL = "https://api.lionsentry.com/app_server"; 
+}
+
 
 export const submitAnswerToServer = async (
   answer: string,

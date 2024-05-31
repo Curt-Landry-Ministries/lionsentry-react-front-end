@@ -2,8 +2,15 @@ import 'firebase/auth';
 import { UserCredential, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { jwtDecode } from "jwt-decode";
 
-const BASE_URL = "http://localhost:5002"; // Your Auth server URL
+const LOCAL_TESTING: string = "false"; // change to true when testing locally
+let BASE_URL: string;
 
+if (LOCAL_TESTING === "true"){
+  BASE_URL = "http://localhost:5001"; 
+}
+else {
+  BASE_URL = "https://api.lionsentry.com/auth_server"; 
+}
 
 // export const fetchUserId = async (): Promise<string | null> => {
 //   try {
@@ -30,7 +37,7 @@ type CreateUserResponse = {
 
 export async function createAccount(username: string, password: string): Promise<void> {
   try {
-    const response = await fetch('http://localhost:5002/create-user-manually', {
+    const response = await fetch(`${BASE_URL}/create-user-manually`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
