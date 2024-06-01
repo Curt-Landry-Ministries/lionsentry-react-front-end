@@ -6,12 +6,12 @@ import '@/app/globals.css'
 import './css/style.css'
 
 import { cn } from '@/lib/utils'
-import { TailwindIndicator } from '@/components/tailwind-indicator'
-import { Providers } from '@/components/providers'
-import { Toaster } from '@/components/ui/sonner'
+import { TailwindIndicator } from '@/app/components/tailwind-indicator'
+import { Providers } from '@/app/components/providers'
+import { Toaster } from '@/app/components/ui/sonner'
 
-import { Header } from '@/components/header'
-import Banner from '@/components/banner'
+import { Header } from '@/app/components/header'
+import Banner from '@/app/components/banner'
 
 const inter = Inter({
   subsets: ['latin'],
