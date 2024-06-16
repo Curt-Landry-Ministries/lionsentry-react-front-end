@@ -37,7 +37,7 @@ if (!authToken) {
 
 export const fetchQuestionsFromServer = async () => {
   // Get the questions for the onboarding UI
-  const response = await fetch("http://localhost:5001/get-questions");
+  const response = await fetch(`${BASE_URL}/get-questions`);
   if (!response.ok) {
     throw new Error("Failed to fetch questions from the server");
   }
