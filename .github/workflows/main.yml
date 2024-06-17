@@ -7,7 +7,6 @@ on:
       - upgrade/new-nextjs-mvp
 
 env:
-  applicationfolder: src
   AWS_REGION: us-east-1
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -24,10 +23,6 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Build and Push Next.js App Docker Image
-        working-directory: ${{ env.applicationfolder }}
         run: |
-          # Build Docker image for Next.js app
           docker build -t lionsentry/lionsentry-react-front-end:next_app .
-          
-          # Push Docker image to DockerHub
           docker push lionsentry/lionsentry-react-front-end:next_app
