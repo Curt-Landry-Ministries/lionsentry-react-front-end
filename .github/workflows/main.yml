@@ -21,10 +21,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Login to DockerHub
-        run: echo "${{ env.DOCKERHUB_TOKEN }}" | docker login -u "${{ env.DOCKERHUB_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-      - name: Build and Push App Server Image
-        working-directory: src/
+      - name: Build and Push Next.js App Docker Image
+        working-directory: ${{ env.applicationfolder }}
         run: |
-          docker buildx build -t lionsentry/lionsentry-react-front-end:next_app .
+          # Build Docker image for Next.js app
+          docker build -t lionsentry/lionsentry-react-front-end:next_app .
+          
+          # Push Docker image to DockerHub
           docker push lionsentry/lionsentry-react-front-end:next_app
