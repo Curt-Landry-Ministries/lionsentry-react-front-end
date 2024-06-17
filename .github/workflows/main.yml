@@ -1,0 +1,30 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches:
+      - test 
+      - upgrade/new-nextjs-mvp
+
+env:
+  applicationfolder: src
+  AWS_REGION: us-east-1
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+jobs:
+  build_dockerhub_image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Login to DockerHub
+        run: echo "${{ env.DOCKERHUB_TOKEN }}" | docker login -u "${{ env.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Build and Push App Server Image
+        working-directory: src/
+        run: |
+          docker buildx build -t lionsentry/lionsentry-react-front-end:next_app .
+          docker push lionsentry/lionsentry-react-front-end:next_app
