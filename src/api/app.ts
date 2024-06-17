@@ -1,4 +1,4 @@
-// apiCalls.ts
+// src/api/app.tsx
 
 const LOCAL_TESTING: string = "false"; // change to true when testing locally
 let BASE_URL: string;
@@ -10,18 +10,16 @@ else {
   BASE_URL = "https://api.lionsentry.com/app_server"; 
 }
 
-
 export const submitAnswerToServer = async (
   answer: string,
   question: string,
   questionIndex: number,
 ) => {
-
   const authToken = localStorage.getItem('authToken');
-if (!authToken) {
-  console.error('No authentication token found');
-  throw new Error('Authentication required');
-}
+  if (!authToken) {
+    console.error('No authentication token found');
+    throw new Error('Authentication required');
+  }
 
   const response = await fetch(`${BASE_URL}/submit-onboarding-answer`, {
     method: "POST",
@@ -73,10 +71,10 @@ export const generateWhyStatementFromAnswers = async (
   answers: string[],
 ): Promise<string> => {
   const authToken = localStorage.getItem('authToken');
-if (!authToken) {
-  console.error('No authentication token found');
-  throw new Error('Authentication required');
-}
+  if (!authToken) {
+    console.error('No authentication token found');
+    throw new Error('Authentication required');
+  }
   
   const questionsAnswers = questions.map((q, index) => ({
     question: q.title,
@@ -219,3 +217,38 @@ export const saveUserDataPoint = async (
   }
 };
 
+export const getLatestWhyStatement = async (): Promise<string> => {
+  const authToken = localStorage.getItem('authToken');
+  if (!authToken) {
+    console.error('No authentication token found');
+    throw new Error('Authentication required');
+  }
+
+  try {
+    // Make the GET request to the Flask endpoint
+    const response = await fetch(`${BASE_URL}/get-latest-why-statement`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${authToken}`, // Send the auth token in the request headers
+      },
+    });
+
+    // Check if the response is OK and contains data
+    if (response.ok) {
+      const data = await response.json();
+      // Ensure only the whyStatement string is returned
+      if (data && data.whyStatement) {
+        return data.whyStatement; // Return the whyStatement field as a string
+      } else {
+        throw new Error('No Why Statement field found in the response');
+      }
+    } else if (response.status === 404) {
+      throw new Error('No Why Statement found for the user');
+    } else {
+      throw new Error('Failed to retrieve the latest Why Statement');
+    }
+  } catch (error) {
+    console.error('Error fetching the latest Why Statement:', error);
+    throw error;
+  }
+};

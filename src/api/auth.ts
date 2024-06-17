@@ -105,6 +105,9 @@ export const loginUser = async (credentials: UserCredentials): Promise<void> => 
 
 export const logoutUser = async (): Promise<void> => {
   localStorage.removeItem('authToken');
+  localStorage.removeItem('whyStatement');
+  localStorage.removeItem('userEmail');
+  localStorage.removeItem('userID');
   return Promise.resolve();
 };
 
