@@ -31,7 +31,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/package*.json ./
 
 # If your app uses environment variables, you can set them here
-# ENV NEXT_PUBLIC_API_URL=https://api.example.com
+ENV NEXT_PUBLIC_API_URL=https://demo.lionsentry.com
 
 # Expose the port that the application will run on
 EXPOSE 3000
