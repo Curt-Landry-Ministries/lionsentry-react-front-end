@@ -2,6 +2,8 @@
 
 /src/firebase/firebaseConfigData.ts
 
+.env
+
 # dependencies
 /node_modules
 /.next
