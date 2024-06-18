@@ -108,6 +108,7 @@ export const logoutUser = async (): Promise<void> => {
   localStorage.removeItem('whyStatement');
   localStorage.removeItem('userEmail');
   localStorage.removeItem('userID');
+  localStorage.removeItem('theme');
   return Promise.resolve();
 };
 

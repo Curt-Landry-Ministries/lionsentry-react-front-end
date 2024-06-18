@@ -63,7 +63,7 @@ const Dashboard = () => {
                 </div>
             </div>
             <button
-                className="md:hidden fixed bottom-4 right-4 bg-black text-white p-3 rounded-full"
+                className="md:hidden fixed bottom-4 right-4 bg-white text-black p-3 rounded-full shadow-lg"
                 onClick={toggleSidebar}
             >
                 ☰
