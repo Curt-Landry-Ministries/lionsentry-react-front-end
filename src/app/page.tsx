@@ -32,6 +32,7 @@ const Home: React.FC = () => {
             </div>
           </div>
         </section>
+        <div className="h-20"></div>
         <Footer />
       </div>
     </RootLayout>
