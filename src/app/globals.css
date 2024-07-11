@@ -24,6 +24,11 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+input {
+  color: rgb(var(--foreground-rgb));
+  background: var(--background-end-rgb);
+}
+
 /* Increase the minimum width of form elements */
 .form-container {
   min-width: 650px; /* Adjust as needed */
