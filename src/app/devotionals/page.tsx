@@ -47,40 +47,41 @@ const Devotionals: React.FC = () => {
           }`}
         >
           <div className="flex flex-col items-center justify-center">
-            {isLoading ? (
-              <LoadingScreen message="Generating Devotional" /> // Show the loading screen
-            ) : (
-              <div className="w-full max-w-5xl p-6 rounded-lg shadow-lg mt-10 flex justify-center flex-col items-center bg-white dark:bg-black">
-                <h1 className="text-2xl font-bold mb-4 leading-tight tracking-tight md:text-2xl gradient-text hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 rounded-lg px-4 py-2 text-center dark:focus:ring-blue-800">
-                  Devotionals
-                </h1>
-                <div
-                  className={classnames(
-                    "grid lg:grid-cols-3 md:grid-cols-2 gap-3",
-                    {
-                      "mb-16": devotionals.length > 0,
-                    }
-                  )}
-                >
-                  {devotionals.map((devotional, index) => (
-                    <DevotionalCard
-                      devotional={devotional}
-                      key={index}
-                      onClick={() => {
-                        setOpenModal(true);
-                        setCurrentDevotional(index);
-                      }}
-                    />
-                  ))}
-                </div>
+            <div className="w-full max-w-5xl p-6 rounded-lg shadow-lg mt-10 flex justify-center flex-col items-center bg-white dark:bg-black">
+              <h1 className="text-2xl font-bold mb-4 leading-tight tracking-tight md:text-2xl gradient-text hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 rounded-lg px-4 py-2 text-center dark:focus:ring-blue-800">
+                Devotionals
+              </h1>
+              <div
+                className={classnames(
+                  "grid lg:grid-cols-3 md:grid-cols-2 gap-3",
+                  {
+                    "mb-16": devotionals.length > 0,
+                  }
+                )}
+              >
+                {devotionals.map((devotional, index) => (
+                  <DevotionalCard
+                    devotional={devotional}
+                    key={index}
+                    onClick={() => {
+                      setOpenModal(true);
+                      setCurrentDevotional(index);
+                    }}
+                  />
+                ))}
+              </div>
+
+              {isLoading ? (
+                <LoadingScreen message="Generating Devotional" /> // Show the loading screen
+              ) : (
                 <button
                   className="text-white bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   onClick={fetchDevotional} // Fetch devotional on button click
                 >
                   Generate Devotional
                 </button>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>

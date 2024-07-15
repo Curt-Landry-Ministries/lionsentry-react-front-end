@@ -18,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <div
       className={classnames(
-        "fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-70 flex items-center justify-center",
+        "fixed top-0 left-0 h-screen w-screen flex items-center justify-center",
         {
           hidden: !isOpen,
         }
@@ -31,9 +31,14 @@ const Modal: React.FC<ModalProps> = ({
       >
         CLOSE
       </button>
-      <div className="bg-white h-[80%] md:max-w-[80%] max-w-[90%] max-h-[80%] md:p-8 p-4 border rounded-md">
+      <div className="bg-white h-[80%] md:max-w-[80%] max-w-[90%] max-h-[80%] md:p-8 p-4 border rounded-md z-10">
         {children}
       </div>
+      <div
+        className="bg-black bg-opacity-70 h-full w-full absolute top-0 left-0 -z-10"
+        onClick={onClose}
+      ></div>{" "}
+      {/* Backdrop for modal */}
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import "./globals.css";
 
 export const metadata = {
-  title: 'Lionsentry',
-  description: 'Vision Statement Generator',
-}
+  title: "Lionsentry",
+  description: "Vision Statement Generator",
+};
 
 export default function RootLayout({
   children,
