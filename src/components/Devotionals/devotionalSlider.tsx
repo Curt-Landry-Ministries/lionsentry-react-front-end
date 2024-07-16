@@ -40,7 +40,7 @@ const DevotionalSlider: React.FC<DevotionalSliderProps> = ({
       <div className="flex h-full overflow-scroll" {...props}>
         <div className="flex flex-col gap-4 p-4">
           <h2 className="font-semibold text-2xl">
-            {devotionals[current].Title} {current}
+            {devotionals[current].Title}
           </h2>
           <h3 className="font-semibold text-lg gradient-bottom-border">
             Bible Passage

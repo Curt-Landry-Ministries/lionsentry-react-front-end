@@ -6,8 +6,8 @@ import classNames from "classnames";
 
 interface LoadingScreenProps {
   message: string;
-  size: "sm" | "md" | "lg";
-  isFullScreen: boolean;
+  size?: "sm" | "md" | "lg";
+  isFullScreen?: boolean;
 }
 
 const LoadingScreen: React.FC<LoadingScreenProps> = ({
