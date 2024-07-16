@@ -1,4 +1,6 @@
+// src/app/layout.tsx
 import "./globals.css";
+import { ThemeProvider } from '../components/themeContext'; // Adjust the import path if necessary
 
 export const metadata = {
   title: 'Lionsentry',
@@ -12,7 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

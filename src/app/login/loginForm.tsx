@@ -1,13 +1,13 @@
 "use client";
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Navbar from '../../components/navbar';
-import Footer from '../../components/footer';
-import { loginUser } from '../../api/auth'; 
+import React, { useState } from "react";
+import Link from "next/link";
+import Navbar from "../../components/navbar";
+import Footer from "../../components/footer";
+import { loginUser } from "../../api/auth";
 
 const LogInForm: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null); // State to handle login errors
   const [loading, setLoading] = useState(false); // State to handle loading state
 
@@ -19,33 +19,36 @@ const LogInForm: React.FC = () => {
       setError(null); // Clear any previous errors
       // Redirect or update state as needed after successful login
       // For example, you could reload the page or show a success message
-      window.location.href = '/dashboard'; // Redirect to home page or any other page
+      window.location.href = "/dashboard"; // Redirect to home page or any other page
     } catch (error) {
-      setError('Invalid credentials or login failed. Please try again.');
+      setError("Invalid credentials or login failed. Please try again.");
     } finally {
       setLoading(false); // Stop loading
     }
   };
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="min-h-screen">
       <Navbar />
       <section className="flex flex-col items-center justify-center py-8 px-6 mx-auto h-screen lg:py-0">
-        <div className="w-full bg-black rounded-lg shadow border border-white sm:max-w-md xl:p-0">
+        <div className="w-full rounded-lg shadow border sm:max-w-md xl:p-0 bg-white dark:bg-black">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 font-medium rounded-lg text-sm px-4 py-2 text-center dark:focus:ring-blue-800">
+            <h1 className="leading-tight tracking-tight md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 font-medium rounded-lg text-sm px-4 py-2 text-center dark:focus:ring-blue-800">
               Login
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleLogin}>
               <div>
-                <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium"
+                >
                   Email
                 </label>
                 <input
                   type="email"
                   name="email"
                   id="email"
-                  className="bg-black border border-white text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  className="border sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   placeholder="your-email@domain.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -53,7 +56,10 @@ const LogInForm: React.FC = () => {
                 />
               </div>
               <div>
-                <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">
+                <label
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-medium"
+                >
                   Password
                 </label>
                 <input
@@ -61,7 +67,7 @@ const LogInForm: React.FC = () => {
                   name="password"
                   id="password"
                   placeholder="••••••••"
-                  className="bg-black border border-white text-white sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  className="border sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -69,16 +75,20 @@ const LogInForm: React.FC = () => {
               </div>
               <button
                 type="submit"
-                className="w-full px-6 py-2 font-semibold text-white bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-white w-full px-6 py-2 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 disabled={loading} // Disable button while loading
               >
-                {loading ? 'Logging in...' : 'Login'}
+                {loading ? "Logging in..." : "Login"}
               </button>
-              {error && (
-                <p className="text-sm text-red-500 mt-2">{error}</p>
-              )}
+              {error && <p className="text-sm text-red-500 mt-2">{error}</p>}
               <p className="text-sm font-light text-gray-400">
-                Don&apos;t have an account? <Link href="/signup" className="text-transparent bg-clip-text bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 font-medium rounded-lg text-sm px-1 py-2 text-center dark:focus:ring-blue-800">Signup</Link>
+                Don&apos;t have an account?{" "}
+                <Link
+                  href="/signup"
+                  className="text-transparent bg-clip-text bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 font-medium rounded-lg text-sm px-1 py-2 text-center dark:focus:ring-blue-800"
+                >
+                  Signup
+                </Link>
               </p>
             </form>
           </div>
