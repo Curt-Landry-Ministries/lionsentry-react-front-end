@@ -2,13 +2,12 @@
 
 "use client";
 
-import { useEffect, useState } from 'react';
-import Questionnaire from './questionnaire';
-import { fetchQuestions } from '../../data/fetchQuestions';
-import { Question } from '../../data/questions';
-import Navbar from '../../components/navbar';
-import Footer from '../../components/footer';
-
+import { useEffect, useState } from "react";
+import Questionnaire from "./questionnaire";
+import { fetchQuestions } from "../../data/fetchQuestions";
+import { Question } from "../../data/questions";
+import Navbar from "../../components/navbar";
+import Footer from "../../components/footer";
 
 const Pages: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -29,7 +28,9 @@ const Pages: React.FC = () => {
   }
 
   return (
-    <div className="bg-black min-h-screen"> {/* Apply black background to the entire component */}
+    <div className="min-h-screen">
+      {" "}
+      {/* Apply black background to the entire component */}
       <Navbar />
       <Questionnaire questions={questions} />
       <Footer />
