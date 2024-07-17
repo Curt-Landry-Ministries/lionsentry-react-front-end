@@ -75,7 +75,7 @@ const Devotionals: React.FC = () => {
                 <LoadingScreen message="Generating Devotional" /> // Show the loading screen
               ) : (
                 <button
-                  className="text-white bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="main-btn"
                   onClick={fetchDevotional} // Fetch devotional on button click
                 >
                   Generate Devotional

@@ -8,6 +8,7 @@ import { fetchQuestions } from "../../data/fetchQuestions";
 import { Question } from "../../data/questions";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
+import LoadingScreen from "@/components/loading";
 
 const Pages: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -23,16 +24,18 @@ const Pages: React.FC = () => {
     getQuestions();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col page-gradient-bg dark:page-gradient-bg-dark">
       {" "}
       {/* Apply black background to the entire component */}
       <Navbar />
-      <Questionnaire questions={questions} />
+      <section className="flex items-center justify-center h-screen flex-shrink-0 flex-1">
+        {loading ? (
+          <LoadingScreen message="Loading your questionaire" />
+        ) : (
+          <Questionnaire questions={questions} />
+        )}
+      </section>
       <Footer />
     </div>
   );
