@@ -118,6 +118,7 @@ export interface DevotionalContent {
   BiblePassage: string;
   Personalization: string;
   JournalingPrompt: string;
+  TimeStamp: string;
 }
 
 export const generateDevotional = async (): Promise<DevotionalContent> => {
