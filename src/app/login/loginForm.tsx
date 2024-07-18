@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../../components/navbar";
-import Footer from "../../components/footer";
 import { loginUser } from "../../api/auth";
+import Footer from "@/components/footer";
 
 const LogInForm: React.FC = () => {
   const [email, setEmail] = useState("");

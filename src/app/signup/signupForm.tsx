@@ -73,7 +73,6 @@ const SignUpForm: React.FC = () => {
 
   return (
     <div className="page-gradient-bg dark:page-gradient-bg-dark min-h-screen flex flex-col">
-      {" "}
       <Navbar />
       <section className="flex items-center justify-center flex-1">
         {isLoading ? (
@@ -194,6 +193,7 @@ const SignUpForm: React.FC = () => {
                 <p className="text-sm font-light text-gray-400">
                   Already have an account?{" "}
                   <Link
+                    shallow
                     href="/login"
                     className="text-transparent bg-clip-text bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 font-medium rounded-lg text-sm px-4 py-2 text-center dark:focus:ring-blue-800"
                   >

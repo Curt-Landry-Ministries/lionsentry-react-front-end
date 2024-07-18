@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { logoutUser } from "../api/auth";
+import ThemeToggler from "./Global/ThemeToggler";
 
 const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -51,7 +52,7 @@ const Header = () => {
           <button
             ref={buttonRef}
             onClick={toggleDropdown}
-            className="text-white bg-black border border-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 md:px-8 sm:px-4 py-2 text-center"
+            className="text-white bg-black border focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 md:px-8 sm:px-4 py-2 text-center mr-4"
           >
             Menu
           </button>
@@ -81,6 +82,7 @@ const Header = () => {
               </Link>
             </div>
           )}
+          <ThemeToggler />
         </div>
       </div>
     </nav>

@@ -2,8 +2,8 @@
 import React from "react";
 import Link from "next/link";
 import Navbar from "../components/navbar";
-import Footer from "../components/footer";
 import RootLayout from "./layout";
+import Footer from "@/components/footer";
 
 const Home: React.FC = () => {
   return (
@@ -38,7 +38,6 @@ const Home: React.FC = () => {
             </div>
           </div>
         </section>
-        <div className="h-20"></div>
         <Footer />
       </div>
     </RootLayout>

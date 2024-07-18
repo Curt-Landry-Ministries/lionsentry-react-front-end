@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import { getLatestWhyStatement } from "../../api/app"; // Import the function to fetch the latest why statement
+import Footer from "@/components/footer";
 
 const Dashboard = () => {
   const [whyStatement, setWhyStatement] = useState<string | null>(null);
