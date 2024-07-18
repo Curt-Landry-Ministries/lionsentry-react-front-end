@@ -30,7 +30,7 @@ const DevotionalSlider: React.FC<DevotionalSliderProps> = ({
         <button
           onClick={() => handleChange(-1)}
           disabled={current === 0}
-          className={classNames("absolute -left-3 top-1/2", {
+          className={classNames("absolute -left-3 top-1/2 text-black", {
             "opacity-50": current === 0,
           })}
         >
@@ -60,7 +60,7 @@ const DevotionalSlider: React.FC<DevotionalSliderProps> = ({
         <button
           onClick={() => handleChange(1)}
           disabled={current === devotionals.length - 1}
-          className={classNames("absolute -right-3 top-1/2", {
+          className={classNames("absolute -right-3 top-1/2 text-black", {
             "opacity-50": current === devotionals.length - 1,
           })}
         >
