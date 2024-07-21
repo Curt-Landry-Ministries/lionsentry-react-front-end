@@ -21,12 +21,9 @@ const Navbar: React.FC = () => {
           </span>
         </Link>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <Link href="/signup">
-            <button
-              type="button"
-              className="text-white bg-black border border-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 md:px-8 sm:px-4 py-2 text-center"
-            >
-              Sign Up
+          <Link href="/login">
+            <button type="button" className="main-btn">
+              Login
             </button>
           </Link>
         </div>

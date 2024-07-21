@@ -24,7 +24,8 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-input {
+input,
+textarea {
   color: rgb(var(--foreground-rgb));
   background: var(--background-end-rgb);
 }
@@ -42,6 +43,12 @@ input {
 }
 
 @layer components {
+  .page-gradient-bg-dark {
+    @apply bg-gradient-to-tr from-slate-300 to-slate-800;
+  }
+  .page-gradient-bg {
+    @apply bg-gradient-to-tr from-cyan-500 via-red-200 to-amber-600;
+  }
   .gradient-bg {
     @apply bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500;
   }
@@ -56,5 +63,9 @@ input {
 
   .gradient-bottom-border {
     @apply gradient-bg bg-[length:100%_3px] bg-no-repeat bg-bottom bg-gradient-to-r;
+  }
+
+  .main-btn {
+    @apply text-white px-6 py-2 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800;
   }
 }

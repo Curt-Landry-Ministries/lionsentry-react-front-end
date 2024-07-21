@@ -42,7 +42,7 @@ const Header = () => {
     <nav className="bg-white border-gray-200 dark:bg-black">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/">
-          <span className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 font-medium rounded-lg text-sm px-4 py-2 text-center dark:focus:ring-blue-800">
+          <span className="leading-tight tracking-tight md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 font-medium rounded-lg text-sm px-4 py-2 text-center dark:focus:ring-blue-800">
             Lionsentry
           </span>
         </Link>
@@ -72,12 +72,12 @@ const Header = () => {
                 </span>
               </Link>
               <Link href="/">
-              <button
-                onClick={handleLogout}
-                className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
-              >
-                Logout
-              </button>
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
+                >
+                  Logout
+                </button>
               </Link>
             </div>
           )}

@@ -72,16 +72,14 @@ const SignUpForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="page-gradient-bg dark:page-gradient-bg-dark min-h-screen flex flex-col">
       {" "}
       <Navbar />
-      {isLoading ? (
-        <LoadingScreen message="Creating your account" /> // Show the loading screen
-      ) : (
-        <section className="min-h-screen flex items-center justify-center">
-          {" "}
-          {/* Black background for the entire component */}
-          <div className="w-full rounded-lg shadow border sm:max-w-md xl:p-0 bg-white dark:bg-black">
+      <section className="flex items-center justify-center flex-1">
+        {isLoading ? (
+          <LoadingScreen message="Creating your account" /> // Show the loading screen
+        ) : (
+          <div className="w-full rounded-lg shadow border sm:max-w-md xl:p-0 bg-white dark:bg-black my-48">
             {" "}
             {/* Form with white border */}
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -190,10 +188,7 @@ const SignUpForm: React.FC = () => {
                     </label>
                   </div>
                 </div>
-                <button
-                  type="submit"
-                  className="text-white bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
+                <button type="submit" className="main-btn">
                   Create an account
                 </button>
                 <p className="text-sm font-light text-gray-400">
@@ -208,8 +203,8 @@ const SignUpForm: React.FC = () => {
               </form>
             </div>
           </div>
-        </section>
-      )}
+        )}
+      </section>
       <Footer />
     </div>
   );
