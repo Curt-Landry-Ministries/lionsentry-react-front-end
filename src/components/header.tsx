@@ -82,7 +82,6 @@ const Header = () => {
               </Link>
             </div>
           )}
-          <ThemeToggler />
         </div>
       </div>
     </nav>
