@@ -9,6 +9,7 @@ import DevotionalCard from "@/components/Devotionals/devotionalCard";
 import classnames from "classnames";
 import Modal from "@/components/Global/Modal";
 import DevotionalSlider from "@/components/Devotionals/devotionalSlider";
+import Footer from "@/components/footer";
 
 const Devotionals: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -106,6 +107,7 @@ const Devotionals: React.FC = () => {
       >
         ☰
       </button>
+      <Footer />
     </div>
   );
 };

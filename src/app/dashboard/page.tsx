@@ -81,6 +81,7 @@ const Dashboard = () => {
       >
         ☰
       </button>
+      <Footer />
     </div>
   );
 };
