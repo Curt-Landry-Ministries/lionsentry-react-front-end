@@ -31,7 +31,7 @@ const Modal: React.FC<ModalProps> = ({
       >
         CLOSE
       </button>
-      <div className="bg-white text-black h-[80%] md:max-w-[80%] max-w-[90%] max-h-[80%] md:p-8 p-4 border rounded-md z-10">
+      <div className="dark:text-white dark:bg-black h-[80%] md:max-w-[80%] max-w-[90%] max-h-[80%] md:p-8 p-4 border rounded-md z-10">
         {children}
       </div>
       <div

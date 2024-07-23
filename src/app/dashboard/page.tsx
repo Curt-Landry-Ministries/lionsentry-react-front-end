@@ -41,10 +41,10 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <div className="flex-1 flex">
+      <div className="flex flex-1">
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <div
-          className={`flex-1 p-6 transition-all duration-300 ${
+          className={`flex-1 p-6 transition-all duration-300 overflow-scroll ${
             isSidebarOpen ? "ml-64" : ""
           }`}
         >
