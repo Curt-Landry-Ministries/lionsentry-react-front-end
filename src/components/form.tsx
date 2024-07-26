@@ -4,10 +4,10 @@ import {
   submitAnswerToServer,
   generateWhyStatementFromAnswers,
 } from "../api/app";
-import { Question } from "../data/questions";
 import LoadingScreen from "./loading";
 import { useRouter } from "next/navigation";
 import classNames from "classnames";
+import { Question } from "@/app/questionnaire/page";
 
 const FormComponent: React.FC<{ questions: Question[] }> = ({ questions }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -21,7 +21,7 @@ const FormComponent: React.FC<{ questions: Question[] }> = ({ questions }) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAnswers({
       ...answers,
-      [questions[currentQuestionIndex].id]: e.target.value,
+      [currentQuestionIndex]: e.target.value,
     });
   };
 
@@ -39,8 +39,9 @@ const FormComponent: React.FC<{ questions: Question[] }> = ({ questions }) => {
 
     // Collect all question and answer pairs into an array of objects
     const questionAnswerPairs = questions.map((question, index) => ({
-      question: question.question,
-      answer: answers[question.id] || "",
+      question: question.title,
+      subTitle: question.subtitle,
+      answer: answers[index] || "",
       questionIndex: index,
     }));
 
@@ -58,7 +59,7 @@ const FormComponent: React.FC<{ questions: Question[] }> = ({ questions }) => {
     // Generate the Why statement after submitting all answers
     try {
       const generatedWhyStatement = await generateWhyStatementFromAnswers(
-        questions.map((q) => ({ title: q.question })), // Send only the question titles
+        questions.map((q) => ({ title: q.title })), // Send only the question titles
         questionAnswerPairs.map((qa) => qa.answer) // Send the corresponding answers
       );
       setWhyStatement(generatedWhyStatement);
@@ -109,12 +110,15 @@ const FormComponent: React.FC<{ questions: Question[] }> = ({ questions }) => {
         <div className="w-full rounded-lg shadow border max-w-lg bg-white dark:bg-black">
           {" "}
           {/* Form with white border */}
-          <div className="p-6 sm:p-8">
+          <div className="p-6 sm:p-8 text-center">
             <h2 className="text-center mb-2 font-bold text-sm">
               {currentQuestionIndex + 1} / {questions.length}
             </h2>
+            <span className="uppercase text-[10px] font-bold tracking-wide">
+              Questionaire
+            </span>
             <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-transparent bg-clip-text rounded-lg px-4 py-2 text-center gradient-text">
-              Questionnaire
+              {questions[currentQuestionIndex].title}
             </h1>
 
             <div className="space-y-4 md:space-y-6">
@@ -127,11 +131,11 @@ const FormComponent: React.FC<{ questions: Question[] }> = ({ questions }) => {
                 transition={{ duration: 0.5 }}
               >
                 <div className="max-w-md w-full">
-                  <label className="block text-lg mb-8 text-center">
-                    {questions[currentQuestionIndex].question}
+                  <label className="block text-sm mb-8 text-center">
+                    {questions[currentQuestionIndex].subtitle}
                   </label>
                   <textarea
-                    value={answers[questions[currentQuestionIndex].id] || ""}
+                    value={answers[currentQuestionIndex] || ""}
                     onChange={handleChange}
                     className="border dark:border-gray-300 rounded-md px-4 py-2 mb-4 w-full h-24 resize-none"
                     placeholder="Type your answer here..."
