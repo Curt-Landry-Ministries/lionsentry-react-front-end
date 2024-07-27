@@ -2,8 +2,8 @@
 
 import { GetStaticProps } from "next";
 import FormComponent from "../../components/form";
-import { Question } from "../../data/questions";
 import { fetchQuestionsFromServer } from "@/api/app";
+import { Question } from "./page";
 
 export const getStaticProps: GetStaticProps = async () => {
   const data = await fetchQuestionsFromServer();
