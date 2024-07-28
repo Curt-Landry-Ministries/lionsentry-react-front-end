@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import { getLatestWhyStatement } from "../../api/app"; // Import the function to fetch the latest why statement
+import Footer from "@/components/footer";
 
 const Dashboard = () => {
   const [whyStatement, setWhyStatement] = useState<string | null>(null);
@@ -40,10 +41,10 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <div className="flex-1 flex">
+      <div className="flex flex-1">
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <div
-          className={`flex-1 p-6 transition-all duration-300 ${
+          className={`flex-1 p-6 transition-all duration-300 overflow-scroll ${
             isSidebarOpen ? "ml-64" : ""
           }`}
         >
@@ -80,6 +81,7 @@ const Dashboard = () => {
       >
         ☰
       </button>
+      <Footer />
     </div>
   );
 };

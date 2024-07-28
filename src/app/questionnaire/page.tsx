@@ -7,7 +7,6 @@ import Questionnaire from "./questionnaire";
 import { fetchQuestions } from "../../data/fetchQuestions";
 import { Question } from "../../data/questions";
 import Navbar from "../../components/navbar";
-import Footer from "../../components/footer";
 import LoadingScreen from "@/components/loading";
 
 const Pages: React.FC = () => {
@@ -26,8 +25,6 @@ const Pages: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col page-gradient-bg dark:page-gradient-bg-dark">
-      {" "}
-      {/* Apply black background to the entire component */}
       <Navbar />
       <section className="flex items-center justify-center h-screen flex-shrink-0 flex-1">
         {loading ? (
@@ -36,7 +33,6 @@ const Pages: React.FC = () => {
           <Questionnaire questions={questions} />
         )}
       </section>
-      <Footer />
     </div>
   );
 };
