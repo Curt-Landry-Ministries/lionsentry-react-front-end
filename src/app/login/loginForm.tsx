@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
-import { loginUser } from "../../api/auth";
+import { login } from "@/lib/auth/actions";
 
 const LogInForm: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -15,11 +15,7 @@ const LogInForm: React.FC = () => {
     event.preventDefault();
     setLoading(true); // Start loading
     try {
-      await loginUser({ email, password });
-      setError(null); // Clear any previous errors
-      // Redirect or update state as needed after successful login
-      // For example, you could reload the page or show a success message
-      window.location.href = "/dashboard"; // Redirect to home page or any other page
+      await login({ email, password });
     } catch (error) {
       setError("Invalid credentials or login failed. Please try again.");
     } finally {

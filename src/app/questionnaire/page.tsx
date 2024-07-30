@@ -7,13 +7,7 @@ import Questionnaire from "./questionnaire";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
 import LoadingScreen from "@/components/loading";
-import { fetchQuestionsFromServer } from "@/api/app";
-
-export interface Question {
-  id: number;
-  title: string;
-  subtitle: string;
-}
+import { fetchQuestionsFromServer } from "@/lib/app/actions";
 
 const Pages: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);

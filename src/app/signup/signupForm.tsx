@@ -1,11 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { createAccount, loginUser } from "../../api/auth";
-import { saveUserDataPoint } from "../../api/app";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
 import LoadingScreen from "../../components/loading"; // Import the existing loader component
+import { login, signup } from "@/lib/auth/actions";
+import { useRouter } from "next/navigation";
+import { Paths } from "@/lib/constants";
+import { saveUserDataPoint } from "@/lib/app/actions";
 
 const SignUpForm: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -13,6 +15,8 @@ const SignUpForm: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false); // State to manage loading
+
+  const router = useRouter();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,30 +29,22 @@ const SignUpForm: React.FC = () => {
     setIsLoading(true); // Show the loading screen
 
     try {
-      const createAccountResponse = await createAccount(email, password);
-      console.log("Account created:", createAccountResponse);
+      const signupResp = await signup({ email, password }); // create account
+      console.log("Create account", signupResp);
 
       try {
-        const loginUserResponse = await loginUser({ email, password });
-        console.log("Login successful:", loginUserResponse);
+        await login({ email, password }, false).then(async (resp) => {
+          const nameParts = name.trim().split(/\s+/);
+          let firstName = "";
+          let lastName = "";
 
-        const nameParts = name.trim().split(/\s+/);
-        let firstName = "";
-        let lastName = "";
-
-        if (nameParts.length > 1) {
-          lastName = nameParts.pop() || "";
-          firstName = nameParts.join(" ");
-        } else {
-          firstName = name;
-        }
-
-        try {
-          const userID = localStorage.getItem("userID");
-          if (!userID) {
-            throw new Error("User ID not found in local storage");
+          if (nameParts.length > 1) {
+            lastName = nameParts.pop() || "";
+            firstName = nameParts.join(" ");
+          } else {
+            firstName = name;
           }
-          console.log("userID", userID);
+
           await saveUserDataPoint("firstName", firstName, "replace");
 
           if (lastName) {
@@ -57,15 +53,13 @@ const SignUpForm: React.FC = () => {
 
           console.log("Name saved successfully");
           // Redirect to the questionnaire or any other appropriate page
-          window.location.href = "/questionnaire";
-        } catch (error) {
-          console.error("Error saving name or redirecting:", error);
-        }
-      } catch (loginError) {
-        console.error("Login failed:", loginError);
+          router.push(Paths.Questionnaire);
+        });
+      } catch (err) {
+        console.error("Login error:", err);
       }
-    } catch (error) {
-      console.error("Sign up or login error:", error);
+    } catch (err) {
+      console.error("Sign up or login error:", err);
     } finally {
       setIsLoading(false); // Hide the loading screen
     }

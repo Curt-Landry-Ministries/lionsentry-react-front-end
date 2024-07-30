@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { logoutUser } from "../api/auth";
+import { logout } from "@/lib/auth/actions";
 
 const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -31,7 +31,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      await logoutUser();
+      await logout();
       setDropdownOpen(false); // Close the dropdown
     } catch (error) {
       console.error("Logout failed", error);
