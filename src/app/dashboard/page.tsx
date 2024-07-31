@@ -62,7 +62,7 @@ const Dashboard = () => {
                   <h2 className="text-xl font-semibold mb-2 text-center">
                     Your Why Statement:
                   </h2>
-                  <p className="text-lg leading-relaxed text-justify">
+                  <p className="text-lg leading-relaxed text-justify whitespace-pre-line">
                     {whyStatement}
                   </p>
                 </div>

@@ -1,5 +1,9 @@
 // src/api/app.tsx
 
+// I'll extract all of the interfaces and types out to a separate file
+// keep import it from the page for now as a temp solution
+import { Question } from "@/app/questionnaire/page";
+
 const LOCAL_TESTING: string = "false"; // change to true when testing locally
 let BASE_URL: string;
 
@@ -33,7 +37,7 @@ export const submitAnswerToServer = async (
   return data;
 };
 
-export const fetchQuestionsFromServer = async () => {
+export const fetchQuestionsFromServer = async () : Promise<Question[]> => {
   // Get the questions for the onboarding UI
   const response = await fetch(`${BASE_URL}/get-questions`);
   if (!response.ok) {

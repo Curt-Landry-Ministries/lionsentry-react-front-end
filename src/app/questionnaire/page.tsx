@@ -4,10 +4,15 @@
 
 import { useEffect, useState } from "react";
 import Questionnaire from "./questionnaire";
-import { fetchQuestions } from "../../data/fetchQuestions";
-import { Question } from "../../data/questions";
 import Navbar from "../../components/navbar";
 import LoadingScreen from "@/components/loading";
+import { fetchQuestionsFromServer } from "@/api/app";
+
+export interface Question {
+  id: number;
+  title: string;
+  subtitle: string;
+}
 
 const Pages: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -15,8 +20,9 @@ const Pages: React.FC = () => {
 
   useEffect(() => {
     const getQuestions = async () => {
-      const data = await fetchQuestions();
-      setQuestions(data.questions);
+      const data = await fetchQuestionsFromServer();
+
+      setQuestions(data);
       setLoading(false);
     };
 
