@@ -3,6 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import { logout } from "@/lib/auth/actions";
+import { usePathname } from "next/navigation";
+import classNames from "classnames";
 
 const Sidebar = ({
   isOpen,
@@ -19,9 +21,11 @@ const Sidebar = ({
     }
   };
 
+  const pathname = usePathname();
+
   return (
     <div
-      className={`fixed top-0 left-0 h-screen w-64 bg-black text-white transition-transform duration-300 ease-in-out transform ${
+      className={`fixed top-0 left-0 min-h-full w-64 bg-gray-50 border-r border-gray-200 dark:bg-gray-950 transition-transform duration-300 ease-in-out transform ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       } md:static md:translate-x-0`}
     >
@@ -33,19 +37,25 @@ const Sidebar = ({
       <nav className="flex flex-col space-y-4">
         <Link
           href="/dashboard"
-          className="px-4 py-2 text-white bg-gradient-to-br hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium"
+          className={classNames("px-4 py-2 font-medium hover:gradient-text", {
+            "gradient-text": pathname === "/dashboard",
+          })}
         >
           Dashboard
         </Link>
         <Link
           href="/devotionals"
-          className="px-4 py-2 text-white bg-gradient-to-br hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium"
+          className={classNames("px-4 py-2 font-medium hover:gradient-text", {
+            "gradient-text": pathname === "/devotionals",
+          })}
         >
           Devotionals
         </Link>
         <Link
           href="/"
-          className="px-4 py-2 text-white bg-gradient-to-br hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium"
+          className={classNames("px-4 py-2 font-medium hover:gradient-text", {
+            "gradient-text": pathname === "/",
+          })}
         >
           <button onClick={handleLogout}>Logout</button>
         </Link>

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import { getLatestWhyStatement } from "@/lib/app/actions";
+import Footer from "@/components/footer";
 
 const Dashboard = () => {
   const [whyStatement, setWhyStatement] = useState<string | null>(null);
@@ -11,26 +12,6 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false); // State to manage loading
 
   useEffect(() => {
-    // const fetchWhyStatement = async () => {
-    //   try {
-    //     setLoading(true); // Show loading state
-    //     const statement = await getLatestWhyStatement();
-    //     setWhyStatement(statement);
-    //   } catch (error) {
-    //     console.error("Error fetching the latest Why Statement:", error);
-    //   } finally {
-    //     setLoading(false); // Hide loading state
-    //   }
-    // };
-
-    // // Retrieve the Why statement from local storage first
-    // const storedWhyStatement = localStorage.getItem("whyStatement");
-    // if (storedWhyStatement) {
-    //   setWhyStatement(storedWhyStatement);
-    // } else {
-    //   fetchWhyStatement(); // Fetch from server if not found in local storage
-    // }
-
     const fetchWhyStatement = async () => {
       try {
         setLoading(true);
@@ -54,10 +35,10 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <div className="flex-1 flex">
+      <div className="flex flex-1">
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <div
-          className={`flex-1 p-6 transition-all duration-300 ${
+          className={`flex-1 p-6 transition-all duration-300 overflow-scroll ${
             isSidebarOpen ? "ml-64" : ""
           }`}
         >
@@ -94,6 +75,7 @@ const Dashboard = () => {
       >
         ☰
       </button>
+      <Footer />
     </div>
   );
 };

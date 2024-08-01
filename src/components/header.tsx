@@ -39,7 +39,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-black">
+    <nav className="bg-white border-b border-gray-200 dark:bg-black">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/">
           <span className="leading-tight tracking-tight md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 font-medium rounded-lg text-sm px-4 py-2 text-center dark:focus:ring-blue-800">
@@ -51,7 +51,7 @@ const Header = () => {
           <button
             ref={buttonRef}
             onClick={toggleDropdown}
-            className="text-white bg-black border border-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 md:px-8 sm:px-4 py-2 text-center"
+            className="text-white bg-black border focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 md:px-8 sm:px-4 py-2 text-center mr-4"
           >
             Menu
           </button>

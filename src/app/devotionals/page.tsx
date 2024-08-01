@@ -9,6 +9,7 @@ import classnames from "classnames";
 import Modal from "@/components/Global/Modal";
 import DevotionalSlider from "@/components/Devotionals/devotionalSlider";
 import { generateDevotional } from "@/lib/app/actions";
+import Footer from "@/components/footer";
 
 const Devotionals: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -47,7 +48,7 @@ const Devotionals: React.FC = () => {
           }`}
         >
           <div className="flex flex-col items-center justify-center">
-            <div className="w-full max-w-5xl p-6 rounded-lg shadow-lg mt-10 flex justify-center flex-col items-center bg-white dark:bg-black">
+            <div className="w-full max-w-5xl p-6 rounded-lg shadow-lg mt-10 flex justify-center flex-col items-center bg-white dark:bg-black border">
               <h1 className="text-2xl font-bold mb-4 leading-tight tracking-tight md:text-2xl gradient-text hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 rounded-lg px-4 py-2 text-center dark:focus:ring-blue-800">
                 Devotionals
               </h1>
@@ -106,6 +107,7 @@ const Devotionals: React.FC = () => {
       >
         ☰
       </button>
+      <Footer />
     </div>
   );
 };
