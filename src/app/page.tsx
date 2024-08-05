@@ -1,13 +1,14 @@
 // src/app/pages/HomePage.tsx
 import React from "react";
 import Link from "next/link";
-import Navbar from "../components/navbar";
-import Footer from "../components/footer";
+import Footer from "../components/Global/Footer";
+import Button from "@/components/Global/Button";
+import Header from "@/components/Global/Header";
 
 const Home: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+      <Header isLoggedIn={false} />
       {/* Main Content */}
       <section className="mx-auto grid max-w-5xl flex-col items-center justify-center gap-4 py-10 text-center md:py-12 flex-1">
         <div className="p-4">
@@ -30,8 +31,8 @@ const Home: React.FC = () => {
             true calling.
           </p>
           <div className="flex justify-center gap-4">
-            <Link className="main-btn" href="/signup">
-              Get Started
+            <Link href="/signup">
+              <Button standardBtn={"primary"}>Get Started</Button>
             </Link>
           </div>
         </div>

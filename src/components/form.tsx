@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import LoadingScreen from "./loading";
+import LoadingScreen from "./Global/LoadingScreen";
 import { useRouter } from "next/navigation";
 import classNames from "classnames";
 import {

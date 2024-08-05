@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import Navbar from "../../components/navbar";
-import Footer from "../../components/footer";
+import Navbar from "../../components/Global/Navbar";
+import Footer from "../../components/Global/Footer";
 import { login } from "@/lib/auth/actions";
 
 const LogInForm: React.FC = () => {

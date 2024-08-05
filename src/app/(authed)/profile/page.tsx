@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Header from "../../components/header";
-import Sidebar from "../../components/sidebar";
+import Header from "../../../components/Global/Header";
+import Sidebar from "../../../components/Global/Sidebar";
 
 const Profile = () => {
   const [whyStatement, setWhyStatement] = useState<string | null>(null);

@@ -4,9 +4,9 @@
 
 import { useEffect, useState } from "react";
 import Questionnaire from "./questionnaire";
-import Navbar from "../../components/navbar";
-import Footer from "../../components/footer";
-import LoadingScreen from "@/components/loading";
+import Navbar from "../../../components/Global/Navbar";
+import Footer from "../../../components/Global/Footer";
+import LoadingScreen from "@/components/Global/LoadingScreen";
 import { fetchQuestionsFromServer } from "@/lib/app/actions";
 
 const Pages: React.FC = () => {

@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Navbar from "../../components/navbar";
-import Footer from "../../components/footer";
-import LoadingScreen from "../../components/loading"; // Import the existing loader component
+import Navbar from "../../components/Global/Navbar";
+import Footer from "../../components/Global/Footer";
+import LoadingScreen from "../../components/Global/LoadingScreen"; // Import the existing loader component
 import { login, signup } from "@/lib/auth/actions";
 import { useRouter } from "next/navigation";
 import { Paths } from "@/lib/constants";

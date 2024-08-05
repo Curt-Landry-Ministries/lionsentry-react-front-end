@@ -24,4 +24,8 @@ const validateAuthToken = () => {
   }
 }
 
-export { getBaseUrl, validateAuthToken }
+const isLoggedIn = () => {
+  return !!cookies().get('authToken')?.value;
+}
+
+export { getBaseUrl, validateAuthToken, isLoggedIn }

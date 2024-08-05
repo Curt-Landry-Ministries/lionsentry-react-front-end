@@ -2,7 +2,7 @@
 
 // I'll extract all of the interfaces and types out to a separate file
 // keep import it from the page for now as a temp solution
-import { Question } from "@/app/questionnaire/page";
+import { Question } from "@/app/(authed)/questionnaire/page";
 
 const LOCAL_TESTING: string = "false"; // change to true when testing locally
 let BASE_URL: string;
