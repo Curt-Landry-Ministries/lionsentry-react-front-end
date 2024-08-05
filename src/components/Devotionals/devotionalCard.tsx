@@ -1,4 +1,3 @@
-import { DevotionalContent } from "@/api/app";
 import { DetailedHTMLProps } from "react";
 
 export type DevotionalCard = DetailedHTMLProps<
@@ -8,7 +7,6 @@ export type DevotionalCard = DetailedHTMLProps<
   devotional: DevotionalContent;
 };
 const DevotionalCard: React.FC<DevotionalCard> = ({ devotional, ...props }) => {
-  
   return (
     <div
       className="group text-left border rounded-md p-4 flex flex-col cursor-pointer shadow hover:shadow-sm hover:shadow-slate-400 dark:hover:shadow-slate-100  transition ease-in-out duration-100"

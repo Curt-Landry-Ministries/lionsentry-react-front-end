@@ -1,4 +1,3 @@
-import { DevotionalContent } from "@/api/app";
 import { DetailedHTMLProps } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import classNames from "classnames";
