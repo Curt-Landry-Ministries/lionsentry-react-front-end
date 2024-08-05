@@ -6,7 +6,6 @@ import { getBaseUrl } from '../utils';
 import { cookies } from 'next/headers';
 import { RedirectType, redirect } from 'next/navigation';
 import { Paths } from '../constants';
-import { logoutUser } from '@/api/auth';
 
 const BASE_URL = getBaseUrl(true);
 
@@ -112,7 +111,7 @@ export const deleteUser = async (): Promise<void> => {
 
     if(resp.ok) {
       console.log('User deleted successfully:', respData.message);
-      await logoutUser();
+      await logout();
     } else {
       console.error('Failed to delete user:', respData.error);
       throw new Error(respData.error || 'Failed to delete user');
