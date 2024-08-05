@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
-import { getLatestWhyStatement } from "../../api/app"; // Import the function to fetch the latest why statement
+import { getLatestWhyStatement } from "@/lib/app/actions";
 import Footer from "@/components/footer";
 
 const Dashboard = () => {
@@ -14,24 +14,18 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchWhyStatement = async () => {
       try {
-        setLoading(true); // Show loading state
+        setLoading(true);
+
         const statement = await getLatestWhyStatement();
         setWhyStatement(statement);
-        localStorage.setItem("whyStatement", statement); // Save the string statement to local storage
-      } catch (error) {
-        console.error("Error fetching the latest Why Statement:", error);
+      } catch (err) {
+        console.error("Error fetching the latest why statement:", err);
       } finally {
-        setLoading(false); // Hide loading state
+        setLoading(false);
       }
     };
 
-    // Retrieve the Why statement from local storage first
-    const storedWhyStatement = localStorage.getItem("whyStatement");
-    if (storedWhyStatement) {
-      setWhyStatement(storedWhyStatement);
-    } else {
-      fetchWhyStatement(); // Fetch from server if not found in local storage
-    }
+    fetchWhyStatement();
   }, []);
 
   const toggleSidebar = () => {

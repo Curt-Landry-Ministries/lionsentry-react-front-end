@@ -3,12 +3,12 @@
 import React, { useState } from "react";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
-import { generateDevotional, DevotionalContent } from "../../api/app"; // Import the function and type
 import LoadingScreen from "../../components/loading"; // Import the existing loader component
 import DevotionalCard from "@/components/Devotionals/devotionalCard";
 import classnames from "classnames";
 import Modal from "@/components/Global/Modal";
 import DevotionalSlider from "@/components/Devotionals/devotionalSlider";
+import { generateDevotional } from "@/lib/app/actions";
 import Footer from "@/components/footer";
 
 const Devotionals: React.FC = () => {

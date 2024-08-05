@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { logoutUser } from "../api/auth";
+import { logout } from "@/lib/auth/actions";
 import { usePathname } from "next/navigation";
 import classNames from "classnames";
 
@@ -15,7 +15,7 @@ const Sidebar = ({
 }) => {
   const handleLogout = async () => {
     try {
-      await logoutUser();
+      await logout();
     } catch (error) {
       console.error("Logout failed", error);
     }

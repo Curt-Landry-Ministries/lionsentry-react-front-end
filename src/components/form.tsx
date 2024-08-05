@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  submitAnswerToServer,
-  generateWhyStatementFromAnswers,
-} from "../api/app";
 import LoadingScreen from "./loading";
 import { useRouter } from "next/navigation";
 import classNames from "classnames";
-import { Question } from "@/app/questionnaire/page";
+import {
+  generateWhyStatementFromAnswers,
+  submitAnswerToServer,
+} from "@/lib/app/actions";
 
 const FormComponent: React.FC<{ questions: Question[] }> = ({ questions }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
