@@ -28,6 +28,11 @@ const Devotionals: React.FC = () => {
     setIsLoading(true); // Show the loading screen
     try {
       const newDevotional = await generateDevotional(); // Fetch devotional from server
+
+      if (!newDevotional.TimeStamp) {
+        newDevotional.TimeStamp = new Date().toString();
+      }
+
       setDevotionals([...devotionals, newDevotional]); // Add new devotional to state
     } catch (error) {
       console.error("Failed to fetch devotional:", error);
