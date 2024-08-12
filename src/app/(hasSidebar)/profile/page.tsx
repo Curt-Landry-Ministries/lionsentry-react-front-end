@@ -1,12 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Header from "../../../components/Global/Header";
-import Sidebar from "../../../components/Global/Sidebar";
 
 const Profile = () => {
   const [whyStatement, setWhyStatement] = useState<string | null>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     // Retrieve the Why statement from local storage
@@ -14,36 +11,16 @@ const Profile = () => {
     setWhyStatement(storedWhyStatement);
   }, []);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <div className="flex-1 flex">
-        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        <div
-          className={`flex-1 p-6 bg-black transition-all duration-300 ${
-            isSidebarOpen ? "ml-64" : ""
-          }`}
-        >
-          <div className="flex flex-col items-center justify-center">
-            <div className="w-full max-w-3xl p-6 bg-black rounded-lg shadow-lg mt-10 text-white">
-              <h1 className="text-2xl font-bold mb-4 leading-tight tracking-tight md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 rounded-lg px-4 py-2 text-center dark:focus:ring-blue-800">
-                Profile
-              </h1>
-              <p> This is a profile page - work in progress</p>
-            </div>
-          </div>
+    <div className="w-full max-w-3xl p-6 mx-auto rounded-lg shadow-lg mt-10 bg-white dark:bg-black border">
+      <div className="flex flex-col items-center justify-center">
+        <div className="w-full max-w-3xl p-6 rounded-lg shadow-lg">
+          <h1 className="text-2xl font-bold mb-4 leading-tight tracking-tight md:text-2xl text-transparent bg-clip-text bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 rounded-lg px-4 py-2 text-center dark:focus:ring-blue-800">
+            Profile
+          </h1>
+          <p> This is a profile page - work in progress</p>
         </div>
       </div>
-      <button
-        className="md:hidden fixed bottom-4 right-4 bg-black text-white p-3 rounded-full"
-        onClick={toggleSidebar}
-      >
-        ☰
-      </button>
     </div>
   );
 };
