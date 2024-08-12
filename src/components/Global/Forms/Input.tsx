@@ -14,7 +14,10 @@ const Input: React.FC<
     <div className="mb-6">
       {props.type === "checkbox" && options.length > 0 ? (
         options.map((option) => (
-          <label className="sm:text-sm rounded-lg block w-full">
+          <label
+            className="sm:text-sm rounded-lg block w-full"
+            key={option.value}
+          >
             <input
               {...field}
               {...props}
