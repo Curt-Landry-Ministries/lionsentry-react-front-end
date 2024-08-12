@@ -24,8 +24,8 @@ const validateAuthToken = () => {
   }
 }
 
-const isLoggedIn = () => {
-  return !!cookies().get('authToken')?.value;
+const isLoggedIn = async () => {  
+  return Promise.resolve(!!cookies().get('authToken')?.value);
 }
 
 export { getBaseUrl, validateAuthToken, isLoggedIn }

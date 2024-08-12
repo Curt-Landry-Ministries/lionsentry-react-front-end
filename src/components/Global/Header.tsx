@@ -11,14 +11,14 @@ const Header = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const checkLoggedIn = async () => setLoggedIn(isLoggedIn());
+    const checkLoggedIn = async () => {
+      const check = await isLoggedIn();
+
+      setLoggedIn(check);
+    };
 
     checkLoggedIn();
   }, []);
-
-  useEffect(() => {
-    console.log(loggedIn);
-  }, [loggedIn]);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -46,6 +46,7 @@ const Header = () => {
     try {
       await logout();
       setDropdownOpen(false); // Close the dropdown
+      setLoggedIn(false);
     } catch (error) {
       console.error("Logout failed", error);
     }
