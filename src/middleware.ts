@@ -7,6 +7,12 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const isAuthenticated = !!cookies().get('authToken')?.value && !!cookies().get('userID')?.value;
   const loginOrSignup = pathname.startsWith(Paths.Login) || pathname.startsWith(Paths.Signup);
+  const url = request.nextUrl.clone();
+
+  if(url.pathname === '/') {
+    url.pathname = '/home'
+    return NextResponse.rewrite(url);
+  }
 
   // If the page is not login or sign up and user is not authenticated
   // redirect to the homepage. MUST includes pathname is not home 

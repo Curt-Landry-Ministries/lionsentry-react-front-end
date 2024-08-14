@@ -20,13 +20,7 @@ const Navbar: React.FC = () => {
             Lionsentry
           </span>
         </Link>
-        <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <Link href="/login">
-            <button type="button" className="main-btn">
-              Login
-            </button>
-          </Link>
-        </div>
+        <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse"></div>
       </div>
     </nav>
   );

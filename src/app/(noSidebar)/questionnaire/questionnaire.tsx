@@ -1,6 +1,6 @@
 // src/app/pages/index.tsx
 import { GetStaticProps } from "next";
-import FormComponent from "../../components/form";
+import FormComponent from "../../../components/form";
 import { fetchQuestionsFromServer } from "@/lib/app/actions";
 
 export const getStaticProps: GetStaticProps = async () => {

@@ -1,5 +1,4 @@
 // src/app/layout.tsx
-import Footer from "@/components/footer";
 import "./globals.css";
 import { ThemeProvider } from "./providers/themeContext"; // Adjust the import path if necessary
 
