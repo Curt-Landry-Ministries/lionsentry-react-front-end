@@ -31,17 +31,17 @@ const Input: React.FC<
         ))
       ) : (
         <>
-          <label
+          {/* <label
             htmlFor={props.id || props.name}
             className="block mb-2 text-sm font-medium"
           >
             {label}
-          </label>
+          </label> */}
           <input
             {...field}
             {...props}
             className={classNames(
-              "border sm:text-sm rounded-lg block w-full p-2.5 -inter",
+              "border border-cloud-darker bg-white rounded-3xl block w-full py-2 px-5",
               {
                 "border-red-500": meta.touched && meta.error,
               }

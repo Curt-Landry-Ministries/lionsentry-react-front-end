@@ -23,14 +23,9 @@ const FormWrapper: React.FC<FormWrapper> = ({
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <div className="w-full p-6 lg:p-8 rounded-lg shadow border sm:max-w-md bg-white dark:bg-black">
-        {title ? (
-          <h1 className="text-2xl gradient-text text-center mb-8">{title}</h1>
-        ) : (
-          ""
-        )}
+      <div className="w-full p-6 lg:p-8 sm:max-w-md">
+        {title ? <h1 className="mb-2">{title}</h1> : ""}
         {children}
-
       </div>
     </Formik>
   );

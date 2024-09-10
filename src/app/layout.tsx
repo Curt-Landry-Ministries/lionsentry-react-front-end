@@ -1,6 +1,7 @@
 // src/app/layout.tsx
 import "./globals.css";
 import { ThemeProvider } from "./providers/themeContext"; // Adjust the import path if necessary
+import { inter, astoria } from "../fonts/fonts";
 
 export const metadata = {
   title: "Lionsentry",
@@ -14,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <ThemeProvider>
-      <html lang="en">
+      <html lang="en" className={`${inter.variable} ${astoria.variable}`}>
         <body>{children}</body>
       </html>
     </ThemeProvider>

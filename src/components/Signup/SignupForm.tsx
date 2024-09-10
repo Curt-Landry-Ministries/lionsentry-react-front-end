@@ -45,7 +45,7 @@ const SignupForm = () => {
 
   const router = useRouter();
 
-  const handlSubmit = async (
+  const handleSubmit = async (
     values: FormikValues,
     actions: FormikHelpers<FormikValues>
   ) => {
@@ -86,18 +86,24 @@ const SignupForm = () => {
     <LoadingScreen message="Creating your account" />
   ) : (
     <FormWrapper
-      title="Login"
+      title="Sign Up"
       validationSchema={validationSchema}
       initialValues={initialValues}
-      handleSubmit={handlSubmit}
+      handleSubmit={handleSubmit}
     >
+      <p className="mb-5">
+        Already have an account?{" "}
+        <Link className="link-style" href="/login">
+          Sign In
+        </Link>
+      </p>
       <Form>
         <Input
           label="Email"
           type="email"
           name="email"
           id="email"
-          placeholder="your-email@domain.com"
+          placeholder="Enter Your Email Address"
           required
         />
         <Input
@@ -147,19 +153,9 @@ const SignupForm = () => {
         />
         {errors && <p className="text-red-500 text-xs mb-4">{errors}</p>}
 
-        <Button type="submit" standardBtn={"primary"}>
+        <Button type="submit" className="w-full" standardBtn={"primary"}>
           Create an account
         </Button>
-
-        <p className="text-sm font-light text-gray-400 mt-6">
-          Already have an account?{" "}
-          <Link
-            href="/login"
-            className="text-transparent bg-clip-text bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 font-medium rounded-lg text-sm px-1 py-2 text-center dark:focus:ring-blue-800"
-          >
-            Login
-          </Link>
-        </p>
       </Form>
     </FormWrapper>
   );
