@@ -4,8 +4,8 @@ export enum Paths {
   Signup = "/signup",
   Questionnaire = "/questionnaire",
   Dashboard = "/dashboard",
-  Terms = "/terms",
-  Privacy = "/privacy-policy"
+  Terms = "#",
+  Privacy = "#"
 }
 
 export enum MaxWindowSize {

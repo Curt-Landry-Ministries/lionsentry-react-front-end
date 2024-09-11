@@ -50,7 +50,7 @@ const Home: React.FC = () => {
       <TopBottom className="min-h-screen">
         <div className="content-container flex flex-col items-center justify-center h-full overflow-visible">
           <Image
-            src={"/LS-Logo.png"}
+            src={"/images/LS-Logo.png"}
             width={70}
             height={70}
             alt="LionSentry Logo"
@@ -68,7 +68,7 @@ const Home: React.FC = () => {
             <Link href="/signup">
               <Button standardBtn={"primary"}>Begin</Button>
             </Link>
-            <Link href="/signin">
+            <Link href="/login">
               <Button standardBtn={"secondary"}>Sign In</Button>
             </Link>
           </div>
