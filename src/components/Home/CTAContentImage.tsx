@@ -33,7 +33,7 @@ const CTAContentImage: React.FC<CTAContentImageType> = ({
 
         {windowSize.width < MaxWindowSize.Mobile ? (
           <Image
-            className="pb-6 w-full h-auto"
+            className="pb-6 w-full h-auto rounded-full"
             src={image}
             alt={`${title} image`}
             width={0}
@@ -60,7 +60,7 @@ const CTAContentImage: React.FC<CTAContentImageType> = ({
       {windowSize.width > MaxWindowSize.Mobile ? (
         <div className="w-full md:w-1/2">
           <Image
-            className="w-full h-auto"
+            className="w-full h-auto rounded-full"
             src={image}
             alt={`${title} image`}
             width={0}

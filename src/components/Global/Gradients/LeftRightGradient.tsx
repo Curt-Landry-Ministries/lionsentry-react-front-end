@@ -8,7 +8,7 @@ const LeftRightGradient: React.FC<{
   hasRight?: boolean;
 }> = ({ children, className, hasLeft = true, hasRight = true, ...props }) => {
   const outerClass = classNames(
-    "relative w-screen h-full bg-navy dark:bg-black overflow-hidden text-white",
+    "relative w-screen bg-navy dark:bg-black overflow-hidden text-white",
     {
       [className as string]: !!className,
     }
@@ -23,7 +23,7 @@ const LeftRightGradient: React.FC<{
         ""
       )}
 
-      <div className="h-full flex justify-center items-center z-10 relative">
+      <div className="h-auto flex justify-center items-center z-10 relative">
         {children}
       </div>
 

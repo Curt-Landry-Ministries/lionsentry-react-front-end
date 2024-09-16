@@ -8,7 +8,7 @@ const CenterGradient: React.FC<{
   hasRight?: boolean;
 }> = ({ children, className, hasLeft = true, hasRight = true, ...props }) => {
   const outerClass = classNames(
-    "relative w-screen h-full bg-white dark:bg-black overflow-hidden text-white",
+    "relative w-screen bg-white dark:bg-black overflow-hidden text-white",
     {
       [className as string]: !!className,
     }

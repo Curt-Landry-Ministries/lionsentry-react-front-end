@@ -8,7 +8,7 @@ const TopBottomGradient: React.FC<{
   hasBottom?: boolean;
 }> = ({ children, className, hasTop = true, hasBottom = true, ...props }) => {
   const outerClass = classNames(
-    "relative w-screen h-full min-h-[75vh] bg-navy dark:bg-black text-white",
+    "relative w-screen h-auto min-h-[75vh] bg-navy dark:bg-black text-white",
     {
       [className as string]: !!className,
     }
