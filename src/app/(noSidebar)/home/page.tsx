@@ -13,6 +13,7 @@ import CTAContentImage from "@/components/Home/CTAContentImage";
 import SectionBoxCTA from "@/components/Home/SectionBoxCTA";
 import { motion, useScroll } from "framer-motion";
 import classnames from "classnames";
+import { initAnalytics } from '../../../firebase/analytics';
 
 const Home: React.FC = () => {
   const scrollRef = useRef(null);
@@ -22,6 +23,11 @@ const Home: React.FC = () => {
   });
 
   const [heightProgress, setHeightProgress] = useState(0);
+
+  useEffect(() => {
+       // 👋 I think this is the right place to put this, but I'm new to next so lmk if I should move it somewhere else
+       initAnalytics();
+  }, []);
 
   useEffect(() => {
     scrollYProgress.on("change", (v) => setHeightProgress(v));
