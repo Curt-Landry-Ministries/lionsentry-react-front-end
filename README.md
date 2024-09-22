@@ -1,43 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# LIONSENTRY Project Details
 
-## Getting Started
+## Directory map
 
-Add `src/firebase/firebaseConfigData.ts` file from keeper.
-
-```bash
-npm i
-npm run dev
+```
+LIONSENTRY-REACT-FRONT-END
+│   README.md
+│   package.json
+|   tailwind.config.ts
+└───public /* static directory for public assets */
+└───src
+│   │   middleware.ts /* Route rules for nextjs */
+│   │   shared.types.ts /* All of the global types that are shared across
+|   |                    * multiple components*/
+│   └───app
+│   │   └─── (hasSidebar) /* Grouped route for hasSidebar layout*/
+|   │   |    | layout.tsx /* Layout for the specific group */
+|   │   |    |
+│   |   |    └───   dashboard / devotionals/ etc. /* All routes that use the layout*/
+│   |   |    └─── (noSidebar) /* Grouped route for noSidebar layout*/
+|   |   | ...
+|   └───components
+|   |   └───Global /* all components that are shared between pages */
+|   |   └───Home / Login / Signup /* components for specific routes */
+│   └───fonts /* directory to store font files */
+└───lib
+|   └───app /* App server actions */
+|   └───auth /* Auth server actions */
+|   └───constants /* Constants to use in the app */
+|   └───hookes /* Shared hooks */
+|   | constants.ts
+|   | utils.ts
 ```
 
-First, run the development server:
+## Components
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+All of the global elements in the sites are broken down into global components so we can reuse them wherever we want. Doing it this way, we don't need to manage the same style in multiple places.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The most important global components that we need to mention are buttons and gradient backgrounds.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Button:**
+  We have multiple styles, and usually, we need to apply multiple tailwind css classes. It would be very redundant to apply the same set of classes everywhere, especially, when we want to update the style, we need to find all of the buttons that we have to update them.
+  Therefore, we have the button component. When you use this component, you can choose the button style and also add custom css classes as needed.
+- **Background Gradients:**
+  There are several styles of gradient bg in the design. All of them are fairly complicated. When they are reused in multiple places, it would be a hassle to keep duplicating the complicated layouts. By using these wrapper bg components, we just need to have the section content as the component children.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Middleware
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+We are currently using this to intercept nextjs requests. Specifically, reroute users when they are not authorized.

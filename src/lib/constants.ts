@@ -3,5 +3,11 @@ export enum Paths {
   Login = "/login",
   Signup = "/signup",
   Questionnaire = "/questionnaire",
-  Dashboard = "/dashboard"
+  Dashboard = "/dashboard",
+  Terms = "#",
+  Privacy = "#"
+}
+
+export enum MaxWindowSize {
+  Mobile = 552,
 }

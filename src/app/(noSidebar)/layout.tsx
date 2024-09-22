@@ -8,15 +8,11 @@ export default function UnauthedLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex flex-col page-gradient-bg dark:page-gradient-bg-dark ">
+    <div className="min-h-screen flex flex-col items-start">
       <Header />
-      <div className="flex flex-1">
+      <div className="flex flex-1 w-full mt-16">
         <div className="flex flex-col items-center justify-center w-full">
-          <div
-            className={`flex-1 w-full p-6 transition-all duration-300 overflow-scroll sidebar-open:ml-64`}
-          >
-            {children}
-          </div>
+          {children}
           <Footer />
         </div>
       </div>

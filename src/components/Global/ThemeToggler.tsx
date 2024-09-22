@@ -2,21 +2,29 @@
 
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "@/app/providers/themeContext";
+import Button from "./Button";
 
 const ThemeToggler = () => {
   const { isDarkMode, toggleTheme } = useTheme();
 
   return (
-    <button
+    <Button
       onClick={toggleTheme}
-      className="ml-auto cursor-pointer p-2 rounded"
+      standardBtn={"tertiary"}
+      className="!px-2 !py-1 md:!px-[18px] md:!py-2 ml-auto !bg-transparent flex font-light capitalize"
     >
       {isDarkMode ? (
-        <SunIcon className="h-6 w-6" />
+        <>
+          <SunIcon className="h-5 w-5" />{" "}
+          <span className="md:hidden text-white pl-1">Light Mode</span>
+        </>
       ) : (
-        <MoonIcon className="h-6 w-6" />
+        <>
+          <MoonIcon className="h-5 w-5" />{" "}
+          <span className="md:hidden text-white pl-1">Dark Mode</span>
+        </>
       )}
-    </button>
+    </Button>
   );
 };
 
