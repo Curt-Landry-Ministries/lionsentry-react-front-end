@@ -120,16 +120,14 @@ const Home: React.FC = () => {
           viewport={{ root: scrollRef }}
         />
         <div className="content-container [&>iframe]:min-h-[194px] md:[&>iframe]:min-h-[500px] pt-24 md:pt-52 z-10 relative">
-          <iframe
-            width="100%"
-            height="auto"
-            src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe>
+        <iframe
+          src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        />
         </div>
         <CTAContentImage
           title="Feeling Lost? Discover Your True Calling"
