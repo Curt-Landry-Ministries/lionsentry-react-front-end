@@ -111,7 +111,7 @@ const SignupForm = () => {
           type="password"
           name="password"
           id="password"
-          placeholder="••••••••"
+          placeholder="Password"
           required
         />
         <Input
@@ -119,7 +119,7 @@ const SignupForm = () => {
           type="password"
           name="confirmPassword"
           id="confirmPassword"
-          placeholder="••••••••"
+          placeholder="Confirm Password"
           required
         />
         <Input

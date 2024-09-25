@@ -41,7 +41,7 @@ const Input: React.FC<
             {...field}
             {...props}
             className={classNames(
-              "border border-cloud-darker bg-white rounded-3xl block w-full py-2 px-5",
+              "border border-cloud-darker bg-white text-black rounded-3xl block w-full py-2 px-5",
               {
                 "border-red-500": meta.touched && meta.error,
               }

@@ -59,7 +59,7 @@ const LoginForm = () => {
           type="password"
           name="password"
           id="password"
-          placeholder="••••••••"
+          placeholder="Password"
           required
         />
         {errors && <p className="text-red-500 text-xs mb-4">{errors}</p>}

@@ -8,7 +8,7 @@ const TopBottomGradient: React.FC<{
   hasBottom?: boolean;
 }> = ({ children, className, hasTop = true, hasBottom = true, ...props }) => {
   const outerClass = classNames(
-    "relative w-screen h-auto min-h-[75vh] bg-navy dark:bg-black text-white",
+    "relative w-screen h-auto bg-navy dark:bg-black text-white",
     {
       [className as string]: !!className,
     }
@@ -23,9 +23,7 @@ const TopBottomGradient: React.FC<{
         ""
       )}
 
-      <div className="w-full h-full absolute top-0 left-0 z-10 flex justify-center items-center">
-        {children}
-      </div>
+      <div className="w-full h-auto z-10 relative">{children}</div>
 
       {hasBottom ? (
         <div className="bg-gradient-2 w-full h-1/4 absolute bottom-0 left-0 rotate-180 [mask-image:theme(backgroundImage.gradient-3)] dark:[mask-image:theme(backgroundImage.gradient-3-dark)] [mask-type:alpha] z-0">

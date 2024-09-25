@@ -23,7 +23,7 @@ const FormWrapper: React.FC<FormWrapper> = ({
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <div className="w-full p-6 lg:p-8 sm:max-w-md">
+      <div className="w-full p-6 lg:p-8 sm:max-w-md mx-auto">
         {title ? <h1 className="mb-2">{title}</h1> : ""}
         {children}
       </div>

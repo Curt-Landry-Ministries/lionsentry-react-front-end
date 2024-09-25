@@ -61,8 +61,8 @@ const Home: React.FC = () => {
   ];
   return (
     <section>
-      <TopBottom className="min-h-screen">
-        <div className="relative h-full w-full">
+      <TopBottom>
+        <div className="relative h-full min-h-screen flex items-center w-full py-40">
           <Image
             src="/images/hero-line-graphic-mobile.svg"
             width={0}
@@ -119,15 +119,14 @@ const Home: React.FC = () => {
           style={{ height: heightProgress * 100 + "%" }}
           viewport={{ root: scrollRef }}
         />
-        <div className="content-container [&>iframe]:min-h-[194px] md:[&>iframe]:min-h-[500px] pt-24 md:pt-52 z-10 relative">
-        <iframe
-          src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-        />
+        <div className="content-container [&>iframe]:w-full [&>iframe]:min-h-[194px] md:[&>iframe]:min-h-[500px] pt-24 md:pt-52 z-10 relative">
+          <iframe
+            src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
         </div>
         <CTAContentImage
           title="Feeling Lost? Discover Your True Calling"

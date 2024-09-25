@@ -33,7 +33,7 @@ const Footer = () => {
           </div>
 
           <Image
-            src={"/LS-Logo.png"}
+            src={"/images/LS-Logo.png"}
             width={40}
             height={40}
             alt="LionSentry Logo"
