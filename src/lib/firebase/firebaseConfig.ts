@@ -10,4 +10,4 @@ const app = !getApps().length ? initializeApp(configData) : getApp();
 const firestore = getFirestore(app);
 const auth = getAuth(app);
 
-export { firestore, auth };
+export { firestore, auth, app };

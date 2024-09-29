@@ -1,6 +1,7 @@
 // src/app/layout.tsx
 import "./globals.css";
 import { ThemeProvider } from "./providers/themeContext"; // Adjust the import path if necessary
+import AnalyticsProvider from './providers/analyticsProvider';
 import { inter, astoria } from "../fonts/fonts";
 
 export const metadata = {
@@ -14,10 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <AnalyticsProvider>
+
     <ThemeProvider>
       <html lang="en" className={`${inter.variable} ${astoria.variable}`}>
         <body>{children}</body>
       </html>
     </ThemeProvider>
+    </AnalyticsProvider>
   );
 }
