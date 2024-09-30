@@ -74,12 +74,12 @@ const Home: React.FC = () => {
             src="/images/hero-line-graphic.svg"
             width={0}
             height={0}
-            className="w-full h-full absolute top-0 left-0 hidden md:block"
+            className="w-full h-full absolute top-0 left-0 hidden md:block -z-10"
             alt="Lionsentry line hero graphic"
           />
           <div className="content-container flex flex-col items-center justify-center h-full">
             <Image
-              src={"/images/LS-Logo.png"}
+              src={"/images/LS-logo.webp"}
               width={70}
               height={70}
               alt="LionSentry Logo"
@@ -190,7 +190,7 @@ const Home: React.FC = () => {
       <ImageBGSection imageUrl="/images/bg-image.png">
         <div className="content-container flex flex-col items-center text-center gap-4 text-white">
           <Image
-            src="/images/LS-Logo.png"
+            src="/images/LS-logo.webp"
             width={80}
             height={80}
             alt="LionSentry Logo"
@@ -212,7 +212,7 @@ const Home: React.FC = () => {
             <Link href="/signup">
               <Button standardBtn={"primary"}>Start Now</Button>
             </Link>
-            <Link href="/signin">
+            <Link href="/login">
               <Button standardBtn={"secondary"}>Learn More</Button>
             </Link>
           </div>
