@@ -12,7 +12,7 @@ const Footer = () => {
     <footer className="p-10 w-full bg-navy dark:bg-black text-white">
       <div className="max-w-screen-xl flex items-center justify-center mx-auto flex-col md:flex-row">
         <Image
-          src={"/LS-Logo.png"}
+          src={"/images/LS-logo.webp"}
           width={70}
           height={70}
           alt="LionSentry Logo"
@@ -33,7 +33,7 @@ const Footer = () => {
           </div>
 
           <Image
-            src={"/LS-Logo.png"}
+            src={"/images/LS-Logo.png"}
             width={40}
             height={40}
             alt="LionSentry Logo"

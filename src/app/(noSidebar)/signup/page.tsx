@@ -4,8 +4,8 @@ import React from "react";
 
 const SignUpPage: React.FC = () => {
   return (
-    <section className="flex items-center justify-center h-full">
-      <TopBottom hasBottom={false}>
+    <section className="flex items-center justify-center">
+      <TopBottom hasBottom={false} className="py-32">
         <SignupForm />
       </TopBottom>
     </section>

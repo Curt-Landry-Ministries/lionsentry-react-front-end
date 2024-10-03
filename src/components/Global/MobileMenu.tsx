@@ -6,8 +6,10 @@ import { Paths } from "@/lib/constants";
 import Link from "next/link";
 import ThemeToggler from "./ThemeToggler";
 import Logo from "./Logo";
+import { usePathname } from "next/navigation";
 
 const MobileMenu = () => {
+  const pathname = usePathname();
   const [toggleMenu, setToggleMenu] = useState(false);
 
   useEffect(() => {
@@ -17,6 +19,10 @@ const MobileMenu = () => {
       document.body.classList.remove("overflow-y-hidden");
     }
   }, [toggleMenu]);
+
+  useEffect(() => {
+    setToggleMenu(false);
+  }, [pathname]);
 
   return (
     <>
@@ -30,14 +36,14 @@ const MobileMenu = () => {
 
       <div
         className={classNames(
-          "w-screen fixed inset-0 top-12 transition-transform duration-700 bg-navy dark:bg-black overflow-hidden h-screen",
+          "w-screen fixed inset-0 top-12 transition-transform duration-700 bg-navy dark:bg-black overflow-hidden",
           {
             "translate-y-0": toggleMenu,
             "-translate-y-[200%]": !toggleMenu,
           }
         )}
       >
-        <LeftRight hasRight={false} className="-mt-12 pt-12">
+        <LeftRight hasRight={false} className="pt-12 flex h-full">
           <div className="flex flex-col w-full h-full py-10 px-8 items-start">
             <div className="flex flex-col gap-5 flex-grow">
               <Link className="inline-block" href={Paths.Login}>

@@ -61,8 +61,8 @@ const Home: React.FC = () => {
   ];
   return (
     <section>
-      <TopBottom className="min-h-screen">
-        <div className="relative h-full w-full">
+      <TopBottom>
+        <div className="relative h-full min-h-screen flex items-center w-full py-40">
           <Image
             src="/images/hero-line-graphic-mobile.svg"
             width={0}
@@ -74,12 +74,12 @@ const Home: React.FC = () => {
             src="/images/hero-line-graphic.svg"
             width={0}
             height={0}
-            className="w-full h-full absolute top-0 left-0 hidden md:block"
+            className="w-full h-full absolute top-0 left-0 hidden md:block -z-10"
             alt="Lionsentry line hero graphic"
           />
           <div className="content-container flex flex-col items-center justify-center h-full">
             <Image
-              src={"/images/LS-Logo.png"}
+              src={"/images/LS-logo.webp"}
               width={70}
               height={70}
               alt="LionSentry Logo"
@@ -119,15 +119,14 @@ const Home: React.FC = () => {
           style={{ height: heightProgress * 100 + "%" }}
           viewport={{ root: scrollRef }}
         />
-        <div className="content-container [&>iframe]:min-h-[194px] md:[&>iframe]:min-h-[500px] pt-24 md:pt-52 z-10 relative">
-        <iframe
-          src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-        />
+        <div className="content-container [&>iframe]:w-full [&>iframe]:min-h-[194px] md:[&>iframe]:min-h-[500px] pt-24 md:pt-52 z-10 relative">
+          <iframe
+            src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
         </div>
         <CTAContentImage
           title="Feeling Lost? Discover Your True Calling"
@@ -191,7 +190,7 @@ const Home: React.FC = () => {
       <ImageBGSection imageUrl="/images/bg-image.png">
         <div className="content-container flex flex-col items-center text-center gap-4 text-white">
           <Image
-            src="/images/LS-Logo.png"
+            src="/images/LS-logo.webp"
             width={80}
             height={80}
             alt="LionSentry Logo"
@@ -213,7 +212,7 @@ const Home: React.FC = () => {
             <Link href="/signup">
               <Button standardBtn={"primary"}>Start Now</Button>
             </Link>
-            <Link href="/signin">
+            <Link href="/login">
               <Button standardBtn={"secondary"}>Learn More</Button>
             </Link>
           </div>
