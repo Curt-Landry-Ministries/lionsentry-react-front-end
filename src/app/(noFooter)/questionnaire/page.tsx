@@ -12,7 +12,6 @@ const Pages: React.FC = () => {
   useEffect(() => {
     const getQuestions = async () => {
       const data = await fetchQuestionsFromServer();
-
       setQuestions(data);
       setLoading(false);
     };
@@ -21,8 +20,8 @@ const Pages: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col page-gradient-bg dark:page-gradient-bg-dark">
-      <section className="flex items-center justify-center h-screen flex-shrink-0 flex-1">
+    <div className="flex flex-col w-full bg-cloud dark:bg-black">
+      <section className="flex items-center justify-center min-h-screen flex-shrink-0 flex-1">
         {loading ? (
           <LoadingScreen message="Loading your questionaire" />
         ) : (

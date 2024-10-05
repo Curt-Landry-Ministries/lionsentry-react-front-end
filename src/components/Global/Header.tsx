@@ -25,7 +25,9 @@ const Header = () => {
 
   useEffect(() => {
     setTransparentHeader(
-      pathname.includes("signup") || pathname.includes("login")
+      pathname.includes("signup") ||
+        pathname.includes("login") ||
+        pathname.includes("questionnaire")
     );
   }, [pathname]);
 
@@ -78,14 +80,16 @@ const Header = () => {
         "bg-transparent": transparentHeader,
       })}
     >
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-10 py-2.5 relative">
+      <div className="flex flex-wrap items-center justify-between mx-auto px-10 py-2.5 relative">
         <Link
           className={classnames({
-            "mx-auto": transparentHeader,
+            "mx-auto block pl-10": transparentHeader,
           })}
           href="/"
         >
-          <Logo noTheme={transparentHeader} />
+          <Logo
+            noTheme={transparentHeader && !pathname.includes("questionnaire")}
+          />
         </Link>
 
         <div className="flex gap-5">
@@ -94,7 +98,7 @@ const Header = () => {
           ) : (
             <>
               {" "}
-              {loggedIn ? (
+              {loggedIn && !pathname.includes("questionnaire") ? (
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
                   {/* Dropdown button */}
                   <button

@@ -77,7 +77,6 @@ const SignupForm = () => {
       }
     } catch (error: any) {
       console.error("Signup error:", error);
-      console.log();
       setErrors(error.message || "Issue with sign up");
     }
   };

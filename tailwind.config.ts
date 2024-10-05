@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 const colors = require('tailwindcss/colors');
+const plugin = require('tailwindcss/plugin');
 
 const config: Config = {
   darkMode: 'class',
@@ -84,9 +85,54 @@ const config: Config = {
       fontSize: {
         '12.5': '3.125rem',
         '17.5': '4.375rem'
-      }
+      },
+      animation: {
+        'loading1': 'loadingPath1 2s linear infinite',
+        'loading2': 'loadingPath2 2s linear infinite',
+        'loading3': 'loadingPath3 2s linear infinite',
+        'loading4': 'loadingPath4 2s linear infinite'
+      },
+      keyframes: {
+        loadingPath1: {
+          '0%': {transform: 'rotate(225deg)'},
+          '37.5%': {transform: 'rotate(495deg)'},
+          '50%': {transform: 'rotate(495deg)'},
+          '75%': {transform: 'rotate(585deg)'},
+          '100%': {transform: 'rotate(585deg)'}
+        },
+        loadingPath2: {
+          '0%': {transform: 'translate(0px, 0px)'},
+          '37.5%': {transform: 'translate(0px, 0px)'},
+          '50%': {transform: 'translate(50%, 50%)', opacity: '1'},
+          '50.0001%': {opacity: '0'},
+          '75%': {transform: 'translate(0px, 0px)', opacity: '0'},
+          '99.999%': {opacity: '0'},
+          '100%': {opacity: '1'}
+        },
+        loadingPath3: {
+          '0%': {transform: 'rotate(675deg)', opacity: '0'},
+          '37.5%': {transform: 'rotate(675deg)'},
+          '50%': {transform: 'rotate(675deg)', opacity: '0'},
+          '50.0001%': {transform: 'rotate(675deg)', opacity: '1'},
+          '87.5%': {transform: 'rotate(405deg)'},
+          '100%': {transform: 'rotate(405deg)'}
+        },
+        loadingPath4: {
+          '0%': {transform: 'translate(0px, 0px)'},
+          '87.5%': {transform: 'translate(0px, 0px)'},
+          '100%': {transform: 'translate(-50%, 50%)'}
+        },
+      },
+      transitionDuration: {
+        "duration-1500": '1500ms'
+      },
+      
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addVariant }) {
+      addVariant('mobile-only', "@media screen and (max-width: theme('screens.sm'))"); // instead of hard-coded 640px use sm breakpoint value from config. Or anything
+    }),
+  ],
 };
 export default config;

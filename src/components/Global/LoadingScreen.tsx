@@ -1,8 +1,8 @@
 // src/components/loading.tsx
 
 import React from "react";
-import { motion } from "framer-motion";
 import classNames from "classnames";
+import Image from "next/image";
 
 interface LoadingScreenProps {
   message: string;
@@ -17,66 +17,33 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({
 }) => {
   return (
     <div
-      className={classNames("flex flex-col items-center justify-center", {
+      className={classNames("", {
         "min-h-screen min-w-full": isFullScreen,
       })}
     >
-      <motion.div
-        className="flex space-x-4"
-        animate={{
-          rotate: [0, 360],
-          scale: [1, 1.5, 1],
-        }}
-        transition={{
-          duration: 1,
-          repeat: Infinity,
-          repeatType: "loop",
-        }}
-      >
-        <motion.div
-          className={classNames(
-            " bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full",
-            {
-              "w-6 h-6": size === "sm",
-              "w-8 h-8": size === "md",
-              "w-12 h-12": size === "lg",
-            }
-          )}
-          animate={{ y: [0, -20, 0] }}
-          transition={{
-            duration: 0.5,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className={classNames(
-            "bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 rounded-full",
-            {
-              "w-6 h-6": size === "sm",
-              "w-8 h-8": size === "md",
-              "w-12 h-12": size === "lg",
-            }
-          )}
-          animate={{ y: [0, -20, 0] }}
-          transition={{
-            duration: 0.5,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-            delay: 0.3,
-          }}
-        />
-      </motion.div>
-      <p
-        className={classNames("mt-14", {
-          "text-lg": size === "lg",
-          "text-sm": size === "sm",
-        })}
-      >
-        {message}
-      </p>
+      <div className="max-w-xl flex flex-col items-center justify-between">
+        <div className="h-[90px] w-[189px]">
+          <Image
+            src={"/images/infinite-gradient.svg"}
+            width={190}
+            height={92}
+            alt="Infinite Loading"
+          />
+          <div className="w-[90px] h-[90px] animate-loading2">
+            <div className="min-w-full min-h-full max-w-full max-h-full block float-left relative -top-full left-0 animate-loading1">
+              <div className="h-[10px] w-[10px] bg-white dark:bg-black rounded-full relative top-[40px] left-[5px]"></div>
+            </div>
+          </div>
+
+          <div className="w-[90px] h-[90px] left-[100px] -top-[90px] animate-loading4 relative">
+            <div className="min-w-full min-h-full max-w-full max-h-full block float-left relative -top-[90px] -left-[1px] animate-loading3">
+              <div className="h-[10px] w-[10px] bg-white dark:bg-black rounded-full relative top-[40px] left-[5px]"></div>
+            </div>
+          </div>
+        </div>
+
+        <h1 className="text-center mt-12">{message}</h1>
+      </div>
     </div>
   );
 };
