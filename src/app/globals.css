@@ -181,6 +181,7 @@ textarea {
     @apply px-5;
     @apply md:max-w-[80vw];
     @apply xl:max-w-[60vw];
+    @apply lg:min-w-[800px];
     @apply mx-auto;
   }
 }
