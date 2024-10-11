@@ -15,7 +15,7 @@ const config: Config = {
     extend: {
       colors: {
         'primary': {
-          DEFAULT: '#017FA2'
+          DEFAULT: '#01A0CC'
         },
         'blue': {
           DEFAULT: '#01A0CC'
@@ -23,6 +23,7 @@ const config: Config = {
         'text-black': {
           DEFAULT: '#333333'
         },
+        'initial-black': '#000000',
         'black': '#00031B',
         'cloud': {
           DEFAULT: '#F3FAFF'

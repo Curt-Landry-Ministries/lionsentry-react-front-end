@@ -9,7 +9,7 @@ import Link from "next/link";
 import { login, signup } from "@/lib/auth/actions";
 import { saveUserDataPoint } from "@/lib/app/actions";
 import { useRouter } from "next/navigation";
-import { Paths } from "@/lib/constants";
+import { AuthedPaths } from "@/lib/constants";
 import LoadingScreen from "../Global/LoadingScreen";
 
 const SignupForm = () => {
@@ -69,7 +69,7 @@ const SignupForm = () => {
 
           console.log("Name saved successfully");
           // Redirect to the questionnaire or any other appropriate page
-          router.push(Paths.Questionnaire);
+          router.push(AuthedPaths.Questionnaire);
         });
       } catch (err: any) {
         setErrors(err.message || "Trouble logging in");

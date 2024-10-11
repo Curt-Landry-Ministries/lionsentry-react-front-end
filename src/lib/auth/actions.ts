@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { getBaseUrl } from '../utils';
 import { cookies } from 'next/headers';
 import { RedirectType, redirect } from 'next/navigation';
-import { Paths } from '../constants';
+import { AuthedPaths, Paths } from '../constants';
 
 const BASE_URL = getBaseUrl(true);
 
@@ -33,7 +33,7 @@ export const login = async (credentials: UserCredentials, withRedirect: boolean 
 
     console.log("User Logged in:", email);
 
-    return withRedirect ? redirect(Paths.Dashboard, RedirectType.replace) : email;
+    return withRedirect ? redirect(AuthedPaths.Dashboard, RedirectType.replace) : email;
   } 
   
   throw new Error(respData.error || 'Failed to login');

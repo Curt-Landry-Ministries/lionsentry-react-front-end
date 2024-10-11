@@ -7,31 +7,36 @@ export type ModalProps = DetailedHTMLProps<
 > & {
   isOpen: boolean;
   onClose: () => void;
+  hasCloseButton?: boolean;
 };
 
 const Modal: React.FC<ModalProps> = ({
   children,
   isOpen,
   onClose,
+  hasCloseButton = false,
   ...props
 }) => {
   return (
     <div
       className={classnames(
-        "fixed top-0 left-0 h-screen w-screen flex items-center justify-center",
+        "fixed top-0 left-0 h-screen w-screen flex items-center justify-center opacity-1 transform delay-300 duration-500",
         {
-          hidden: !isOpen,
+          "opacity-0 -z-50": !isOpen,
+          "z-50": isOpen,
         }
       )}
       {...props}
     >
-      <button
-        className="text-white absolute right-8 top-8 text-lg font-semibold tracking-wider hover:gradient-text transition-all duration-200"
-        onClick={onClose}
-      >
-        CLOSE
-      </button>
-      <div className="bg-white dark:text-white dark:bg-black h-[80%] md:max-w-[80%] max-w-[90%] max-h-[80%] md:p-8 p-4 border rounded-md z-10">
+      {hasCloseButton && (
+        <button
+          className="text-white absolute right-8 top-8 text-lg font-semibold tracking-wider hover:gradient-text transition-all duration-200"
+          onClick={onClose}
+        >
+          CLOSE
+        </button>
+      )}
+      <div className="bg-white dark:text-white dark:bg-black mx-4 md:p-8 p-4 border rounded-md z-10">
         {children}
       </div>
       <div
