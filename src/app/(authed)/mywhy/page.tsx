@@ -96,7 +96,7 @@ const MyWhy = () => {
         </p>
       )}
 
-      <Modal isOpen={openModal} onClose={() => console.log("test")}>
+      <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
         <div className="text-center flex flex-col items-center gap-10">
           <Image
             src="/icons/welcome-icon.svg"

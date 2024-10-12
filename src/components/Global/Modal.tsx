@@ -1,3 +1,4 @@
+import { Cross1Icon } from "@radix-ui/react-icons";
 import classnames from "classnames";
 import { DetailedHTMLProps } from "react";
 
@@ -28,19 +29,16 @@ const Modal: React.FC<ModalProps> = ({
       )}
       {...props}
     >
-      {hasCloseButton && (
-        <button
-          className="text-white absolute right-8 top-8 text-lg font-semibold tracking-wider hover:gradient-text transition-all duration-200"
-          onClick={onClose}
-        >
-          CLOSE
-        </button>
-      )}
-      <div className="bg-white dark:text-white dark:bg-black mx-4 md:p-8 p-4 border rounded-md z-10">
+      <div className="bg-white dark:text-white dark:bg-black mx-4 md:p-8 p-4 border rounded-[20px] shadow-modal z-10 relative">
+        {hasCloseButton && (
+          <button className="absolute right-8 top-8" onClick={onClose}>
+            <Cross1Icon width={14} height={14} />
+          </button>
+        )}
         {children}
       </div>
       <div
-        className="bg-black bg-opacity-70 h-full w-full absolute top-0 left-0 -z-10"
+        className="bg-initial-black bg-opacity-25 h-full w-full absolute top-0 left-0 -z-10"
         onClick={onClose}
       ></div>{" "}
       {/* Backdrop for modal */}
