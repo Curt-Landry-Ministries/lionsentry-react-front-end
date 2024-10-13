@@ -111,6 +111,7 @@ const AuthedHeader = () => {
                           AuthedPaths[key as keyof typeof AuthedPaths] ===
                           pathname,
                       })}
+                      key={`${key}-link`}
                     >
                       <Link href={AuthedPaths[key as keyof typeof AuthedPaths]}>
                         <Image

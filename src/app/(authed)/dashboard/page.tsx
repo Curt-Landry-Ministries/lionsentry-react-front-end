@@ -44,7 +44,7 @@ const Dashboard = () => {
       <div className="content-box md:col-span-3">
         <div className="title-line-style">
           <div className="flex items-center">
-            <h3>Today's Devotional</h3>
+            <h3>Today&apos;s Devotional</h3>
             <Link href={AuthedPaths.Devotionals} className="link-style ml-auto">
               See All
             </Link>
@@ -111,7 +111,10 @@ const Dashboard = () => {
           ) : (
             <>
               {goals.map((goal, index) => (
-                <div className="[&:not(:first-child)]:pt-5">
+                <div
+                  className="[&:not(:first-child)]:pt-5"
+                  key={`goal-${index}`}
+                >
                   <div className="flex justify-between items-center">
                     <div>
                       <span
