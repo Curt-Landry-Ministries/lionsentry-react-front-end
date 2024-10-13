@@ -12,7 +12,7 @@ export default function AuthedLayout({
       <AuthedHeader />
       <div className="flex flex-1 w-full">
         <div className="flex flex-col items-center justify-between w-full">
-          <div className="py-24 md:py-36 content-container">{children}</div>
+          <div className="py-24 md:py-36 container mx-auto">{children}</div>
           <SimpleFooter />
         </div>
       </div>

@@ -56,7 +56,7 @@ const MyWhy = () => {
           Loading your Why Statement...
         </p>
       ) : whyStatements.length > 0 ? (
-        <div className="flex flex-col md:flex-row space-y-5 md:space-x-10">
+        <div className="flex flex-col md:flex-row space-y-5 md:space-x-10 content-container">
           <div>
             <div className="w-36 md:w-44 h-36 md:h-44 bg-cloud-dark rounded-full flex items-center justify-center mx-auto">
               <Image
