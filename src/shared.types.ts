@@ -43,9 +43,11 @@ type OnboardingAnswer = {
 
 type Goal = {
   goal: string;
+  description?: string;
   deadline?: string;
   forUser: string;
   id: string;
+  category: 'Spiritual' | 'Physical' | 'Other' | 'Joy' | 'Financial';
 }
 
 type Email = {

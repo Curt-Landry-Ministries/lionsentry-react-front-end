@@ -95,13 +95,19 @@ textarea {
   h2 {
     @apply text-[21px];
     @apply leading-[28px];
-    @apply font-sans;
-    @apply md:text-[1.667vw];
-    @apply md:leading-[2.222vw];
+    @apply font-serif;
+    @apply md:text-[32px];
+    @apply md:leading-[35px];
+    @apply font-semibold;
 
   }
   h3 {
-
+    @apply text-[20px];
+    @apply leading-[24px];
+    @apply font-sans;
+    @apply md:text-[24px];
+    @apply md:leading-[32px];
+    @apply font-medium;
   }
   h4 {
 

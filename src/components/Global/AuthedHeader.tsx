@@ -17,12 +17,30 @@ const AuthedHeader = () => {
   const pathname = usePathname();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [transparentHeader, setTransparentHeader] = useState(false);
 
   const windowSize = useWindowSize();
+
+  const menuItems: { [key: string]: { iconLink: string; title: string } } = {
+    Dashboard: {
+      iconLink: "./icons/Home.svg",
+      title: "Home",
+    },
+    MyWhy: {
+      iconLink: "/icons/Sun.svg",
+      title: "My Why",
+    },
+    Devotionals: {
+      iconLink: "/icons/Book.svg",
+      title: "Devotionals",
+    },
+    Goals: {
+      iconLink: "/icons/Goals.svg",
+      title: "Goals",
+    },
+  };
 
   useEffect(() => {
     setTransparentHeader(
@@ -31,16 +49,6 @@ const AuthedHeader = () => {
         pathname.includes("questionnaire")
     );
   }, [pathname]);
-
-  useEffect(() => {
-    const checkLoggedIn = async () => {
-      const check = await isLoggedIn();
-
-      setLoggedIn(check);
-    };
-
-    checkLoggedIn();
-  }, []);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -68,7 +76,6 @@ const AuthedHeader = () => {
     try {
       await logout();
       setDropdownOpen(false); // Close the dropdown
-      setLoggedIn(false);
     } catch (error) {
       console.error("Logout failed", error);
     }
@@ -76,7 +83,7 @@ const AuthedHeader = () => {
 
   return (
     <nav className="z-50 fixed w-full bg-navy dark:bg-white dark:bg-opacity-10 text-cloud-darker">
-      <div className="flex flex-wrap items-center justify-between mx-auto px-10 py-2.5 relative">
+      <div className="flex flex-wrap items-center justify-between mx-auto px-10 relative">
         <Link
           className={classnames({
             "mx-auto block pl-10": transparentHeader,
@@ -92,87 +99,56 @@ const AuthedHeader = () => {
           ) : (
             <>
               <div className="flex">
-                <ul className="flex text-base [&>li>a]:flex [&>li>a]:gap-2 [&>li>a]:px-4 [&>li>a]:py-2">
-                  <li>
-                    <Link href={AuthedPaths.Dashboard}>
-                      <Image
-                        src="./icons/Home.svg"
-                        height={24}
-                        width={24}
-                        alt="Home Icon"
-                      />
-                      Home
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href={AuthedPaths.MyWhy}>
-                      <Image
-                        src="./icons/Sun.svg"
-                        height={24}
-                        width={24}
-                        alt="MyWhy Icon"
-                      />
-                      My Why
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href={AuthedPaths.Devotionals}>
-                      <Image
-                        src="./icons/Book.svg"
-                        height={24}
-                        width={24}
-                        alt="Devotionals Icon"
-                      />
-                      Devotionals
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href={AuthedPaths.Goals}>
-                      <Image
-                        src="./icons/Goals.svg"
-                        height={24}
-                        width={24}
-                        alt="Goals Icon"
-                      />
-                      Goals
-                    </Link>
-                  </li>
+                <ul
+                  className={classnames(
+                    "flex text-base [&>li>a]:flex [&>li>a]:gap-2 [&>li>a]:px-4 [&>li>a]:py-6 hover:[&>li]:bg-white hover:[&>li]:bg-opacity-10"
+                  )}
+                >
+                  {Object.keys(menuItems).map((key) => (
+                    <li
+                      className={classnames({
+                        "bg-white bg-opacity-10":
+                          AuthedPaths[key as keyof typeof AuthedPaths] ===
+                          pathname,
+                      })}
+                      key={`${key}-link`}
+                    >
+                      <Link href={AuthedPaths[key as keyof typeof AuthedPaths]}>
+                        <Image
+                          src={menuItems[key].iconLink}
+                          height={24}
+                          width={24}
+                          alt={`${menuItems[key].title} Icon`}
+                        />
+                        {menuItems[key].title}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
                 {/* Dropdown button */}
                 <button
                   ref={buttonRef}
                   onClick={toggleDropdown}
-                  className="flex items-center border-l-2 px-5 gap-2 text-base"
+                  className="flex items-center px-5 gap-2 text-base relative before:content-[' '] before:absolute before:left-0 before:w-[2px] before:h-[44px] before:bg-cloud-darker"
                 >
                   <span className="w-5 h-5 rounded-full block bg-black"></span>
                   My Account <TriangleDownIcon />
+                  {/* Dropdown menu */}
+                  {dropdownOpen && (
+                    <div
+                      ref={dropdownRef}
+                      className="absolute left-0 -bottom-[120%] w-40 bg-white rounded shadow-lg py-1 [&>*]:block [&>*]:px-3 [&>*]:py-2 text-black text-left hover:[&>*]:bg-primary hover:[&>*]:bg-opacity-10"
+                    >
+                      <span className="">Profile Picture</span>
+
+                      <Link href="/">
+                        <button onClick={handleLogout} className="">
+                          Sign Out
+                        </button>
+                      </Link>
+                    </div>
+                  )}
                 </button>
-                {/* Dropdown menu */}
-                {dropdownOpen && (
-                  <div
-                    ref={dropdownRef}
-                    className="absolute right-0 mt-10 w-48 bg-white rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 dark:bg-black z-10"
-                  >
-                    <Link href="/profile">
-                      <span className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">
-                        Profile
-                      </span>
-                    </Link>
-                    <Link href="/settings">
-                      <span className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">
-                        Settings
-                      </span>
-                    </Link>
-                    <Link href="/">
-                      <button
-                        onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
-                      >
-                        Logout
-                      </button>
-                    </Link>
-                  </div>
-                )}
               </div>
 
               <ThemeToggler />

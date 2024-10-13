@@ -2,7 +2,7 @@
 
 import React from "react";
 
-const Dashboard = () => {
+const Goals = () => {
   return (
     <div className="w-full max-w-3xl p-6 mx-auto rounded-lg shadow-lg mt-10 bg-white dark:bg-black border">
       <div className="flex flex-col items-center justify-center">
@@ -17,4 +17,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Goals;
