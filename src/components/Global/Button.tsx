@@ -18,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const btnClass = classNames(
-    "transition-all text-base leading-tight uppercase px-5 py-2.5 border rounded-full font-bold disabled:border-inactive disabled:bg-inactive",
+    "transition-all text-base leading-tight uppercase px-5 py-2 border rounded-full disabled:border-inactive disabled:bg-inactive",
     {
       "bg-primary border-primary text-white": standardBtn === "primary",
       "bg-white border-primary text-primary": standardBtn === "secondary",

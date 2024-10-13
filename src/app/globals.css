@@ -184,4 +184,15 @@ textarea {
     @apply lg:min-w-[800px];
     @apply mx-auto;
   }
+  .title-line-style {
+    @apply relative;
+    @apply before:absolute;
+    @apply before:content-[''];
+    @apply before:bottom-0;
+    @apply before:left-0;
+    @apply before:h-2;
+    @apply before:w-20;
+    @apply before:rounded-3xl;
+    @apply before:bg-gradient-1;
+  }
 }

@@ -33,7 +33,7 @@ const Footer = () => {
           </div>
 
           <Image
-            src={"/images/LS-Logo.webp"}
+            src={"/images/LS-logo.webp"}
             width={40}
             height={40}
             alt="LionSentry Logo"

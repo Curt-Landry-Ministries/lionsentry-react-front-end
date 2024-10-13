@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
-import { Paths } from './lib/constants';
+import { AuthedPaths, Paths } from './lib/constants';
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
   const loginOrSignup = pathname.startsWith(Paths.Login) || pathname.startsWith(Paths.Signup);
   const url = request.nextUrl.clone();
 
-  if(url.pathname === '/') {
+  if(url.pathname === '/' && !isAuthenticated) {
     url.pathname = '/home'
     return NextResponse.rewrite(url);
   }
@@ -20,11 +20,11 @@ export function middleware(request: NextRequest) {
   if(!loginOrSignup && pathname !== Paths.Home && !isAuthenticated) {
     return NextResponse.redirect(new URL(Paths.Home, request.url));
   }
-
+  
   // If user is authenticated and still goes to login or signup,
   // redirect to dashboard
-  if(loginOrSignup && isAuthenticated) {
-    return NextResponse.redirect(new URL(Paths.Dashboard, request.url));
+  if((loginOrSignup || pathname === Paths.Home) && isAuthenticated) {
+    return NextResponse.redirect(new URL(AuthedPaths.Dashboard, request.url));
   }
 
   // everything else just resolve the response

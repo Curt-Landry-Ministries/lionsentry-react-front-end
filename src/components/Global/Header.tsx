@@ -98,7 +98,7 @@ const Header = () => {
           ) : (
             <>
               {" "}
-              {loggedIn && !pathname.includes("questionnaire") ? (
+              {loggedIn ? (
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
                   {/* Dropdown button */}
                   <button
@@ -114,7 +114,7 @@ const Header = () => {
                       ref={dropdownRef}
                       className="absolute right-0 mt-10 w-48 bg-white rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 dark:bg-black z-10"
                     >
-                      <Link href="/profile">
+                      <Link href={Paths.Login}>
                         <span className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">
                           Profile
                         </span>

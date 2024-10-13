@@ -2,10 +2,16 @@ export enum Paths {
   Home = "/",
   Login = "/login",
   Signup = "/signup",
-  Questionnaire = "/questionnaire",
-  Dashboard = "/dashboard",
   Terms = "#",
   Privacy = "#"
+}
+
+export enum AuthedPaths {
+  Questionnaire = "/questionnaire",
+  Dashboard = "/dashboard",
+  MyWhy = "/mywhy",
+  Goals = "/goals",
+  Devotionals = "/devotionals"
 }
 
 export enum MaxWindowSize {

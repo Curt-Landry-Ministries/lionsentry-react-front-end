@@ -116,7 +116,7 @@ const Home: React.FC = () => {
         />
         <motion.div
           className="absolute left-1/2 w-0.5 -ml-[0.05rem] h-16 top-0 bg-blue origin-[0%] z-10 hidden md:block"
-          style={{ height: heightProgress * 100 + "%" }}
+          style={{ height: heightProgress * 96.5 + "%" }}
           viewport={{ root: scrollRef }}
         />
         <div className="content-container [&>iframe]:w-full [&>iframe]:min-h-[194px] md:[&>iframe]:min-h-[500px] pt-24 md:pt-52 z-10 relative">

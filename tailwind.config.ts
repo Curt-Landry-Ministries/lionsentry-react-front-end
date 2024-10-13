@@ -15,7 +15,7 @@ const config: Config = {
     extend: {
       colors: {
         'primary': {
-          DEFAULT: '#017FA2'
+          DEFAULT: '#01A0CC'
         },
         'blue': {
           DEFAULT: '#01A0CC'
@@ -23,6 +23,7 @@ const config: Config = {
         'text-black': {
           DEFAULT: '#333333'
         },
+        'initial-black': '#000000',
         'black': '#00031B',
         'cloud': {
           DEFAULT: '#F3FAFF'
@@ -87,6 +88,9 @@ const config: Config = {
         '12.5': '3.125rem',
         '17.5': '4.375rem'
       },
+      boxShadow: {
+        'modal': '0px 0px 22px 0px rgba(0,0,0,0.15)'
+      },
       animation: {
         'loading1': 'loadingPath1 2s linear infinite',
         'loading2': 'loadingPath2 2s linear infinite',
@@ -127,7 +131,6 @@ const config: Config = {
       transitionDuration: {
         "duration-1500": '1500ms'
       },
-      
     },
   },
   plugins: [
