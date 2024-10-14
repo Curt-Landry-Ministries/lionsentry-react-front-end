@@ -9,7 +9,7 @@ import Button from "@/components/Global/Button";
 import { fetchDevotionals, generateDevotional } from "@/lib/app/actions";
 import LoadingScreen from "@/components/Global/LoadingScreen";
 
-const pageSize = 3;
+const pageSize = 7;
 
 const Devotionals: React.FC = () => {
   const { devotionals, updateDevotionals, isLoading } = useUserStore(
