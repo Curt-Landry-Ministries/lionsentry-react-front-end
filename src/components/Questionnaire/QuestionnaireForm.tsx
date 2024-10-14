@@ -11,13 +11,14 @@ import QuestionnaireStep from "./QuestionnaireStep";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import Button from "../Global/Button";
 import ProgressBar from "../Global/ProgressBar";
+import { useUserStore } from "@/app/providers/userContext";
+import { AuthedPaths } from "@/lib/constants";
 
 const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
   questions,
 }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
-  const [whyStatement, setWhyStatement] = useState<string | null>(null);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false); // State to disable submit button
   const [isLoading, setIsLoading] = useState(false); // State to show loading indicator
 
@@ -54,6 +55,8 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
       setCurrentQuestionIndex(currentQuestionIndex + direction);
 
       saveAnswerToLocalStorage();
+
+      window.scrollTo(0, 0);
     }
 
     if (currentQuestionIndex === questions.length - 1) handleSubmit();
@@ -100,14 +103,13 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
         questions.map((q) => ({ title: q.title })), // Send only the question titles
         questionAnswerPairs.map((qa) => qa.answer) // Send the corresponding answers
       );
-      setWhyStatement(generatedWhyStatement);
       console.log("Generated Why Statement:", generatedWhyStatement);
 
       // Store the Why statement in local storage
-      localStorage.setItem("whyStatement", generatedWhyStatement);
+      // localStorage.setItem("whyStatement", generatedWhyStatement);
 
       // Redirect to the dashboard page
-      router.push("/dashboard");
+      router.push(AuthedPaths.MyWhy);
     } catch (error) {
       console.error("Error generating Why Statement:", error);
     } finally {
@@ -143,6 +145,9 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
             <ProgressBar
               current={currentQuestionIndex + 1}
               max={questions.length}
+              subText={`Question ${currentQuestionIndex + 1}/${
+                questions.length
+              }`}
             />
           )}
 
@@ -157,20 +162,19 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
           >
             <QuestionnaireStep
               index={currentQuestionIndex}
-              numberOfQues={questions.length}
               item={questions[currentQuestionIndex]}
               currentAnswer={answers[currentQuestionIndex] || ""}
               onChange={(e) => handleChange(e)}
             />
           </motion.div>
 
-          <div className="mobile-only:z-20 mobile-only:fixed mobile-only:bottom-0 mobile-only:left-0 mobile-only:shadow-[0px_0px_12px_0px_rgba(0,0,0,0.15)] mobile-only:dark:shadow-[0px_0px_12px_0px_rgba(255,255,255,0.15)] w-full mobile-only:p-5 bg-white md:bg-transparent flex items-center justify-between mt-10">
+          <div className="mobile-only:z-20 mobile-only:fixed mobile-only:bottom-0 mobile-only:left-0 mobile-only:shadow-[0px_0px_12px_0px_rgba(0,0,0,0.15)] mobile-only:gap-2 mobile-only:dark:shadow-[0px_0px_12px_0px_rgba(255,255,255,0.15)] w-full mobile-only:p-5 bg-white md:bg-transparent flex items-center justify-between mt-10">
             {currentQuestionIndex > -1 ? (
               <>
                 <Button
                   standardBtn={"secondary"}
                   hasIcon={true}
-                  className="pl-2"
+                  className="pl-2 mobile-only:w-1/2"
                   onClick={() => handleNavigate(-1)}
                 >
                   <ChevronLeftIcon width={24} height={24} /> Previous
@@ -179,7 +183,7 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
                 <Button
                   standardBtn={"primary"}
                   hasIcon={true}
-                  className="pr-2"
+                  className="pr-2 mobile-only:w-1/2"
                   onClick={() => handleNavigate(1)}
                   disabled={!answers[currentQuestionIndex] || isSubmitDisabled}
                 >
@@ -190,7 +194,7 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
               <Button
                 standardBtn={"primary"}
                 hasIcon={true}
-                className="pr-2 mx-auto"
+                className="pr-2 mx-auto "
                 onClick={() => handleNavigate(1)}
               >
                 Start <ChevronRightIcon width={24} height={24} />

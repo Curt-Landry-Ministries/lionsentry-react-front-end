@@ -1,23 +1,75 @@
+import { AuthedPaths } from "@/lib/constants";
+import Link from "next/link";
 import { DetailedHTMLProps } from "react";
+import DevotionalNone from "./DevotionalNone";
+import classNames from "classnames";
 
 export type DevotionalCard = DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 > & {
-  devotional: DevotionalContent;
+  devotional?: Devotional;
+  showNone?: boolean;
+  hasAll?: boolean;
 };
-const DevotionalCard: React.FC<DevotionalCard> = ({ devotional, ...props }) => {
+const DevotionalCard: React.FC<DevotionalCard> = ({
+  devotional,
+  showNone = false,
+  hasAll = false,
+  ...props
+}) => {
+  const devotionalDate = devotional && new Date(devotional.dateTimeCreated);
+  const todayDate = new Date();
+
   return (
     <div
-      className="group text-left border rounded-md p-4 flex flex-col cursor-pointer shadow hover:shadow-sm hover:shadow-slate-400 dark:hover:shadow-slate-100  transition ease-in-out duration-100"
+      className="bg-white dark:bg-opacity-10 dark:shadow-none shadow-content-box p-7 rounded-md"
       {...props}
     >
-      <h4 className="font-bold mb-2">{devotional.Title}</h4>
-      <h5 className="text-xs mb-2">Generated Time: {devotional.TimeStamp}</h5>
+      <div
+        className={classNames("title-line-style", {
+          "pb-7": !showNone,
+          "pb-3": showNone,
+        })}
+      >
+        <div className="flex items-center">
+          {((devotionalDate &&
+            devotionalDate.setHours(0, 0, 0, 0) ===
+              todayDate.setHours(0, 0, 0, 0)) ||
+            showNone) && <h3>Today&apos;s Devotional</h3>}
 
-      <button className="inline font-bold text-left mt-auto gradient-text group-hover:gradient-bg-reverse">
-        Click to view
-      </button>
+          {hasAll && !showNone && (
+            <Link href={AuthedPaths.Devotionals} className="link-style ml-auto">
+              See All
+            </Link>
+          )}
+        </div>
+        {devotional && devotional.dateTimeCreated && (
+          <span className="text-inactive block">
+            {new Date(devotional.dateTimeCreated).toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </span>
+        )}
+      </div>
+
+      <div className="mt-7">
+        {showNone ? (
+          <DevotionalNone />
+        ) : (
+          <>
+            {devotional && (
+              <>
+                <p>{devotional.journalingPrompt}</p>
+                <p className="font-bold my-5">{devotional.biblePassage}</p>
+                <p>{devotional.personalization}</p>
+              </>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

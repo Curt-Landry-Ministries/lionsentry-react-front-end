@@ -7,6 +7,7 @@ import Link from "next/link";
 import ThemeToggler from "./ThemeToggler";
 import Logo from "./Logo";
 import { usePathname } from "next/navigation";
+import { isLoggedIn } from "@/lib/utils";
 
 const MobileMenu = () => {
   const pathname = usePathname();
@@ -45,14 +46,16 @@ const MobileMenu = () => {
       >
         <LeftRight hasRight={false} className="pt-12 flex h-full">
           <div className="flex flex-col w-full h-full py-10 px-8 items-start">
-            <div className="flex flex-col gap-5 flex-grow">
-              <Link className="inline-block" href={Paths.Login}>
-                Sign In
-              </Link>
-              <Link className="inline-block" href={Paths.Signup}>
-                Sign Up
-              </Link>
-            </div>
+            {!isLoggedIn && (
+              <div className="flex flex-col gap-5 flex-grow">
+                <Link className="inline-block" href={Paths.Login}>
+                  Sign In
+                </Link>
+                <Link className="inline-block" href={Paths.Signup}>
+                  Sign Up
+                </Link>
+              </div>
+            )}
 
             <ThemeToggler />
 

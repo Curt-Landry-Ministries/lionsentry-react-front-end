@@ -10,6 +10,9 @@ import Button from "../Global/Button";
 import Link from "next/link";
 import { login } from "@/lib/auth/actions";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
+import { useUserStore } from "@/app/providers/userContext";
+import { redirect, useRouter } from "next/navigation";
+import { AuthedPaths } from "@/lib/constants";
 
 const LoginForm = () => {
   const [errors, setErrors] = useState("");
@@ -19,6 +22,10 @@ const LoginForm = () => {
       .min(6, "Password must be at least 6 charaters")
       .required("Password is required"),
   });
+
+  const { fetchUserData } = useUserStore((s) => s);
+
+  const router = useRouter();
 
   const initialValues: FormikValues = {
     email: "",
@@ -31,7 +38,12 @@ const LoginForm = () => {
   ) => {
     try {
       await login({ email: values.email, password: values.password });
+
+      fetchUserData();
+
+      router.push(AuthedPaths.Dashboard);
     } catch (error: any) {
+      console.log(error);
       setErrors(
         "Issue with logging in. Make sure your credentials are correct."
       );
