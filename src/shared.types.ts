@@ -1,7 +1,7 @@
 type UserCredentials = {
   email: string;
   password: string;
-}
+};
 
 interface DevotionalContent {
   Title: string;
@@ -19,18 +19,21 @@ interface Question {
 
 type Devotional = {
   title: string;
-  devotional: string;
+  // devotional: string;
+  biblePassage: string;
+  personalization: string;
+  journalingPrompt: string;
   dateTimeCreated: string;
   forUser: string;
   id: string;
-}
+};
 
 type WhyStatement = {
   id: string;
   forUser: string;
   dateTimeCreated: string;
   whyStatement: string;
-}
+};
 
 type OnboardingAnswer = {
   questionId: string;
@@ -39,7 +42,7 @@ type OnboardingAnswer = {
   dateTimeCreated: string;
   forUser: string;
   id: string;
-}
+};
 
 type Goal = {
   goal: string;
@@ -47,8 +50,8 @@ type Goal = {
   deadline?: string;
   forUser: string;
   id: string;
-  category: 'Spiritual' | 'Physical' | 'Other' | 'Joy' | 'Financial';
-}
+  category: "Spiritual" | "Physical" | "Other" | "Joy" | "Financial";
+};
 
 type Email = {
   devotionalID: string;
@@ -56,5 +59,4 @@ type Email = {
   dateTimeCreated: string;
   dateTimeScheduled: string;
   id: string;
-}
-
+};

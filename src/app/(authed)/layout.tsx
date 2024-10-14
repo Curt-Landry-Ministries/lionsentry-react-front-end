@@ -1,12 +1,20 @@
+"use client";
 import AuthedHeader from "@/components/Global/AuthedHeader";
 import SimpleFooter from "@/components/Global/SimpleFooter";
-import React from "react";
+import React, { useEffect } from "react";
+import { useUserStore } from "../providers/userContext";
 
 export default function AuthedLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { fetchUserData } = useUserStore((s) => s);
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col items-start">
       <AuthedHeader />

@@ -1,8 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { logout } from "@/lib/auth/actions";
-import { isLoggedIn } from "@/lib/utils";
 import Logo from "./Logo";
 import { AuthedPaths, Paths, MaxWindowSize } from "@/lib/constants";
 import ThemeToggler from "./ThemeToggler";
@@ -12,6 +10,9 @@ import { usePathname } from "next/navigation";
 import classnames from "classnames";
 import Image from "next/image";
 import { TriangleDownIcon } from "@radix-ui/react-icons";
+import { useUserStore } from "@/app/providers/userContext";
+import { logout } from "@/lib/auth/actions";
+import { useRouter } from "next/navigation";
 
 const AuthedHeader = () => {
   const pathname = usePathname();
@@ -20,6 +21,8 @@ const AuthedHeader = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [transparentHeader, setTransparentHeader] = useState(false);
+
+  const { reset } = useUserStore((s) => s);
 
   const windowSize = useWindowSize();
 
@@ -72,10 +75,15 @@ const AuthedHeader = () => {
     };
   }, []);
 
+  const router = useRouter();
+
   const handleLogout = async () => {
     try {
       await logout();
+      reset();
       setDropdownOpen(false); // Close the dropdown
+
+      router.push(Paths.Home);
     } catch (error) {
       console.error("Logout failed", error);
     }
@@ -88,7 +96,7 @@ const AuthedHeader = () => {
           className={classnames({
             "mx-auto block pl-10": transparentHeader,
           })}
-          href="/"
+          href={AuthedPaths.Dashboard}
         >
           <Logo noTheme={true} />
         </Link>
@@ -137,15 +145,11 @@ const AuthedHeader = () => {
                   {dropdownOpen && (
                     <div
                       ref={dropdownRef}
-                      className="absolute left-0 -bottom-[120%] w-40 bg-white rounded shadow-lg py-1 [&>*]:block [&>*]:px-3 [&>*]:py-2 text-black text-left hover:[&>*]:bg-primary hover:[&>*]:bg-opacity-10"
+                      className="absolute left-0 -bottom-1/2 w-40 bg-white rounded shadow-lg py-1 [&>*]:block [&>*]:px-3 [&>*]:py-2 text-black text-left hover:[&>*]:bg-primary hover:[&>*]:bg-opacity-10"
                     >
-                      <span className="">Profile Picture</span>
+                      {/* <span className="">Profile Picture</span> */}
 
-                      <Link href="/">
-                        <button onClick={handleLogout} className="">
-                          Sign Out
-                        </button>
-                      </Link>
+                      <span onClick={handleLogout}>Sign Out</span>
                     </div>
                   )}
                 </button>

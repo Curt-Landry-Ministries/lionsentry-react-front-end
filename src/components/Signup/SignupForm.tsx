@@ -11,10 +11,13 @@ import { saveUserDataPoint } from "@/lib/app/actions";
 import { useRouter } from "next/navigation";
 import { AuthedPaths } from "@/lib/constants";
 import LoadingScreen from "../Global/LoadingScreen";
+import { useUserStore } from "@/app/providers/userContext";
 
 const SignupForm = () => {
   const [errors, setErrors] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const { name, updateName, email, updateEmail } = useUserStore((s) => s);
 
   const validationSchema = Yup.object({
     email: Yup.string().email("Email is invalid").required("Email is required"),
@@ -57,20 +60,22 @@ const SignupForm = () => {
       console.log("Create account", signupResp);
 
       try {
-        await login(
-          { email: values.email, password: values.password },
-          false
-        ).then(async (resp) => {
-          await saveUserDataPoint("firstName", values.firstName, "replace");
+        await login({ email: values.email, password: values.password }).then(
+          async (resp) => {
+            await saveUserDataPoint("firstName", values.firstName, "replace");
 
-          if (values.lastName) {
-            await saveUserDataPoint("lastName", values.lastName, "replace");
+            if (values.lastName) {
+              await saveUserDataPoint("lastName", values.lastName, "replace");
+            }
+
+            updateName(`${values.firstName} ${values.lastName}`);
+            updateEmail(values.email);
+
+            console.log("Name saved successfully");
+            // Redirect to the questionnaire or any other appropriate page
+            router.push(AuthedPaths.Questionnaire);
           }
-
-          console.log("Name saved successfully");
-          // Redirect to the questionnaire or any other appropriate page
-          router.push(AuthedPaths.Questionnaire);
-        });
+        );
       } catch (err: any) {
         setErrors(err.message || "Trouble logging in");
         console.error("Login error:", err);

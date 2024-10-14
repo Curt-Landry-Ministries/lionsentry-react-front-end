@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useUserStore } from "@/app/providers/userContext";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import { AuthedPaths } from "@/lib/constants";
 import Button from "@/components/Global/Button";
 import classNames from "classnames";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
+import DevotionalCard from "@/components/Devotionals/DevotionalCard";
 
 const Dashboard = () => {
   const { whyStatements, goals, devotionals, name } = useUserStore(
@@ -41,45 +42,12 @@ const Dashboard = () => {
           )}
         </div>
       </div>
-      <div className="content-box md:col-span-3">
-        <div className="title-line-style">
-          <div className="flex items-center">
-            <h3>Today&apos;s Devotional</h3>
-            <Link href={AuthedPaths.Devotionals} className="link-style ml-auto">
-              See All
-            </Link>
-          </div>
-
-          {devotionals.length > 0 && (
-            <span className="text-inactive block pb-7">
-              {devotionals[devotionals.length - 1].dateTimeCreated}
-            </span>
-          )}
-        </div>
-
-        <div className="mt-7">
-          {devotionals.length === 0 ? (
-            <div className="text-center space-y-7 p-5">
-              <Image
-                src="/icons/check-circle.svg"
-                alt="Check Circle Icon"
-                width={40}
-                height={40}
-                className="mx-auto"
-              />
-              <p className="text-inactive text-xl">
-                Once you set your goals, you will receive daily devotionals that
-                help you further align to those goals you are currently working
-                on.
-              </p>
-              <Button standardBtn={"primary"}>
-                <Link href={AuthedPaths.Goals}>Set Goals</Link>
-              </Button>
-            </div>
-          ) : (
-            <>{devotionals[devotionals.length - 1].devotional}</>
-          )}
-        </div>
+      <div className="md:col-span-3">
+        <DevotionalCard
+          showNone={devotionals.length === 0}
+          devotional={devotionals && devotionals[0]}
+          hasAll={true}
+        />
       </div>
 
       <div className="content-box md:col-span-2">

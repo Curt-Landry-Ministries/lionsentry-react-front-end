@@ -1,60 +1,27 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getLatestWhyStatement } from "@/lib/app/actions";
 import { AuthedPaths } from "@/lib/constants";
 import Link from "next/link";
 import Button from "@/components/Global/Button";
 import Image from "next/image";
 import Modal from "@/components/Global/Modal";
 import { useUserStore } from "@/app/providers/userContext";
+import LoadingScreen from "@/components/Global/LoadingScreen";
 
 const MyWhy = () => {
-  const [loading, setLoading] = useState(false); // State to manage loading
   const [openModal, setOpenModal] = useState(false);
 
-  const { whyStatements, goals, updateWhyStatements } = useUserStore(
-    (state) => state
-  );
+  const { whyStatements, goals, isLoading } = useUserStore((state) => state);
 
   useEffect(() => {
-    const fetchWhyStatement = async () => {
-      try {
-        setLoading(true);
-
-        const statement = await getLatestWhyStatement();
-
-        statement &&
-          updateWhyStatements([
-            {
-              id: "why-statement-id",
-              forUser: "user-id",
-              dateTimeCreated: new Date().toDateString(),
-              whyStatement: statement,
-            },
-          ]);
-      } catch (err) {
-        console.error("Error fetching the latest why statement:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (whyStatements.length === 0) {
-      fetchWhyStatement();
-    }
-
-    if (goals.length === 0) {
-      setTimeout(() => setOpenModal(true), 300);
-    }
-  }, [goals.length, updateWhyStatements, whyStatements.length]);
+    setOpenModal(goals.length === 0);
+  }, [goals]);
 
   return (
     <>
-      {loading ? (
-        <p className="text-center dark:text-gray-600">
-          Loading your Why Statement...
-        </p>
+      {isLoading ? (
+        <LoadingScreen size="sm" message="Loading Your Why Statement" />
       ) : whyStatements.length > 0 ? (
         <div className="flex flex-col md:flex-row space-y-5 md:space-x-10 content-container">
           <div>

@@ -1,8 +1,8 @@
+import { useUserStore } from "@/app/providers/userContext";
 import Image from "next/image";
 
 export type QuestionnaireStepType = {
   index: number;
-  numberOfQues: number;
   item: Question;
   currentAnswer: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -10,11 +10,12 @@ export type QuestionnaireStepType = {
 
 const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
   index,
-  numberOfQues,
   item,
   currentAnswer,
   onChange,
 }: QuestionnaireStepType) => {
+  const { name } = useUserStore((s) => s);
+
   return (
     <div className="[&>iframe]:w-full [&>iframe]:min-h-[250px] md:[&>iframe]:min-h-[500px] [&>iframe]:pb-8 z-10 relative">
       {index > -1 && item ? (
@@ -26,10 +27,6 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
           />
-          <p className="mb-8">
-            Question {index + 1}/{numberOfQues}
-          </p>
-
           <div className="flex gap-5 mb-5">
             <Image
               src="/images/question-icon.svg"
@@ -39,7 +36,7 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
             />
 
             <div>
-              <p>{item.title}</p>
+              <p className="font-semibold">{item.title}</p>
               <p>{item.subtitle}</p>
             </div>
           </div>
@@ -54,7 +51,7 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
         </>
       ) : (
         <>
-          <h2 className="pb-8">Welcome, Paul</h2>
+          <h2 className="pb-8">Welcome, {name}!</h2>
           <iframe
             src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
             title="YouTube video player"
