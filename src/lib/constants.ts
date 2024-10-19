@@ -3,7 +3,7 @@ export enum Paths {
   Login = "/login",
   Signup = "/signup",
   Terms = "#",
-  Privacy = "#"
+  Privacy = "#",
 }
 
 export enum AuthedPaths {
@@ -11,9 +11,10 @@ export enum AuthedPaths {
   Dashboard = "/dashboard",
   MyWhy = "/mywhy",
   Goals = "/goals",
-  Devotionals = "/devotionals"
+  Devotionals = "/devotionals",
 }
 
 export enum MaxWindowSize {
   Mobile = 552,
+  Desktop = 1200,
 }

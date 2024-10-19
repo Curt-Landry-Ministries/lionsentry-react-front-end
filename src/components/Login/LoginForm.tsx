@@ -76,7 +76,12 @@ const LoginForm = () => {
         />
         {errors && <p className="text-red-500 text-xs mb-4">{errors}</p>}
 
-        <Button type="submit" standardBtn={"primary"} hasIcon={true}>
+        <Button
+          type="submit"
+          className="w-full"
+          standardBtn={"primary"}
+          hasIcon={true}
+        >
           Sign In With Email <ChevronRightIcon height={24} width={24} />
         </Button>
 

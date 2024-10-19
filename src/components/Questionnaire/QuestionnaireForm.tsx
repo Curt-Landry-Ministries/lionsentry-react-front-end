@@ -13,7 +13,8 @@ import Button from "../Global/Button";
 import ProgressBar from "../Global/ProgressBar";
 import { useUserStore } from "@/app/providers/userContext";
 import { AuthedPaths } from "@/lib/constants";
-
+import { logError, logTest } from "@/lib/utils";
+import useLoggedIn from "@/lib/hooks/useLoggedIn";
 const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
   questions,
 }) => {
@@ -21,8 +22,22 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false); // State to disable submit button
   const [isLoading, setIsLoading] = useState(false); // State to show loading indicator
+  const isLoggedIn = useLoggedIn();
 
   const router = useRouter();
+
+  const { name, fetchUserData } = useUserStore((s) => s);
+
+  useEffect(() => {
+    if (isLoggedIn && !name.length) {
+      console.log("called");
+      fetchUserData();
+    }
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    console.log(name);
+  }, [name]);
 
   useEffect(() => {
     const savedAnswers = localStorage.getItem("onboardingCurrentState");
@@ -84,7 +99,7 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
       questionIndex: index,
     }));
 
-    console.log("Submitting the following data:", questionAnswerPairs);
+    logTest(questionAnswerPairs);
 
     // Submit each answer to the server individually
     try {
@@ -94,7 +109,7 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
 
       localStorage.removeItem("onboardingCurrentState");
     } catch (error) {
-      console.error("Error submitting answers to server:", error);
+      logError(error);
     }
 
     // Generate the Why statement after submitting all answers
@@ -103,15 +118,14 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
         questions.map((q) => ({ title: q.title })), // Send only the question titles
         questionAnswerPairs.map((qa) => qa.answer) // Send the corresponding answers
       );
-      console.log("Generated Why Statement:", generatedWhyStatement);
-
+      logTest(generatedWhyStatement);
       // Store the Why statement in local storage
       // localStorage.setItem("whyStatement", generatedWhyStatement);
 
       // Redirect to the dashboard page
       router.push(AuthedPaths.MyWhy);
     } catch (error) {
-      console.error("Error generating Why Statement:", error);
+      logTest(error);
     } finally {
       setIsLoading(false); // Hide loading indicator after processing is done
     }

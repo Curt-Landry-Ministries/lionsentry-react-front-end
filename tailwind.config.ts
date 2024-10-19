@@ -41,7 +41,7 @@ const config: Config = {
           DEFAULT: "2A4077",
         },
         inactive: {
-          DEFAULT: "#767676",
+          DEFAULT: "#9D9D9D",
         },
         "gradient-red": {
           DEFAULT: "#AD2444",
@@ -58,20 +58,23 @@ const config: Config = {
         "gradient-pink": {
           DEFAULT: "#a22a96",
         },
-        "tag-orange": {
+        "ls-orange": {
           DEFAULT: "#E79853",
         },
-        "tag-blue": {
+        "ls-blue": {
           DEFAULT: "#3D96D6",
         },
-        "tag-purple": {
+        "ls-purple": {
           DEFAULT: "#7053C8",
         },
-        "tag-pink": {
+        "ls-pink": {
           DEFAULT: "#C73FA8",
         },
-        "tag-green": {
+        "ls-green": {
           DEFAULT: "#5ABF99",
+        },
+        "dark-mode-subtle": {
+          DEFAULT: "#1A1C32",
         },
       },
       backgroundImage: ({ theme }) => ({
@@ -135,6 +138,7 @@ const config: Config = {
       boxShadow: {
         modal: "0px 0px 22px 0px rgba(0,0,0,0.15)",
         "content-box": "2px 2px 10px 0px rgba(188, 188, 188, 0.50)",
+        "progress-bar": "0px 0px 3px 0px rgba(0, 0, 0, 0.25) inset",
       },
       animation: {
         loading1: "loadingPath1 2s linear infinite",

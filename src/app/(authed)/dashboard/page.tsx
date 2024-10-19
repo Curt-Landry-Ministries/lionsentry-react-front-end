@@ -89,11 +89,11 @@ const Dashboard = () => {
                         className={classNames(
                           "text-white min-w-[106px] inline-block text-center rounded font-semibold leading-normal mb-1",
                           {
-                            "bg-tag-blue": goal.category === "Physical",
-                            "bg-tag-orange": goal.category === "Spiritual",
-                            "bg-tag-purple": goal.category === "Other",
-                            "bg-tag-pink": goal.category === "Joy",
-                            "bg-tag-green": goal.category === "Financial",
+                            "bg-ls-blue": goal.category === "Physical",
+                            "bg-ls-orange": goal.category === "Spiritual",
+                            "bg-ls-purple": goal.category === "Other",
+                            "bg-ls-pink": goal.category === "Joy",
+                            "bg-ls-green": goal.category === "Financial",
                           }
                         )}
                       >
@@ -103,7 +103,16 @@ const Dashboard = () => {
                         {goal.goal}
                       </p>
                       <span className="text-inactive mobile-only:text-sm">
-                        {goal.deadline ?? "No Date"}
+                        {goal.deadline
+                          ? new Date(goal.deadline).toLocaleDateString(
+                              "en-US",
+                              {
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
+                              }
+                            )
+                          : "No Date"}
                       </span>
                     </div>
 

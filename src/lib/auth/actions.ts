@@ -2,7 +2,7 @@
 import "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { jwtDecode } from "jwt-decode";
-import { getBaseUrl } from "../utils";
+import { getBaseUrl, logError, logTest } from "../utils";
 import { cookies } from "next/headers";
 
 const BASE_URL = getBaseUrl(true);
@@ -28,12 +28,12 @@ export const login = async (credentials: UserCredentials): Promise<any> => {
 
     cookies().set("userID", userId);
 
-    console.log("User Logged in:", email);
+    logTest(`User Logged in: ${email}`);
 
     return true;
   }
 
-  throw new Error(respData.error || "Failed to login");
+  logError(respData.error || "Failed to login");
 };
 
 export const logout = async (): Promise<void> => {
@@ -55,13 +55,13 @@ export const signup = async (credentials: UserCredentials): Promise<any> => {
   const data = await resp.json();
 
   if ("uid" in data) {
-    console.log("Account created. UID:", data.uid);
+    logTest(`Account created. UID: ${data.uid}`);
 
     return data;
   }
 
   if (!resp.ok) {
-    throw new Error(data.error || "Failed to signup");
+    logError(data.error || "Failed to signup");
   }
 };
 
@@ -79,7 +79,7 @@ export const fetchUserId = async (): Promise<any> => {
   }
 
   if (!resp.ok || !respData.idToken) {
-    throw new Error(respData.error || "Failed to fetch user id");
+    logError(respData.error || "Failed to fetch user id");
   }
 };
 
@@ -102,11 +102,10 @@ export const deleteUser = async (): Promise<void> => {
     const respData = await resp.json();
 
     if (resp.ok) {
-      console.log("User deleted successfully:", respData.message);
+      logTest(`User deleted successfully: ${respData.message}`);
       await logout();
     } else {
-      console.error("Failed to delete user:", respData.error);
-      throw new Error(respData.error || "Failed to delete user");
+      logError(`Failed to delete user: ${respData.error}`);
     }
   }
 };
