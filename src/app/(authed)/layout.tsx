@@ -19,6 +19,7 @@ export default function AuthedLayout({
   }, []);
 
   useEffect(() => {
+    // Waiting for the endpoint to validate auth token before turning this on to make sure the flow work correctly
     // if (whyStatements.length === 0) router.push(AuthedPaths.Questionnaire);
   }, [whyStatements]);
   return (
