@@ -13,6 +13,7 @@ import { ChevronRightIcon } from "@radix-ui/react-icons";
 import { useUserStore } from "@/app/providers/userContext";
 import { redirect, useRouter } from "next/navigation";
 import { AuthedPaths } from "@/lib/constants";
+import { logError } from "@/lib/utils";
 
 const LoginForm = () => {
   const [errors, setErrors] = useState("");
@@ -43,7 +44,7 @@ const LoginForm = () => {
 
       router.push(AuthedPaths.Dashboard);
     } catch (error: any) {
-      console.log(error);
+      logError(error);
       setErrors(
         "Issue with logging in. Make sure your credentials are correct."
       );
