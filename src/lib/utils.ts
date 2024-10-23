@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 const LOCAL_TESTING: boolean = process.env.LOCAL_TESTING === "true"; // change to true when testing locally
 
 const getBaseUrl = (isAuth: boolean): string => {
-  return `https://${!LOCAL_TESTING ? "test-api" : "api"}.lionsentry.com/${
+  return `https://${LOCAL_TESTING ? "test-api" : "api"}.lionsentry.com/${
     isAuth ? "auth_server" : "app_server"
   }`;
 };

@@ -91,7 +91,7 @@ const MyWhy = () => {
               standardBtn={"primary"}
               className="flex-1"
             >
-              Set Goals
+              <Link href={AuthedPaths.Goals}>Set Goals</Link>
             </Button>
           </div>
         </div>
