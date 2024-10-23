@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { AuthedPaths } from "@/lib/constants";
 import LoadingScreen from "../Global/LoadingScreen";
 import { useUserStore } from "@/app/providers/userContext";
+import { logTest } from "@/lib/utils";
 
 const SignupForm = () => {
   const [errors, setErrors] = useState("");
@@ -57,7 +58,7 @@ const SignupForm = () => {
         email: values.email,
         password: values.password,
       }); // create account
-      console.log("Create account", signupResp);
+      logTest(signupResp);
 
       try {
         await login({ email: values.email, password: values.password }).then(
@@ -71,7 +72,7 @@ const SignupForm = () => {
             updateName(`${values.firstName} ${values.lastName}`);
             updateEmail(values.email);
 
-            console.log("Name saved successfully");
+            logTest("Name saved successfully");
             // Redirect to the questionnaire or any other appropriate page
             router.push(AuthedPaths.Questionnaire);
           }

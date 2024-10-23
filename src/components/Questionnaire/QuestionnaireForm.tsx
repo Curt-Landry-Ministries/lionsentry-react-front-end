@@ -30,14 +30,9 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
 
   useEffect(() => {
     if (isLoggedIn && !name.length) {
-      console.log("called");
       fetchUserData();
     }
   }, [isLoggedIn]);
-
-  useEffect(() => {
-    console.log(name);
-  }, [name]);
 
   useEffect(() => {
     const savedAnswers = localStorage.getItem("onboardingCurrentState");
