@@ -18,7 +18,7 @@ const SignupForm = () => {
   const [errors, setErrors] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const { name, updateName, email, updateEmail } = useUserStore((s) => s);
+  const { updateName, updateEmail } = useUserStore((s) => s);
 
   const validationSchema = Yup.object({
     email: Yup.string().email("Email is invalid").required("Email is required"),
@@ -73,6 +73,8 @@ const SignupForm = () => {
             updateEmail(values.email);
 
             logTest("Name saved successfully");
+
+            localStorage.setItem("showWelcomeModal", "false");
             // Redirect to the questionnaire or any other appropriate page
             router.push(AuthedPaths.Questionnaire);
           }

@@ -1,22 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AuthedPaths } from "@/lib/constants";
 import Link from "next/link";
 import Button from "@/components/Global/Button";
 import Image from "next/image";
-import Modal from "@/components/Global/Modal";
 import { useUserStore } from "@/app/providers/userContext";
 import LoadingScreen from "@/components/Global/LoadingScreen";
 
 const MyWhy = () => {
-  const [openModal, setOpenModal] = useState(false);
-
-  const { whyStatements, goals, isLoading } = useUserStore((state) => state);
-
-  useEffect(() => {
-    setOpenModal(goals.length === 0);
-  }, [goals]);
+  const { whyStatements, isLoading } = useUserStore((state) => state);
 
   return (
     <>
@@ -62,40 +55,6 @@ const MyWhy = () => {
           No Why Statement found.
         </p>
       )}
-
-      <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
-        <div className="text-center flex flex-col items-center gap-10">
-          <Image
-            src="/icons/welcome-icon.svg"
-            width={150}
-            height={150}
-            alt="welcome modal icon"
-          />
-          <h2>Welcome!</h2>
-          <p className="text-xl leading-normal">
-            We are excited about your “why!” Your mission statement sounds
-            powerful and impactful.
-            <br /> <br /> Now that you have your personal purpose statement,
-            it&apos;s time set goals!
-          </p>
-          <div className="space-x-5 flex w-full">
-            <Button
-              onClick={() => setOpenModal(false)}
-              standardBtn={"tertiary"}
-              className="flex-1"
-            >
-              Later
-            </Button>
-            <Button
-              onClick={() => {}}
-              standardBtn={"primary"}
-              className="flex-1"
-            >
-              <Link href={AuthedPaths.Goals}>Set Goals</Link>
-            </Button>
-          </div>
-        </div>
-      </Modal>
     </>
   );
 };

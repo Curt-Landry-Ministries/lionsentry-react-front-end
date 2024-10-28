@@ -15,6 +15,8 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
   onChange,
 }: QuestionnaireStepType) => {
   const { name } = useUserStore((s) => s);
+  const inputStyle =
+    "border border-cloud-darker bg-white dark:bg-dark-mode-subtle dark:border-dark-mode-strong w-full py-2 px-3 rounded";
 
   return (
     <div className="[&>iframe]:w-full [&>iframe]:min-h-[250px] md:[&>iframe]:min-h-[500px] [&>iframe]:pb-8 z-10 relative">
@@ -42,7 +44,7 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
           </div>
 
           <textarea
-            className="border w-full bg-white text-black py-2 px-3"
+            className={inputStyle}
             rows={8}
             placeholder="Write answer here"
             onChange={onChange}

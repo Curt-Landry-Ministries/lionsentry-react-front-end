@@ -10,6 +10,12 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    {
+      pattern: /bg-ls-.+/,
+      variants: ["dark"],
+    },
+  ],
   theme: {
     colors: { ...colors },
     extend: {
@@ -41,7 +47,8 @@ const config: Config = {
           DEFAULT: "2A4077",
         },
         inactive: {
-          DEFAULT: "#9D9D9D",
+          DEFAULT: "#767676",
+          dark: "#9D9D9D",
         },
         "gradient-red": {
           DEFAULT: "#AD2444",
@@ -60,21 +67,35 @@ const config: Config = {
         },
         "ls-orange": {
           DEFAULT: "#E79853",
+          fade: "#FDF5EE",
+          dark: "#45302C",
         },
         "ls-blue": {
           DEFAULT: "#3D96D6",
+          fade: "#ECF4FB",
+          dark: "#122F53",
         },
         "ls-purple": {
           DEFAULT: "#7053C8",
+          fade: "#F1EEF9",
+          dark: "#221B4F",
         },
         "ls-pink": {
           DEFAULT: "#C73FA8",
+          fade: "#F9ECF6",
+          dark: "#3C1545",
         },
         "ls-green": {
           DEFAULT: "#5ABF99",
+          fade: "#EEF9F5",
+          dark: "#1B3B41",
         },
-        "dark-mode-subtle": {
-          DEFAULT: "#1A1C32",
+        "ls-green-fade": {
+          DEFAULT: "#EEF9F5",
+        },
+        "dark-mode": {
+          subtle: "#1A1C32",
+          strong: "#313347",
         },
       },
       backgroundImage: ({ theme }) => ({
@@ -138,7 +159,9 @@ const config: Config = {
       boxShadow: {
         modal: "0px 0px 22px 0px rgba(0,0,0,0.15)",
         "content-box": "2px 2px 10px 0px rgba(188, 188, 188, 0.50)",
+        "content-box-dark": "0px 0px 12px 0px rgba(0, 0, 0, 0.15)",
         "progress-bar": "0px 0px 3px 0px rgba(0, 0, 0, 0.25) inset",
+        dropdown: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
       },
       animation: {
         loading1: "loadingPath1 2s linear infinite",
@@ -187,7 +210,11 @@ const config: Config = {
       addVariant(
         "mobile-only",
         "@media screen and (max-width: theme('screens.sm'))"
-      ); // instead of hard-coded 640px use sm breakpoint value from config. Or anything
+      );
+      addVariant(
+        "tablet-down",
+        "@media screen and (max-width: theme('screens.md'))"
+      );
     }),
   ],
 };

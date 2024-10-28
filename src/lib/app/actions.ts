@@ -1,6 +1,6 @@
 "use server";
 
-import { redirect } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
 import { User } from "../stores/userStore";
 import { getBaseUrl, logError, logTest, validateAuthToken } from "../utils";
 import { cookies } from "next/headers";
@@ -46,13 +46,14 @@ export const fetchUserData = async () => {
     userData.email = respNameEmail.email;
 
     const whyStatement = await getLatestWhyStatementFromServer();
-    if (!whyStatement) redirect(AuthedPaths.Questionnaire);
+    // if (!whyStatement) redirect(AuthedPaths.Questionnaire);
     const devotionals = await fetchDevotionals();
     const goals = await fetchGoals();
 
     userData.devotionals = devotionals ? devotionals : [];
     userData.goals = goals ? goals : [];
     userData.whyStatements = whyStatement ? [whyStatement] : [];
+    userData.profile_photo = "/images/user_image.png"; // placeholder image for user
 
     return userData;
   } catch (error: any) {
@@ -167,6 +168,7 @@ export const generateWhyStatementFromAnswers = async (
     if ("error" in respData) {
       throw new Error(respData.error);
     } else {
+      cookies().set("whyStatement", respData.whyStatement);
       return respData.whyStatement;
     }
   } catch (error) {
@@ -243,20 +245,20 @@ export const getLatestWhyStatementFromServer = async (): Promise<any> => {
       Authorization: `Bearer ${authToken}`,
     },
   });
+  cookies().delete("whyStatement");
 
   if (resp.ok) {
     const respData = await resp.json();
 
     if (respData && respData.whyStatement) {
-      cookies().set(respData.whyStatement);
+      cookies().set("whyStatement", respData.whyStatement);
       return respData;
     } else {
       logTest("No Why Statement field found");
-      redirect(AuthedPaths.Questionnaire);
+      return null;
     }
   } else if (resp.status === 404) {
-    logTest("No Why Statement found for the user");
-    redirect(AuthedPaths.Questionnaire);
+    return null;
   } else {
     throw new Error("Failed to retrieve the latest Why Statement");
   }
@@ -278,4 +280,43 @@ export const fetchQuestionsFromServer = async (): Promise<Question[]> => {
   }
 
   return await resp.json();
+};
+
+export const saveGoal = async ({
+  goal,
+  description,
+  category,
+}: Pick<Goal, "goal" | "description" | "category">): Promise<any> => {
+  const authToken = validateAuthToken();
+
+  console.log(
+    JSON.stringify({
+      goal: goal,
+      category: category,
+      description: description,
+    })
+  );
+  const resp = await fetch(`${BASE_URL}/save-goals`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${authToken}`,
+    },
+    body: JSON.stringify({
+      goal: goal,
+      category: category,
+      description: description,
+    }),
+  });
+  const respData = await resp.json();
+
+  if (!resp.ok) {
+    logError(respData);
+
+    throw new Error("Failed to save yout goal");
+  }
+
+  return respData;
+
+  // return {};
 };

@@ -5,10 +5,11 @@ import classNames from "classnames";
 interface IFieldProps {
   label?: string;
   options?: { value: string; label: string }[];
+  className?: string;
 }
 const Input: React.FC<
   IFieldProps & FieldConfig<string> & JSX.IntrinsicElements["input"]
-> = ({ label, options = [], ...props }) => {
+> = ({ label, options = [], className = "rounded-3xl", ...props }) => {
   const [field, meta] = useField(props);
   return (
     <div className="mb-6">
@@ -21,7 +22,7 @@ const Input: React.FC<
             <input
               {...field}
               {...props}
-              className={classNames("mr-3", {
+              className={classNames("mr-3 bg-white dark:bg-dark-mode-subtle", {
                 "border-red-500": meta.touched && meta.error,
               })}
               value={option.value}
@@ -31,19 +32,23 @@ const Input: React.FC<
         ))
       ) : (
         <>
-          {/* <label
-            htmlFor={props.id || props.name}
-            className="block mb-2 text-sm font-medium"
-          >
-            {label}
-          </label> */}
+          {label && (
+            <label
+              htmlFor={props.id || props.name}
+              className="block mb-2 text-left font-medium"
+            >
+              {label}
+            </label>
+          )}
+
           <input
             {...field}
             {...props}
             className={classNames(
-              "border border-cloud-darker bg-white text-black rounded-3xl block w-full py-2 px-5",
+              "border border-cloud-darker bg-white dark:bg-dark-mode-subtle dark:border-dark-mode-strong block w-full py-2 px-5",
               {
                 "border-red-500": meta.touched && meta.error,
+                [className]: !!className,
               }
             )}
           />

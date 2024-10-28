@@ -7,8 +7,8 @@ const DevotionalNone = () => {
   return (
     <div className="text-center space-y-7 p-5">
       <Image
-        src="/icons/check-circle.svg"
-        alt="Check Circle Icon"
+        src="/icons/None.svg"
+        alt="None Icon"
         width={40}
         height={40}
         className="mx-auto"

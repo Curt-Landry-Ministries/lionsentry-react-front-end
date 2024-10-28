@@ -12,7 +12,7 @@ const Pages: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const { whyStatements } = useUserStore((s) => s);
+  const { whyStatements, isLoading } = useUserStore((s) => s);
   const router = useRouter();
 
   useEffect(() => {
@@ -25,9 +25,10 @@ const Pages: React.FC = () => {
     getQuestions();
   }, []);
 
-  // useEffect(() => {
-  //   if (whyStatements.length > 0) router.push(AuthedPaths.Dashboard);
-  // }, [whyStatements]);
+  useEffect(() => {
+    if (!isLoading && whyStatements.length > 0)
+      router.push(AuthedPaths.Dashboard);
+  }, [whyStatements]);
 
   return (
     <div className="flex flex-col w-full bg-cloud dark:bg-black">

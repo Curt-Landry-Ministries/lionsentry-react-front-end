@@ -1,5 +1,5 @@
 import { createStore } from "zustand/vanilla";
-import { fetchUserData } from "../app/actions";
+import { fetchGoals, fetchUserData } from "../app/actions";
 
 export type User = {
   name: string;
@@ -24,6 +24,7 @@ export type UserAction = {
   updateWhyStatements: (whyStatements: User["whyStatements"]) => void;
   updateGoals: (goals: User["goals"]) => void;
   fetchUserData: () => Promise<void>;
+  getGoals: () => Promise<void>;
   reset: () => void;
 };
 
@@ -64,6 +65,10 @@ export const createUserStore = (initState: User = defaultInitUserState) => {
       set(() => ({ isLoading: true }));
       const response = await fetchUserData();
       set(() => ({ ...response, isLoading: false }));
+    },
+    getGoals: async () => {
+      const response = await fetchGoals();
+      set(() => ({ goals: response }));
     },
     reset: () => {
       set(() => ({ ...defaultInitUserState }));

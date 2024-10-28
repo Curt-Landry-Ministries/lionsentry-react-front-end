@@ -39,6 +39,7 @@ export const login = async (credentials: UserCredentials): Promise<any> => {
 export const logout = async (): Promise<void> => {
   cookies().delete("authToken");
   cookies().delete("userID");
+  cookies().delete("whyStatement");
 };
 
 export const signup = async (credentials: UserCredentials): Promise<any> => {

@@ -3,8 +3,9 @@ import AuthedHeader from "@/components/Global/AuthedHeader";
 import SimpleFooter from "@/components/Global/SimpleFooter";
 import React, { useEffect } from "react";
 import { useUserStore } from "../providers/userContext";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AuthedPaths } from "@/lib/constants";
+import classNames from "classnames";
 
 export default function AuthedLayout({
   children,
@@ -13,6 +14,7 @@ export default function AuthedLayout({
 }) {
   const { fetchUserData, whyStatements } = useUserStore((s) => s);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     fetchUserData();
@@ -26,9 +28,19 @@ export default function AuthedLayout({
     <div className="min-h-screen flex flex-col items-start">
       <AuthedHeader />
       <div className="flex flex-1 w-full">
-        <div className="flex flex-col items-center justify-between w-full">
+        <div
+          className={classNames(
+            "flex flex-col items-center justify-between w-full",
+            {
+              "bg-cloud dark:bg-black":
+                pathname.includes("principles") ||
+                pathname.includes("onboarding"),
+            }
+          )}
+        >
           <div className="py-24 md:py-36 container mx-auto">{children}</div>
-          <SimpleFooter />
+
+          {!pathname.includes("principles") && <SimpleFooter />}
         </div>
       </div>
     </div>

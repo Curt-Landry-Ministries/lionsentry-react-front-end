@@ -1,138 +1,134 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useUserStore } from "@/app/providers/userContext";
 import Image from "next/image";
 import Link from "next/link";
 import { AuthedPaths } from "@/lib/constants";
 import Button from "@/components/Global/Button";
-import classNames from "classnames";
-import { ChevronRightIcon } from "@radix-ui/react-icons";
 import DevotionalCard from "@/components/Devotionals/DevotionalCard";
+import GoalList from "@/components/Goals/GoalList";
+import Modal from "@/components/Global/Modal";
 
 const Dashboard = () => {
-  const { whyStatements, goals, devotionals, name } = useUserStore(
-    (state) => state
-  );
+  const { whyStatements, goals, devotionals, name, profile_photo } =
+    useUserStore((state) => state);
+  const [openModal, setOpenModal] = useState(false);
+
+  useEffect(() => {
+    const showWelcomeModal = localStorage.getItem("showWelcomeModal");
+
+    if (
+      (!showWelcomeModal ||
+        (showWelcomeModal && showWelcomeModal === "false")) &&
+      goals.length === 0
+    ) {
+      localStorage.setItem("showWelcomeModal", "true");
+      setOpenModal(goals.length === 0);
+    }
+  }, [goals]);
 
   return (
-    <div className="grid md:grid-cols-5 gap-7 bg-white dark:bg-black [&>.content-box]:bg-white [&>.content-box]:dark:bg-opacity-10 [&>.content-box]:dark:shadow-none [&>.content-box]:shadow-content-box [&>.content-box]:p-7 [&>.content-box]:rounded-md mx-4">
-      <div className="content-box flex flex-wrap md:flex-nowrap gap-7 w-full md:col-span-5">
-        <Image
-          src="/images/user_image.png"
-          width={170}
-          height={170}
-          alt={name}
-        />
-        <div className="flex flex-col">
-          <h2 className="pb-5 mb-5 title-line-style">My Why</h2>
-          {whyStatements.length > 0 && (
-            <>
-              <p className="flex-1">
-                {whyStatements[whyStatements.length - 1].whyStatement.substring(
-                  0,
-                  200
-                )}
-                ...
-              </p>
-              <Link href={AuthedPaths.MyWhy} className="link-style ml-auto">
-                See Full Statement
-              </Link>
-            </>
-          )}
-        </div>
-      </div>
-      <div className="md:col-span-3">
-        <DevotionalCard
-          showNone={devotionals.length === 0}
-          devotional={devotionals && devotionals[0]}
-          hasAll={true}
-        />
-      </div>
+    <>
+      <div className="grid md:grid-cols-5 gap-7 bg-white dark:bg-black mx-4">
+        <div className="content-box flex flex-wrap md:flex-nowrap gap-7 w-full md:col-span-5">
+          <div className="w-[170px] h-[170px] flex-shrink-0 relative flex rounded-full overflow-hidden bg-dark-mode-subtle dark:bg-cloud">
+            <Image
+              src={profile_photo ? profile_photo : "/icons/User.svg"}
+              fill
+              alt={`${name} Profile Photo`}
+              style={{
+                objectFit: "cover",
+                borderRadius: "100px",
+              }}
+            />
+          </div>
 
-      <div className="content-box md:col-span-2">
-        <div className="flex">
-          <h3 className="title-line-style pb-3">My Goals</h3>
-          <Link href={AuthedPaths.Goals} className="link-style ml-auto">
-            See All
-          </Link>
-        </div>
-        <div className="mt-7">
-          {goals.length === 0 ? (
-            <div className="p-5">
-              <div className="text-center space-y-7">
-                <Image
-                  src="/icons/check-circle.svg"
-                  alt="Check Circle Icon"
-                  width={40}
-                  height={40}
-                  className="mx-auto"
-                />
-                <p className="text-inactive text-xl">
-                  Once you set your goals, you will see them here.
+          <div className="flex flex-col">
+            <h2 className="pb-5 mb-5 title-line-style">My Why</h2>
+            {whyStatements.length > 0 && (
+              <>
+                <p className="flex-1">
+                  {whyStatements[whyStatements.length - 1].whyStatement}
                 </p>
-                <Button standardBtn={"primary"}>
-                  <Link href={AuthedPaths.Goals}>Set Goals</Link>
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <>
-              {goals.map((goal, index) => (
-                <div
-                  className="[&:not(:first-child)]:pt-5"
-                  key={`goal-${index}`}
-                >
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <span
-                        className={classNames(
-                          "text-white min-w-[106px] inline-block text-center rounded font-semibold leading-normal mb-1",
-                          {
-                            "bg-ls-blue": goal.category === "Physical",
-                            "bg-ls-orange": goal.category === "Spiritual",
-                            "bg-ls-purple": goal.category === "Other",
-                            "bg-ls-pink": goal.category === "Joy",
-                            "bg-ls-green": goal.category === "Financial",
-                          }
-                        )}
-                      >
-                        {goal.category}
-                      </span>
-                      <p className="text-lg md:text-xl leading-normal">
-                        {goal.goal}
-                      </p>
-                      <span className="text-inactive mobile-only:text-sm">
-                        {goal.deadline
-                          ? new Date(goal.deadline).toLocaleDateString(
-                              "en-US",
-                              {
-                                month: "short",
-                                day: "numeric",
-                                year: "numeric",
-                              }
-                            )
-                          : "No Date"}
-                      </span>
-                    </div>
+              </>
+            )}
+          </div>
+        </div>
+        <div className="md:col-span-3">
+          <DevotionalCard
+            showNone={devotionals.length === 0}
+            devotional={devotionals && devotionals[0]}
+            hasAll={true}
+          />
+        </div>
 
-                    <ChevronRightIcon
-                      width={24}
-                      height={24}
-                      className="text-primary"
-                    />
-                  </div>
-
-                  {index < goals.length - 1 && (
-                    <div className="w-full h-[1px] bg-gradient-1 mt-5"></div>
-                  )}
+        <div className="content-box md:col-span-2">
+          <div className="flex">
+            <h3 className="title-line-style pb-3">My Goals</h3>
+            <Link href={AuthedPaths.Goals} className="link-style ml-auto">
+              See All
+            </Link>
+          </div>
+          <div className="mt-7">
+            {goals.length === 0 ? (
+              <div className="p-5">
+                <div className="text-center space-y-7">
+                  <Image
+                    src="/icons/None.svg"
+                    alt="None Icon"
+                    width={40}
+                    height={40}
+                    className="mx-auto"
+                  />
+                  <p className="text-inactive text-xl">
+                    Once you set your goals, you will see them here.
+                  </p>
+                  <Button standardBtn={"primary"}>
+                    <Link href={AuthedPaths.Goals}>Set Goals</Link>
+                  </Button>
                 </div>
-              ))}
-            </>
-          )}
+              </div>
+            ) : (
+              <GoalList goals={goals.slice(0, 4)} isLarge={false} />
+            )}
+          </div>
         </div>
       </div>
-    </div>
+      <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
+        <div className="text-center flex flex-col items-center gap-10">
+          <Image
+            src="/icons/welcome-icon.svg"
+            width={150}
+            height={150}
+            alt="welcome modal icon"
+          />
+          <h2>Welcome!</h2>
+          <p className="text-xl leading-normal">
+            We are excited about your “why!” Your mission statement sounds
+            powerful and impactful.
+            <br /> <br /> Now that you have your personal purpose statement,
+            it&apos;s time set goals!
+          </p>
+          <div className="space-x-5 flex w-full">
+            <Button
+              onClick={() => setOpenModal(false)}
+              standardBtn={"tertiary"}
+              className="flex-1"
+            >
+              Later
+            </Button>
+            <Button
+              onClick={() => {}}
+              standardBtn={"primary"}
+              className="flex-1"
+            >
+              <Link href={AuthedPaths.Goals}>Set Goals</Link>
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    </>
   );
 };
 

@@ -23,6 +23,10 @@ const isLoggedIn = async () => {
   return Promise.resolve(!!cookies().get("authToken")?.value);
 };
 
+const hasWhyStatement = () => {
+  return !!cookies().get("whyStatement")?.value;
+};
+
 const logError = (error: any) => {
   if (LOCAL_TESTING) {
     console.error("Server Error:", error);
@@ -36,4 +40,11 @@ const logTest = (message: any) => {
   }
 };
 
-export { getBaseUrl, validateAuthToken, isLoggedIn, logError, logTest };
+export {
+  getBaseUrl,
+  validateAuthToken,
+  isLoggedIn,
+  hasWhyStatement,
+  logError,
+  logTest,
+};

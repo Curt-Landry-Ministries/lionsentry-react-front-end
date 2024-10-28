@@ -51,6 +51,8 @@ type Goal = {
   forUser: string;
   id: string;
   category: "Spiritual" | "Physical" | "Other" | "Joy" | "Financial";
+  isComplete: boolean;
+  isDeleted: boolean;
 };
 
 type Email = {
@@ -60,3 +62,5 @@ type Email = {
   dateTimeScheduled: string;
   id: string;
 };
+
+type FilterOrder = "ASC" | "DESC" | null;

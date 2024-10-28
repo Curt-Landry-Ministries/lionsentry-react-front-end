@@ -22,7 +22,7 @@ const AuthedHeader = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [transparentHeader, setTransparentHeader] = useState(false);
 
-  const { reset } = useUserStore((s) => s);
+  const { reset, profile_photo, name } = useUserStore((s) => s);
 
   const windowSize = useWindowSize();
 
@@ -30,10 +30,6 @@ const AuthedHeader = () => {
     Dashboard: {
       iconLink: "/icons/Home.svg",
       title: "Home",
-    },
-    MyWhy: {
-      iconLink: "/icons/Sun-No-Fill.svg",
-      title: "My Why",
     },
     Devotionals: {
       iconLink: "/icons/Book.svg",
@@ -91,7 +87,7 @@ const AuthedHeader = () => {
 
   return (
     <nav className="z-50 fixed w-full bg-navy dark:bg-dark-mode-subtle  text-cloud-darker shadow-modal">
-      <div className="flex flex-wrap items-center justify-between mx-auto px-10 py-3 lg:py-0 relative">
+      <div className="flex flex-wrap items-center justify-between mx-auto px-4 md:px-10 py-3 lg:py-0 relative">
         <Link
           className={classnames({
             "mx-auto block pl-10": transparentHeader,
@@ -109,7 +105,7 @@ const AuthedHeader = () => {
               <>
                 <ul
                   className={classnames(
-                    "flex text-base [&>li>a]:flex [&>li>a]:gap-2 [&>li>a]:px-4 [&>li>a]:py-6 hover:[&>li]:bg-white hover:[&>li]:bg-opacity-10"
+                    "flex text-base [&>li>a]:flex [&>li>a]:gap-2 [&>li>a]:font-semibold [&>li>a]:px-4 [&>li>a]:py-6 hover:[&>li]:bg-white hover:[&>li]:bg-opacity-10 pr-5"
                   )}
                 >
                   {Object.keys(menuItems).map((key) => (
@@ -141,9 +137,20 @@ const AuthedHeader = () => {
             <button
               ref={buttonRef}
               onClick={toggleDropdown}
-              className="flex items-center px-5 gap-2 text-base relative before:hidden lg:before:block before:content-[' '] before:absolute before:left-0 before:w-[2px] before:h-[44px] before:bg-cloud-darker"
+              className="flex items-center px-5 gap-2 text-base relative before:hidden lg:before:block before:content-[' '] before:absolute before:left-0 before:w-[2px] before:h-[44px] before:bg-cloud-darker before:bg-opacity-20"
             >
-              <span className="w-8 h-8 rounded-full block bg-black dark:bg-white"></span>
+              <div className="w-8 h-8 flex-shrink-0 relative flex rounded-full overflow-hidden bg-dark-mode-subtle dark:bg-cloud">
+                <Image
+                  src={profile_photo ? profile_photo : "/icons/User.svg"}
+                  fill
+                  alt={`${name} Profile Photo`}
+                  style={{
+                    objectFit: "cover",
+                    borderRadius: "100px",
+                  }}
+                />
+              </div>
+
               <div className="hidden lg:flex lg:items-center gap-1">
                 My Account <TriangleDownIcon />
               </div>

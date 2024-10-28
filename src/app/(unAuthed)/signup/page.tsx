@@ -6,7 +6,9 @@ const SignUpPage: React.FC = () => {
   return (
     <section className="flex items-center justify-center">
       <TopBottom hasBottom={false} className="py-32">
-        <SignupForm />
+        <div className="flex justify-center">
+          <SignupForm />
+        </div>
       </TopBottom>
     </section>
   );

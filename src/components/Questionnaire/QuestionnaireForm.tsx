@@ -118,7 +118,7 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
       // localStorage.setItem("whyStatement", generatedWhyStatement);
 
       // Redirect to the dashboard page
-      router.push(AuthedPaths.MyWhy);
+      router.push(AuthedPaths.Dashboard);
     } catch (error) {
       logTest(error);
     } finally {
