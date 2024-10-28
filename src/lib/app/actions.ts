@@ -289,13 +289,6 @@ export const saveGoal = async ({
 }: Pick<Goal, "goal" | "description" | "category">): Promise<any> => {
   const authToken = validateAuthToken();
 
-  console.log(
-    JSON.stringify({
-      goal: goal,
-      category: category,
-      description: description,
-    })
-  );
   const resp = await fetch(`${BASE_URL}/save-goals`, {
     method: "POST",
     headers: {
