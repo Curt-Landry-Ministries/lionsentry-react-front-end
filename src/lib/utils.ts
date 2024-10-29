@@ -1,7 +1,7 @@
 "use server";
 import { cookies } from "next/headers";
 
-const LOCAL_TESTING: boolean = process.env.LOCAL_TESTING === "true"; // change to true when testing locally
+const LOCAL_TESTING: boolean = process.env.NEXT_PUBLIC_LOCAL_TESTING === "true"; // change to true when testing locally
 
 const getBaseUrl = (isAuth: boolean): string => {
   return `https://${LOCAL_TESTING ? "test-api" : "api"}.lionsentry.com/${
