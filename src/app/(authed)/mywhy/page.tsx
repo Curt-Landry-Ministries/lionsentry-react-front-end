@@ -9,7 +9,7 @@ import { useUserStore } from "@/app/providers/userContext";
 import LoadingScreen from "@/components/Global/LoadingScreen";
 
 const MyWhy = () => {
-  const { whyStatements, isLoading } = useUserStore((state) => state);
+  const { whyStatements, isLoading, goals } = useUserStore((state) => state);
 
   return (
     <>
