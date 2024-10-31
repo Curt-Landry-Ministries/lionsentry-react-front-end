@@ -74,15 +74,11 @@ const AuthedHeader = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
-    try {
-      await logout();
-      reset();
-      setDropdownOpen(false); // Close the dropdown
+    await logout();
+    reset();
+    setDropdownOpen(false); // Close the dropdown
 
-      router.push(Paths.Home);
-    } catch (error) {
-      console.error("Logout failed", error);
-    }
+    router.push(Paths.Home);
   };
 
   return (

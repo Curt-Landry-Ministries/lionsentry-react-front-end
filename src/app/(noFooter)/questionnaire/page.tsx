@@ -18,7 +18,7 @@ const Pages: React.FC = () => {
   useEffect(() => {
     const getQuestions = async () => {
       const data = await fetchQuestionsFromServer();
-      setQuestions(data);
+      if (data.success) setQuestions(data.value);
       setLoading(false);
     };
 

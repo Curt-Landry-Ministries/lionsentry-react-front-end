@@ -29,8 +29,11 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
   const { name, fetchUserData } = useUserStore((s) => s);
 
   useEffect(() => {
+    const asyncFetchData = async () => {
+      await fetchUserData();
+    };
     if (isLoggedIn && !name.length) {
-      fetchUserData();
+      asyncFetchData();
     }
   }, [isLoggedIn]);
 

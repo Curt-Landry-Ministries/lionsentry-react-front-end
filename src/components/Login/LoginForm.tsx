@@ -13,7 +13,6 @@ import { ChevronRightIcon } from "@radix-ui/react-icons";
 import { useUserStore } from "@/app/providers/userContext";
 import { useRouter } from "next/navigation";
 import { AuthedPaths } from "@/lib/constants";
-import { logError } from "@/lib/utils";
 
 const LoginForm = () => {
   const [errors, setErrors] = useState("");
@@ -37,16 +36,19 @@ const LoginForm = () => {
     values: FormikValues,
     actions: FormikHelpers<FormikValues>
   ) => {
-    try {
-      await login({ email: values.email, password: values.password });
+    const resp = await login({
+      email: values.email,
+      password: values.password,
+    });
 
-      fetchUserData();
+    if (resp.success) {
+      await fetchUserData();
 
       router.push(AuthedPaths.Dashboard);
-    } catch (error: any) {
-      logError(error);
+    } else {
       setErrors(
-        "Issue with logging in. Make sure your credentials are correct."
+        resp.error ||
+          "Issue with logging in. Make sure your credentials are correct."
       );
     }
   };

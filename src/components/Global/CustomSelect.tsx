@@ -16,6 +16,7 @@ interface DropdownProps {
   data: DropdownItem[];
   position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
   style?: string;
+  containerStyle?: string;
   selectedId?: string;
   titleTop?: boolean;
   onSelect?: (id: string) => void;
@@ -28,6 +29,7 @@ const Dropdown = ({
   position = "bottom-left",
   titleTop = false,
   style,
+  containerStyle,
   selectedId,
   onSelect,
 }: DropdownProps) => {
@@ -69,13 +71,17 @@ const Dropdown = ({
 
   return (
     <div
-      className={classNames("flex mobile-only:flex-wrap gap-2", {
-        "flex-col items-start": titleTop,
-        "items-center": !titleTop,
-      })}
+      className={classNames(
+        "flex mobile-only:flex-wrap gap-2",
+        {
+          "flex-col items-start": titleTop,
+          "items-center": !titleTop,
+        },
+        containerStyle
+      )}
     >
       {title && <span className="font-semibold">{title}</span>}
-      <div ref={dropdownRef} className="relative flex-1">
+      <div ref={dropdownRef} className="relative w-full">
         <button
           id={id}
           aria-label="Toggle dropdown"

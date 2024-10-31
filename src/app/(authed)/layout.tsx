@@ -17,7 +17,11 @@ export default function AuthedLayout({
   const pathname = usePathname();
 
   useEffect(() => {
-    fetchUserData();
+    const asyncFetchData = async () => {
+      await fetchUserData();
+    };
+
+    asyncFetchData();
   }, []);
 
   useEffect(() => {

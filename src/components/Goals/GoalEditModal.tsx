@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import Dropdown from "../Global/CustomSelect";
 import Input from "../Global/Forms/Input";
 import Textarea from "../Global/Forms/Textarea";
+import DateField from "../Global/Forms/DateField";
 
 const GoalEditModal = ({
   goal,
@@ -27,12 +28,14 @@ const GoalEditModal = ({
     category: Yup.string()
       .oneOf(Object.keys(GoalTypeAsset))
       .required("Goal category is required"),
+    deadline: Yup.string().nullable(),
   });
 
   const initialValues: FormikValues = {
     title: goal.goal,
     description: goal.description,
     category: goal.category,
+    deadline: goal.deadline ? new Date(goal.deadline) : null,
   };
 
   const handleSubmit = async (values: FormikValues, actions: any) => {
@@ -62,23 +65,6 @@ const GoalEditModal = ({
           {({ isValid, isSubmitting, setFieldValue, values }) => (
             <Form>
               <div className="flex flex-col">
-                <Dropdown
-                  title="Category"
-                  id="select-goal-category"
-                  titleTop={true}
-                  data={[
-                    { value: " ", label: "Select Category" },
-                    ...Object.keys(GoalTypeAsset).map((category) => ({
-                      value: category,
-                      label: category,
-                    })),
-                  ]}
-                  onSelect={(id) => {
-                    setFieldValue("category", id);
-                  }}
-                  selectedId={values.category as string}
-                  style="mb-5"
-                />
                 <Input
                   label="Goal Title"
                   type="text"
@@ -88,6 +74,7 @@ const GoalEditModal = ({
                   className="rounded"
                   required
                 />
+
                 <Textarea
                   label="Goal Description"
                   name="description"
@@ -97,6 +84,33 @@ const GoalEditModal = ({
                   rows={5}
                   required
                 />
+
+                <div className="flex flex-wrap gap-5">
+                  <Dropdown
+                    title="Category"
+                    id="select-goal-category"
+                    titleTop={true}
+                    data={[
+                      { value: " ", label: "Select Category" },
+                      ...Object.keys(GoalTypeAsset).map((category) => ({
+                        value: category,
+                        label: category,
+                      })),
+                    ]}
+                    onSelect={(id) => {
+                      setFieldValue("category", id);
+                    }}
+                    selectedId={values.category as string}
+                    containerStyle="w-full md:w-1/2"
+                  />
+                  <DateField
+                    label="Select Date"
+                    name="deadline"
+                    id="deadline"
+                    placeholder="Specific Date"
+                    minDate={new Date()}
+                  />
+                </div>
               </div>
               <div className="w-full flex mobile-only:flex-wrap gap-5 justify-between">
                 <Button

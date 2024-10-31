@@ -6,10 +6,11 @@ import GoalCompleteModal from "@/components/Goals/GoalCompleteModal";
 import GoalEditModal from "@/components/Goals/GoalEditModal";
 import GoalTag from "@/components/Goals/GoalTag";
 import { AuthedPaths, GoalTypeAsset } from "@/lib/constants";
+import { formatDate } from "@/lib/utils-global";
 import { ChevronLeftIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 const SingleGoal = ({ params }: { params: { slug: string } }) => {
   const { goals } = useUserStore((s) => s);
@@ -97,6 +98,13 @@ const SingleGoal = ({ params }: { params: { slug: string } }) => {
               {goal[0].description ??
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque molestie accumsan elit, at ultricies enim. Nullam gravida varius purus, vel commodo dolor finibus nec. Sed mattis non ipsum id lobortis."}
             </p>
+
+            {goal[0].deadline && (
+              <>
+                <p className="font-semibold">Goal Date</p>
+                <p className="mt-2 mb-4">{formatDate(goal[0].deadline)}</p>
+              </>
+            )}
 
             <Button
               standardBtn={"text"}

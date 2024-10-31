@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import useWindowSize from "@/lib/hooks/useWindowSize";
 import GoalTag from "./GoalTag";
 import Link from "next/link";
+import { formatDate } from "@/lib/utils-global";
 
 const GoalList = ({
   goals,
@@ -110,13 +111,7 @@ const GoalList = ({
                   }
                 )}
               >
-                {goal.deadline
-                  ? new Date(goal.deadline).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })
-                  : "No Date"}
+                {goal.deadline ? formatDate(goal.deadline) : "No Date"}
               </span>
             </div>
 

@@ -8,25 +8,26 @@ import { saveGoal } from "@/lib/app/actions";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import Button from "../Global/Button";
 import ProgressBar from "../Global/ProgressBar";
-import { useUserStore } from "@/app/providers/userContext";
 import { AuthedPaths, GoalTypeAsset } from "@/lib/constants";
-import { logError, logTest } from "@/lib/utils";
-import useLoggedIn from "@/lib/hooks/useLoggedIn";
+import { logError } from "@/lib/utils";
 import GoalOnboardingStep from "./GoalOnboardingStep";
 import Image from "next/image";
 
 const GoalOnboardingForm: React.FC = () => {
   const goalKeys = Object.keys(GoalTypeAsset);
   const DEFAULT_GOALS = goalKeys.map(
-    (key): Pick<Goal, "goal" | "description" | "category"> => ({
+    (key): Pick<Goal, "goal" | "description" | "category" | "deadline"> => ({
       category: key as keyof typeof GoalTypeAsset,
       goal: "",
       description: "",
+      deadline: null,
     })
   );
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] =
-    useState<Pick<Goal, "goal" | "description" | "category">[]>(DEFAULT_GOALS);
+    useState<Pick<Goal, "goal" | "description" | "category" | "deadline">[]>(
+      DEFAULT_GOALS
+    );
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false); // State to disable submit button
   const [isLoading, setIsLoading] = useState(false); // State to show loading indicator
 
@@ -49,7 +50,7 @@ const GoalOnboardingForm: React.FC = () => {
   }, []);
 
   const handleChange = (
-    answer: Pick<Goal, "goal" | "description" | "category">
+    answer: Pick<Goal, "goal" | "description" | "category" | "deadline">
   ) => {
     const tmpAnswer = [...answers];
     tmpAnswer[currentQuestionIndex] = answer;

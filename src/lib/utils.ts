@@ -13,7 +13,7 @@ const validateAuthToken = () => {
   const authToken = cookies().get("authToken")?.value;
 
   if (!authToken) {
-    throw new Error("Authentication required");
+    return false;
   } else {
     return authToken;
   }
@@ -31,7 +31,6 @@ const logError = (error: any) => {
   if (LOCAL_TESTING) {
     console.error("Server Error:", error);
   }
-  throw new Error(error);
 };
 
 const logTest = (message: any) => {

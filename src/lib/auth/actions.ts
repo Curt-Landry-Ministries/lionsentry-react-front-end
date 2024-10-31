@@ -4,37 +4,44 @@ import { getAuth } from "firebase/auth";
 import { jwtDecode } from "jwt-decode";
 import { getBaseUrl, logError, logTest } from "../utils";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { Paths } from "../constants";
+import { createServerAction, ServerActionError } from "../action-utils";
 
 const BASE_URL = getBaseUrl(true);
 
-export const login = async (credentials: UserCredentials): Promise<any> => {
-  const { email, password } = credentials;
+export const login = createServerAction(
+  async (credentials: UserCredentials): Promise<any> => {
+    const { email, password } = credentials;
 
-  const resp = await fetch(`${BASE_URL}/get-id-token`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email: email, password: password }),
-  });
+    const resp = await fetch(`${BASE_URL}/get-id-token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: email, password: password }),
+    });
 
-  const respData = await resp.json();
+    const respData = await resp.json();
 
-  if (resp.ok && respData.idToken) {
-    cookies().set("authToken", respData.idToken);
+    if (!resp.ok) {
+      throw new ServerActionError(respData.error || "Failed to login");
+    }
 
-    const decodedToken: any = jwtDecode(respData.idToken);
-    const userId = decodedToken.user_id;
+    if (resp.ok && respData.idToken) {
+      cookies().set("authToken", respData.idToken);
 
-    cookies().set("userID", userId);
+      const decodedToken: any = jwtDecode(respData.idToken);
+      const userId = decodedToken.user_id;
 
-    logTest(`User Logged in: ${email}`);
+      cookies().set("userID", userId);
 
-    return true;
+      logTest(`User Logged in: ${email}`);
+
+      return true;
+    }
   }
-
-  logError(respData.error || "Failed to login");
-};
+);
 
 export const logout = async (): Promise<void> => {
   cookies().delete("authToken");
@@ -42,31 +49,31 @@ export const logout = async (): Promise<void> => {
   cookies().delete("whyStatement");
 };
 
-export const signup = async (credentials: UserCredentials): Promise<any> => {
-  const { email, password } = credentials;
+export const signup = createServerAction(
+  async (credentials: UserCredentials): Promise<any> => {
+    const { email, password } = credentials;
 
-  const resp = await fetch(`${BASE_URL}/create-user-manually`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email: email, password: password }),
-  });
+    const resp = await fetch(`${BASE_URL}/create-user-manually`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: email, password: password }),
+    });
 
-  const data = await resp.json();
+    const data = await resp.json();
 
-  if ("uid" in data) {
-    logTest(`Account created. UID: ${data.uid}`);
+    if ("uid" in data) {
+      return data;
+    }
 
-    return data;
+    if (!resp.ok) {
+      throw new ServerActionError(data.error || "Failed to signup");
+    }
   }
+);
 
-  if (!resp.ok) {
-    logError(data.error || "Failed to signup");
-  }
-};
-
-export const fetchUserId = async (): Promise<any> => {
+export const fetchUserId = createServerAction(async (): Promise<any> => {
   const resp = await fetch(`${BASE_URL}/get-id-token`);
   const respData = await resp.json();
 
@@ -80,11 +87,11 @@ export const fetchUserId = async (): Promise<any> => {
   }
 
   if (!resp.ok || !respData.idToken) {
-    logError(respData.error || "Failed to fetch user id");
+    throw new ServerActionError(respData.error || "Failed to fetch user id");
   }
-};
+});
 
-export const deleteUser = async (): Promise<void> => {
+export const deleteUser = createServerAction(async (): Promise<void> => {
   const auth = getAuth();
   const currentUser = auth.currentUser;
 
@@ -106,7 +113,7 @@ export const deleteUser = async (): Promise<void> => {
       logTest(`User deleted successfully: ${respData.message}`);
       await logout();
     } else {
-      logError(`Failed to delete user: ${respData.error}`);
+      throw new ServerActionError(`Failed to delete user: ${respData.error}`);
     }
   }
-};
+});

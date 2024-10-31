@@ -2,17 +2,18 @@ import React from "react";
 import { FieldConfig, useField } from "formik";
 import classNames from "classnames";
 
-interface IFieldProps {
-  label?: string;
-  options?: { value: string; label: string }[];
-  className?: string;
-}
 const Textarea: React.FC<
   IFieldProps & FieldConfig<string> & JSX.IntrinsicElements["textarea"]
-> = ({ label, options = [], className = "rounded-3xl", ...props }) => {
+> = ({
+  label,
+  description,
+  options = [],
+  className = "rounded-3xl",
+  ...props
+}) => {
   const [field, meta] = useField(props);
   return (
-    <div className="mb-6">
+    <div className="mb-5">
       {label && (
         <label
           htmlFor={props.id || props.name}
@@ -20,6 +21,13 @@ const Textarea: React.FC<
         >
           {label}
         </label>
+      )}
+
+      {description && (
+        <div
+          className="text-left mb-2"
+          dangerouslySetInnerHTML={{ __html: description }}
+        />
       )}
 
       <textarea

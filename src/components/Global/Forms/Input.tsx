@@ -2,17 +2,12 @@ import React from "react";
 import { FieldConfig, useField } from "formik";
 import classNames from "classnames";
 
-interface IFieldProps {
-  label?: string;
-  options?: { value: string; label: string }[];
-  className?: string;
-}
 const Input: React.FC<
   IFieldProps & FieldConfig<string> & JSX.IntrinsicElements["input"]
 > = ({ label, options = [], className = "rounded-3xl", ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <div className="mb-6">
+    <div className="mb-5">
       {props.type === "checkbox" && options.length > 0 ? (
         options.map((option) => (
           <label

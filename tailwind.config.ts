@@ -162,6 +162,7 @@ const config: Config = {
         "content-box-dark": "0px 0px 12px 0px rgba(0, 0, 0, 0.15)",
         "progress-bar": "0px 0px 3px 0px rgba(0, 0, 0, 0.25) inset",
         dropdown: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+        calendar: "2px 16px 19px 0px rgba(0, 0, 0, 0.09)",
       },
       animation: {
         loading1: "loadingPath1 2s linear infinite",
