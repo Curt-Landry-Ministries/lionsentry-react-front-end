@@ -35,5 +35,5 @@ export function middleware(request: NextRequest) {
 
 // must includes this so next/api routes are not intecepted
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|images).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|images|icon|icons).*)"],
 };

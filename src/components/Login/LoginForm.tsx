@@ -13,6 +13,7 @@ import { ChevronRightIcon } from "@radix-ui/react-icons";
 import { useUserStore } from "@/app/providers/userContext";
 import { redirect, useRouter } from "next/navigation";
 import { AuthedPaths } from "@/lib/constants";
+import { logError } from "@/lib/utils";
 
 const LoginForm = () => {
   const [errors, setErrors] = useState("");
@@ -43,7 +44,7 @@ const LoginForm = () => {
 
       router.push(AuthedPaths.Dashboard);
     } catch (error: any) {
-      console.log(error);
+      logError(error);
       setErrors(
         "Issue with logging in. Make sure your credentials are correct."
       );
@@ -76,7 +77,12 @@ const LoginForm = () => {
         />
         {errors && <p className="text-red-500 text-xs mb-4">{errors}</p>}
 
-        <Button type="submit" standardBtn={"primary"} hasIcon={true}>
+        <Button
+          type="submit"
+          className="w-full"
+          standardBtn={"primary"}
+          hasIcon={true}
+        >
           Sign In With Email <ChevronRightIcon height={24} width={24} />
         </Button>
 

@@ -1,7 +1,7 @@
 "use server";
 import { cookies } from "next/headers";
 
-const LOCAL_TESTING: boolean = true; // change to true when testing locally
+const LOCAL_TESTING: boolean = process.env.LOCAL_TESTING === "true"; // change to true when testing locally
 
 const getBaseUrl = (isAuth: boolean): string => {
   return `https://${LOCAL_TESTING ? "test-api" : "api"}.lionsentry.com/${
@@ -23,4 +23,17 @@ const isLoggedIn = async () => {
   return Promise.resolve(!!cookies().get("authToken")?.value);
 };
 
-export { getBaseUrl, validateAuthToken, isLoggedIn };
+const logError = (error: any) => {
+  if (LOCAL_TESTING) {
+    console.error("Server Error:", error);
+  }
+  throw new Error(error);
+};
+
+const logTest = (message: any) => {
+  if (LOCAL_TESTING) {
+    console.log(message);
+  }
+};
+
+export { getBaseUrl, validateAuthToken, isLoggedIn, logError, logTest };

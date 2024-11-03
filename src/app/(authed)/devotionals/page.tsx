@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import DevotionalCard from "@/components/Devotionals/DevotionalCard";
 import { useUserStore } from "@/app/providers/userContext";
@@ -43,13 +43,15 @@ const Devotionals: React.FC = () => {
           <div className="flex justify-between">
             <h1>Daily Devotionals</h1>
 
-            <Button
-              standardBtn={"primary"}
-              onClick={handleGenerateDevotionals}
-              disabled={loading}
-            >
-              Generate Devotional
-            </Button>
+            {process.env.LOCAL_TESTING === "true" && (
+              <Button
+                standardBtn={"primary"}
+                onClick={handleGenerateDevotionals}
+                disabled={loading}
+              >
+                Generate Devotional
+              </Button>
+            )}
           </div>
 
           {loading && (

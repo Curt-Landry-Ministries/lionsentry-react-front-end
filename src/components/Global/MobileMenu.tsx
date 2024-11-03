@@ -2,16 +2,17 @@ import { Cross1Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
 import LeftRight from "./Gradients/LeftRightGradient";
-import { Paths } from "@/lib/constants";
+import { AuthedPaths, Paths } from "@/lib/constants";
 import Link from "next/link";
 import ThemeToggler from "./ThemeToggler";
 import Logo from "./Logo";
 import { usePathname } from "next/navigation";
-import { isLoggedIn } from "@/lib/utils";
+import useLoggedIn from "@/lib/hooks/useLoggedIn";
 
-const MobileMenu = () => {
+const MobileMenu = ({ darkHeader = false }) => {
   const pathname = usePathname();
   const [toggleMenu, setToggleMenu] = useState(false);
+  const isLoggedIn = useLoggedIn();
 
   useEffect(() => {
     if (toggleMenu) {
@@ -27,32 +28,49 @@ const MobileMenu = () => {
 
   return (
     <>
-      <button onClick={() => setToggleMenu(!toggleMenu)}>
+      <button className="order-last" onClick={() => setToggleMenu(!toggleMenu)}>
         {toggleMenu ? (
           <Cross1Icon width={30} height={30} />
         ) : (
-          <HamburgerMenuIcon width={30} height={30} />
+          <HamburgerMenuIcon width={30} height={30} className="text-primary" />
         )}
       </button>
 
       <div
         className={classNames(
-          "w-screen fixed inset-0 top-12 transition-transform duration-700 bg-navy dark:bg-black overflow-hidden",
+          "w-screen fixed inset-0 top-12 transition-all duration-700 bg-navy overflow-hidden",
           {
             "translate-y-0": toggleMenu,
             "-translate-y-[200%]": !toggleMenu,
+            "dark:bg-black": !darkHeader,
+            "dark:bg-dark-mode-subtle": darkHeader,
           }
         )}
       >
         <LeftRight hasRight={false} className="pt-12 flex h-full">
           <div className="flex flex-col w-full h-full py-10 px-8 items-start">
-            {!isLoggedIn && (
+            {!isLoggedIn ? (
               <div className="flex flex-col gap-5 flex-grow">
                 <Link className="inline-block" href={Paths.Login}>
                   Sign In
                 </Link>
                 <Link className="inline-block" href={Paths.Signup}>
                   Sign Up
+                </Link>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-5 flex-grow">
+                <Link className="inline-block" href={AuthedPaths.Dashboard}>
+                  Home
+                </Link>
+                <Link className="inline-block" href={AuthedPaths.MyWhy}>
+                  My Why
+                </Link>
+                <Link className="inline-block" href={AuthedPaths.Devotionals}>
+                  Devotionals
+                </Link>
+                <Link className="inline-block" href={AuthedPaths.Goals}>
+                  Goals
                 </Link>
               </div>
             )}
