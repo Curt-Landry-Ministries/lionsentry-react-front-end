@@ -21,7 +21,7 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <div
       className={classnames(
-        "fixed top-0 left-0 h-screen w-screen flex items-center justify-center opacity-1 transform delay-300 duration-500",
+        "fixed top-0 left-0 h-screen w-screen flex items-center justify-center opacity-1 transform delay-200 duration-300",
         {
           "opacity-0 -z-50": !isOpen,
           "z-50": isOpen,
@@ -29,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({
       )}
       {...props}
     >
-      <div className="bg-white dark:text-white dark:bg-black mx-4 md:p-8 p-4 border rounded-[20px] shadow-modal z-10 relative">
+      <div className="bg-white dark:text-white dark:bg-black dark:border-dark-mode-strong mx-4 md:p-8 p-4 border rounded-[20px] shadow-modal z-10 relative">
         {hasCloseButton && (
           <button className="absolute right-8 top-8" onClick={onClose}>
             <Cross1Icon width={14} height={14} />

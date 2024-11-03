@@ -45,12 +45,15 @@ type OnboardingAnswer = {
 };
 
 type Goal = {
+  [key: string]: any;
   goal: string;
   description?: string;
-  deadline?: string;
+  deadline?: string | undefined | null;
   forUser: string;
   id: string;
   category: "Spiritual" | "Physical" | "Other" | "Joy" | "Financial";
+  isComplete: boolean;
+  isDeleted: boolean;
 };
 
 type Email = {
@@ -60,3 +63,18 @@ type Email = {
   dateTimeScheduled: string;
   id: string;
 };
+
+type FilterOrder = "ASC" | "DESC" | null;
+
+interface IFieldProps {
+  label?: string;
+  description?: string;
+  options?: { value: string; label: string }[];
+  className?: string;
+}
+
+interface ISelectFieldProps {
+  label?: string;
+  options: { value: string; label: string }[];
+  defaultOptionLabel: string;
+}

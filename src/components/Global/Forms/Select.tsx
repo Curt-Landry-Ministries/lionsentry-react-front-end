@@ -2,17 +2,12 @@ import React from "react";
 import { FieldConfig, useField } from "formik";
 import classNames from "classnames";
 
-interface ISelectFieldProps {
-  label?: string;
-  options: { value: string; label: string }[];
-  defaultOptionLabel: string;
-}
 const Input: React.FC<
   ISelectFieldProps & FieldConfig<string> & JSX.IntrinsicElements["select"]
 > = ({ label, options, defaultOptionLabel = "Select...", ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <div className="mb-6">
+    <div className="mb-5">
       <label htmlFor={props.id || props.name}>{label}</label>
       <select
         {...field}

@@ -4,6 +4,7 @@
 
 :root.dark {
   --foreground-rgb: 255, 255, 255;
+  --inactive: #9D9D9D;
   /* --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0; */
 }
@@ -200,5 +201,15 @@ textarea {
     @apply before:w-20;
     @apply before:rounded-3xl;
     @apply before:bg-gradient-1;
+  }
+
+  .content-box {
+    @apply bg-white;
+    @apply shadow-content-box;
+    @apply p-7;
+    @apply mobile-only:px-5;
+    @apply rounded-md;
+    @apply dark:bg-dark-mode-subtle;
+    @apply dark:shadow-content-box-dark;
   }
 }

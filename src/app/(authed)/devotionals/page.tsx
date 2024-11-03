@@ -29,8 +29,8 @@ const Devotionals: React.FC = () => {
     await generateDevotional();
 
     const refetchDevotionals = await fetchDevotionals();
+    if (refetchDevotionals.success) updateDevotionals(refetchDevotionals.value);
 
-    updateDevotionals(refetchDevotionals);
     setLoading(false);
   };
 
@@ -43,7 +43,7 @@ const Devotionals: React.FC = () => {
           <div className="flex justify-between">
             <h1>Daily Devotionals</h1>
 
-            {process.env.LOCAL_TESTING === "true" && (
+            {process.env.NEXT_PUBLIC_LOCAL_TESTING === "true" && (
               <Button
                 standardBtn={"primary"}
                 onClick={handleGenerateDevotionals}

@@ -12,13 +12,13 @@ import { useRouter } from "next/navigation";
 import { AuthedPaths } from "@/lib/constants";
 import LoadingScreen from "../Global/LoadingScreen";
 import { useUserStore } from "@/app/providers/userContext";
-import { logTest } from "@/lib/utils";
+import { logError, logTest } from "@/lib/utils";
 
 const SignupForm = () => {
   const [errors, setErrors] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const { name, updateName, email, updateEmail } = useUserStore((s) => s);
+  const { updateName, updateEmail } = useUserStore((s) => s);
 
   const validationSchema = Yup.object({
     email: Yup.string().email("Email is invalid").required("Email is required"),
@@ -53,37 +53,37 @@ const SignupForm = () => {
     values: FormikValues,
     actions: FormikHelpers<FormikValues>
   ) => {
-    try {
-      const signupResp = await signup({
+    const signupResp = await signup({
+      email: values.email,
+      password: values.password,
+    }); // create account
+
+    if (signupResp.success) {
+      const loginResp = await login({
         email: values.email,
         password: values.password,
-      }); // create account
-      logTest(signupResp);
+      });
 
-      try {
-        await login({ email: values.email, password: values.password }).then(
-          async (resp) => {
-            await saveUserDataPoint("firstName", values.firstName, "replace");
+      if (loginResp.success) {
+        await saveUserDataPoint("firstName", values.firstName, "replace");
 
-            if (values.lastName) {
-              await saveUserDataPoint("lastName", values.lastName, "replace");
-            }
+        if (values.lastName) {
+          await saveUserDataPoint("lastName", values.lastName, "replace");
+        }
 
-            updateName(`${values.firstName} ${values.lastName}`);
-            updateEmail(values.email);
+        updateName(`${values.firstName} ${values.lastName}`);
+        updateEmail(values.email);
 
-            logTest("Name saved successfully");
-            // Redirect to the questionnaire or any other appropriate page
-            router.push(AuthedPaths.Questionnaire);
-          }
-        );
-      } catch (err: any) {
-        setErrors(err.message || "Trouble logging in");
-        console.error("Login error:", err);
+        logTest("Name saved successfully");
+
+        localStorage.setItem("showWelcomeModal", "false");
+        // Redirect to the questionnaire or any other appropriate page
+        router.push(AuthedPaths.Questionnaire);
+      } else {
+        setErrors(loginResp.error || "Trouble logging in");
       }
-    } catch (error: any) {
-      console.error("Signup error:", error);
-      setErrors(error.message || "Issue with sign up");
+    } else {
+      setErrors(signupResp.error || "Issue with sign up");
     }
   };
 

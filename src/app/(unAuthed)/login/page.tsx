@@ -9,7 +9,9 @@ const LogInPage: React.FC = () => {
         hasBottom={false}
         className="py-16 min-h-screen flex items-center"
       >
-        <LoginForm />
+        <div className="flex justify-center">
+          <LoginForm />
+        </div>
       </TopBottom>
     </section>
   );

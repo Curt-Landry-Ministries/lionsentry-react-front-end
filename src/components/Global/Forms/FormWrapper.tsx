@@ -8,6 +8,7 @@ interface FormWrapper {
   initialValues: Object;
   children: React.ReactNode;
   handleSubmit: any;
+  className?: string;
 }
 
 const FormWrapper: React.FC<FormWrapper> = ({
@@ -16,6 +17,7 @@ const FormWrapper: React.FC<FormWrapper> = ({
   initialValues,
   children,
   handleSubmit,
+  className = "w-full p-6 lg:p-8 sm:max-w-md",
 }) => {
   return (
     <Formik
@@ -23,8 +25,8 @@ const FormWrapper: React.FC<FormWrapper> = ({
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <div className="w-full p-6 lg:p-8 sm:max-w-md mx-auto">
-        {title ? <h1 className="mb-2">{title}</h1> : ""}
+      <div className={className}>
+        {title ? <h1 className="mb-8">{title}</h1> : ""}
         {children}
       </div>
     </Formik>
