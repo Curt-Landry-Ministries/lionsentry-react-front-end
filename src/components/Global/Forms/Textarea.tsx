@@ -25,7 +25,7 @@ const Textarea: React.FC<
 
       {description && (
         <div
-          className="text-left mb-2"
+          className="text-left mb-2 hidden md-block"
           dangerouslySetInnerHTML={{ __html: description }}
         />
       )}

@@ -44,9 +44,11 @@ const GoalPrinciples = () => {
       <h3>Let&apos;s Prepare for Setting Goals</h3>
 
       <p className="mb-10">
-        Please read about 5 Key principles. This will help you get into the
-        right mindset for this important exercise. We will then have you answer
-        7 questions that will help you further prepare to create your goals.
+        Pause and invite the Holy Spirit to align your mindset with God&apos;s
+        as you read the key principles below: Seek His Kingdom, remember the
+        power to achieve success comes from God, thank Him for the covenant you
+        have with Him, walk in the Spirit, and thank Him for making you more
+        than a conqueror.
       </p>
 
       <iframe

@@ -29,7 +29,7 @@ const DateInput = ({ containerClass, ...props }: any) => {
   return (
     <div
       className={classNames(
-        "[&_.react-datepicker\\_\\_view-calendar-icon_input]:px-10 [&_.react-datepicker\\_\\_view-calendar-icon_input]:py-2 [&_.react-datepicker\\_\\_calendar-icon]:!h-6 [&_.react-datepicker\\_\\_calendar-icon]:!w-6",
+        "[&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__view-calendar-icon_input]:!px-10 [&_.react-datepicker__view-calendar-icon_input]:!py-2 [&_.react-datepicker__calendar-icon]:!h-6 [&_.react-datepicker__calendar-icon]:!w-6",
         containerClass
       )}
     >

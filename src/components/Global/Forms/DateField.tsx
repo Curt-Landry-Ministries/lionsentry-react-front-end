@@ -13,7 +13,7 @@ const DateField: React.FC<IFieldProps & FieldConfig<string> & any> = ({
   const { setFieldValue } = useFormikContext();
 
   return (
-    <div className="h-full mb-6 flex flex-col flex-1">
+    <div className="h-full mb-6 flex flex-col flex-1 w-full">
       {label && (
         <label
           htmlFor={props.id || props.name}
