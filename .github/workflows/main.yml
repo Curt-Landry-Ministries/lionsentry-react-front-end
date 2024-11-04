@@ -6,6 +6,12 @@ on:
       - test
       - qa
       - main
+      
+  pull_request:
+    branches:
+      - test
+      - qa
+      - main
 
 env:
   AWS_REGION: us-east-1
