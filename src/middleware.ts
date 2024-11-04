@@ -2,7 +2,6 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { AuthedPaths, Paths } from "./lib/constants";
-import { hasWhyStatement } from "./lib/utils";
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -11,7 +10,7 @@ export function middleware(request: NextRequest) {
   const loginOrSignup =
     pathname.startsWith(Paths.Login) || pathname.startsWith(Paths.Signup);
   const url = request.nextUrl.clone();
-  const whyStatement = hasWhyStatement();
+  const whyStatement = !!cookies().get("whyStatement")?.value;
 
   if (url.pathname === "/" && !isAuthenticated) {
     url.pathname = "/home";

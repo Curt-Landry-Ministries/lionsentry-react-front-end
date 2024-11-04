@@ -23,8 +23,8 @@ const isLoggedIn = async () => {
   return Promise.resolve(!!cookies().get("authToken")?.value);
 };
 
-const hasWhyStatement = () => {
-  return !!cookies().get("whyStatement")?.value;
+const hasWhyStatement = async () => {
+  return Promise.resolve(!!cookies().get("whyStatement")?.value);
 };
 
 const logError = (error: any) => {

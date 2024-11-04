@@ -117,11 +117,9 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
         questionAnswerPairs.map((qa) => qa.answer) // Send the corresponding answers
       );
       logTest(generatedWhyStatement);
-      // Store the Why statement in local storage
-      // localStorage.setItem("whyStatement", generatedWhyStatement);
 
       // Redirect to the dashboard page
-      router.push(AuthedPaths.Dashboard);
+      if (generatedWhyStatement.success) router.push(AuthedPaths.Dashboard);
     } catch (error) {
       logTest(error);
     } finally {

@@ -175,12 +175,8 @@ export const generateWhyStatementFromAnswers = createServerAction(
 
       const respData = await resp.json();
 
-      if (!respData.ok) {
-        throw new ServerActionError(respData.error);
-      } else {
-        cookies().set("whyStatement", respData.whyStatement);
-        return respData.whyStatement;
-      }
+      cookies().set("whyStatement", respData.whyStatement);
+      return respData.whyStatement;
     } catch (error: any) {
       throw new ServerActionError(error.error);
     }
