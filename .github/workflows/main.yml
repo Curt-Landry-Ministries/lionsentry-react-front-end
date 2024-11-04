@@ -6,7 +6,6 @@ on:
       - test
       - qa
       - main
-      
   pull_request:
     branches:
       - test
@@ -27,9 +26,15 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Login to DockerHub
+        if: github.event_name == 'push'  # Only login on push events
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-      - name: Build and Push Next.js App Docker Image
+      - name: Build Docker Image
         run: |
-          docker build -t lionsentry/lionsentry-react-front-end:${{ github.ref_name }} .
+          # Use github.head_ref for pull requests and github.ref_name for pushes
+          docker build -t lionsentry/lionsentry-react-front-end:${{ github.head_ref || github.ref_name }} .
+
+      - name: Push Docker Image
+        if: github.event_name == 'push'  # Only push on push events, not pull requests
+        run: |
           docker push lionsentry/lionsentry-react-front-end:${{ github.ref_name }}
