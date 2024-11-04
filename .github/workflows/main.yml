@@ -3,7 +3,9 @@ name: Build and Push Docker Images
 on:
   push:
     branches:
-      - test 
+      - test
+      - qa
+      - main
 
 env:
   AWS_REGION: us-east-1
@@ -23,5 +25,5 @@ jobs:
 
       - name: Build and Push Next.js App Docker Image
         run: |
-          docker build -t lionsentry/lionsentry-react-front-end:next_app .
-          docker push lionsentry/lionsentry-react-front-end:next_app
+          docker build -t lionsentry/lionsentry-react-front-end:${{ github.ref_name }} .
+          docker push lionsentry/lionsentry-react-front-end:${{ github.ref_name }}
