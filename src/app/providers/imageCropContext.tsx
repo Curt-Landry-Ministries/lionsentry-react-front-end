@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import { createContext, useCallback, useContext, useState } from "react";
 import getCroppedImg from "@/lib/helpers/cropImage";
 
@@ -16,8 +15,7 @@ type ImageCropProviderType = {
 
 const defaultImage = null;
 const defaultCrop = { x: 0, y: 0 };
-const defaultRotation = 0;
-const defaultZoom = 1;
+const defaultZoom = 3;
 const defaultCroppedAreaPixels = null;
 
 const ImageCropProvider = ({
@@ -31,7 +29,6 @@ const ImageCropProvider = ({
 }: ImageCropProviderType) => {
   const [image, setImage] = useState(defaultImage);
   const [crop, setCrop] = useState(defaultCrop);
-  const [rotation, setRotation] = useState(defaultRotation);
   const [zoom, setZoom] = useState(defaultZoom);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(
     defaultCroppedAreaPixels
@@ -56,21 +53,9 @@ const ImageCropProvider = ({
     }
   };
 
-  const handleRotateCw = () => {
-    setRotation(rotation + rotation_step);
-  };
-
-  const handleRotateAntiCw = () => {
-    setRotation(rotation - rotation_step);
-  };
-
   const getProcessedImage = async () => {
     if (image && croppedAreaPixels) {
-      const croppedImage: any = await getCroppedImg(
-        image,
-        croppedAreaPixels,
-        rotation
-      );
+      const croppedImage: any = await getCroppedImg(image, croppedAreaPixels);
       const imageFile = new File([croppedImage.file], `img-${Date.now()}.png`, {
         type: "image/png",
       });
@@ -81,7 +66,6 @@ const ImageCropProvider = ({
   const resetStates = () => {
     setImage(defaultImage);
     setCrop(defaultCrop);
-    setRotation(defaultRotation);
     setZoom(defaultZoom);
     setCroppedAreaPixels(defaultCroppedAreaPixels);
   };
@@ -93,8 +77,6 @@ const ImageCropProvider = ({
         setImage,
         zoom,
         setZoom,
-        rotation,
-        setRotation,
         crop,
         setCrop,
         croppedAreaPixels,
@@ -103,8 +85,6 @@ const ImageCropProvider = ({
         getProcessedImage,
         handleZoomIn,
         handleZoomOut,
-        handleRotateAntiCw,
-        handleRotateCw,
         max_zoom,
         min_zoom,
         zoom_step,
