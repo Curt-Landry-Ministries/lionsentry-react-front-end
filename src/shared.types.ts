@@ -24,6 +24,7 @@ type Devotional = {
   personalization: string;
   journalingPrompt: string;
   dateTimeCreated: string;
+  isFavorite: boolean;
   forUser: string;
   id: string;
 };

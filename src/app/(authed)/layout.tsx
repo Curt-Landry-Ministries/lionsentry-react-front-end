@@ -4,7 +4,6 @@ import SimpleFooter from "@/components/Global/SimpleFooter";
 import React, { useEffect } from "react";
 import { useUserStore } from "../providers/userContext";
 import { usePathname, useRouter } from "next/navigation";
-import { AuthedPaths } from "@/lib/constants";
 import classNames from "classnames";
 
 export default function AuthedLayout({

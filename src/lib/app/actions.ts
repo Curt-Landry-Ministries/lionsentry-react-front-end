@@ -7,6 +7,7 @@ import { logout } from "../auth/actions";
 import { createServerAction, ServerActionError } from "../action-utils";
 import { Paths } from "../constants";
 import { redirect } from "next/navigation";
+import { readFileSync } from "fs";
 
 const BASE_URL = getBaseUrl(false);
 
@@ -39,6 +40,8 @@ export const fetchUserData = createServerAction(async () => {
     });
     const respNameEmail = await resp.json();
 
+    console.log(respNameEmail);
+
     userData.name =
       `${respNameEmail.firstName} ${respNameEmail.lastName}`.replace(
         /['"]+/g,
@@ -62,7 +65,7 @@ export const fetchUserData = createServerAction(async () => {
     userData.whyStatements = whyStatementResp.success
       ? [whyStatementResp.value]
       : [];
-    userData.profile_photo = "/images/user_image.png"; // placeholder image for user
+    // userData.profile_photo = "/images/user_image.png"; // placeholder image for user
 
     return userData;
   } catch (error: any) {
@@ -241,6 +244,35 @@ export const saveUserDataPoint = createServerAction(
   }
 );
 
+export const uploadProfilePhoto = createServerAction(
+  async (formData: FormData): Promise<any> => {
+    const authToken = validateAuthToken();
+
+    if (cookies().get("userID")?.value) {
+      formData.append("user_id", cookies().get("userID")?.value as string);
+    }
+
+    const resp = await fetch(`${BASE_URL}/upload-profile-photo`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: formData,
+    });
+
+    const respData = await resp.json();
+
+    console.log(respData);
+
+    if (!resp.ok) {
+      throw new ServerActionError("Failed to upload profile photo");
+    }
+
+    return respData;
+
+    // return {};
+  }
+);
 export const getLatestWhyStatementFromServer = createServerAction(
   async (): Promise<any> => {
     const authToken = validateAuthToken();

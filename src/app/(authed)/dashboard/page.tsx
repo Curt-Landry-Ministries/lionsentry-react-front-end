@@ -9,6 +9,8 @@ import Button from "@/components/Global/Button";
 import DevotionalCard from "@/components/Devotionals/DevotionalCard";
 import GoalList from "@/components/Goals/GoalList";
 import Modal from "@/components/Global/Modal";
+import ProfilePhoto from "@/components/Global/ProflePhoto";
+import DevotionalFull from "@/components/Devotionals/DevotionalFull";
 
 const Dashboard = () => {
   const { whyStatements, goals, devotionals, name, profile_photo } =
@@ -32,17 +34,7 @@ const Dashboard = () => {
     <>
       <div className="grid md:grid-cols-5 gap-7 bg-white dark:bg-black mx-4">
         <div className="content-box flex flex-wrap md:flex-nowrap gap-7 w-full md:col-span-5">
-          <div className="w-[170px] h-[170px] flex-shrink-0 relative flex rounded-full overflow-hidden bg-dark-mode-subtle dark:bg-cloud">
-            <Image
-              src={profile_photo ? profile_photo : "/icons/User.svg"}
-              fill
-              alt={`${name} Profile Photo`}
-              style={{
-                objectFit: "cover",
-                borderRadius: "100px",
-              }}
-            />
-          </div>
+          <ProfilePhoto src={profile_photo} name={name} />
 
           <div className="flex flex-col">
             <h2 className="pb-5 mb-5 title-line-style">My Why</h2>
@@ -56,10 +48,10 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="md:col-span-3">
-          <DevotionalCard
+          <DevotionalFull
             showNone={devotionals.length === 0}
             devotional={devotionals && devotionals[0]}
-            hasAll={true}
+            inDashboard={true}
           />
         </div>
 

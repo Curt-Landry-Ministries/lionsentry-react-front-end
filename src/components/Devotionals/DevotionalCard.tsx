@@ -1,31 +1,44 @@
 import { AuthedPaths } from "@/lib/constants";
 import Link from "next/link";
-import { DetailedHTMLProps } from "react";
+import { DetailedHTMLProps, useState } from "react";
 import DevotionalNone from "./DevotionalNone";
 import classNames from "classnames";
+import Button from "../Global/Button";
+import Heart from "../Global/Heart";
 
 export type DevotionalCard = DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 > & {
   devotional?: Devotional;
+  index?: number;
   showNone?: boolean;
-  hasAll?: boolean;
 };
 const DevotionalCard: React.FC<DevotionalCard> = ({
   devotional,
+  index,
   showNone = false,
-  hasAll = false,
   ...props
 }) => {
   const devotionalDate = devotional && new Date(devotional.dateTimeCreated);
   const todayDate = new Date();
+  const [favorite, setFavorite] = useState(false); // Temp solution to show fav
+
+  const handleFavorite = () => {
+    alert("favorite a devotional");
+    setFavorite(!favorite);
+  };
 
   return (
     <div
-      className="bg-white dark:bg-opacity-10 dark:shadow-none shadow-content-box p-7 rounded-md"
+      className={classNames(
+        "bg-white dark:bg-opacity-10 dark:shadow-none shadow-content-box px-7 py-8 rounded-md relative flex flex-col"
+      )}
       {...props}
     >
+      <button className="absolute top-3 right-3" onClick={handleFavorite}>
+        <Heart isActive={favorite} />
+      </button>
       <div
         className={classNames("title-line-style", {
           "pb-7": !showNone,
@@ -33,16 +46,11 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
         })}
       >
         <div className="flex items-center">
-          {((devotionalDate &&
+          <h3>{devotional?.title}</h3>
+          {(devotionalDate &&
             devotionalDate.setHours(0, 0, 0, 0) ===
               todayDate.setHours(0, 0, 0, 0)) ||
-            showNone) && <h3>Today&apos;s Devotional</h3>}
-
-          {hasAll && !showNone && (
-            <Link href={AuthedPaths.Devotionals} className="link-style ml-auto">
-              See All
-            </Link>
-          )}
+            showNone}
         </div>
         {devotional && devotional.dateTimeCreated && (
           <span className="text-inactive block">
@@ -55,16 +63,20 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
         )}
       </div>
 
-      <div className="mt-7">
+      <div className="mt-7 flex flex-col flex-1 justify-between">
         {showNone ? (
           <DevotionalNone />
         ) : (
           <>
             {devotional && (
               <>
-                <p>{devotional.journalingPrompt}</p>
-                <p className="font-bold my-5">{devotional.biblePassage}</p>
-                <p>{devotional.personalization}</p>
+                <p>{devotional.journalingPrompt.substring(0, 250) + " ..."}</p>
+
+                <Link href={`/devotionals/devotional-${index}`}>
+                  <Button standardBtn={"text"} className="text-primary flex-1">
+                    Read More
+                  </Button>
+                </Link>
               </>
             )}
           </>

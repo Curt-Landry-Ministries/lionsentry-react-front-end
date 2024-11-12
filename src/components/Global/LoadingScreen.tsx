@@ -8,18 +8,24 @@ interface LoadingScreenProps {
   message: string;
   size?: "sm" | "md" | "lg";
   isFullScreen?: boolean;
+  className?: string;
 }
 
 const LoadingScreen: React.FC<LoadingScreenProps> = ({
   message,
   size = "md",
   isFullScreen = false,
+  className,
 }) => {
   return (
     <div
-      className={classNames("flex justify-center", {
-        "min-h-screen min-w-full": isFullScreen,
-      })}
+      className={classNames(
+        "flex justify-center items-center",
+        {
+          "h-screen w-screen fixed z-50 top-0 left-0": isFullScreen,
+        },
+        className
+      )}
     >
       <div className="max-w-xl flex flex-col items-center justify-between">
         <div className="h-[90px] w-[190px]">
