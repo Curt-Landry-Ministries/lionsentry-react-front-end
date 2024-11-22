@@ -1,9 +1,13 @@
 import { useUserStore } from "@/app/providers/userContext";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { updateGoal } from "../app/actions";
 
 export const useGoals = (goalId: string = "") => {
   const { goals, getGoals } = useUserStore((s) => s);
+
+  useEffect(() => {
+    getGoals();
+  }, []);
 
   const currentGoal = useMemo(() => {
     return goals.filter((goal) => goal.doc_id === goalId)[0];
