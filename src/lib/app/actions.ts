@@ -120,7 +120,7 @@ export const submitAnswerToServer = createServerAction(
           Authorization: `Bearer ${authToken}`,
         },
         body: JSON.stringify({
-          abswer: answer,
+          answer: answer,
           question: question,
           questionIndex: questionIndex,
         }),
