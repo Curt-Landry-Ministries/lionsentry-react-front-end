@@ -11,6 +11,7 @@ import useWindowSize from "@/lib/hooks/useWindowSize";
 import MobileMenu from "./MobileMenu";
 import { usePathname } from "next/navigation";
 import classnames from "classnames";
+import Image from "next/image";
 
 const Header = () => {
   const pathname = usePathname();
@@ -73,9 +74,19 @@ const Header = () => {
           })}
           href="/"
         >
-          <Logo
-            noTheme={transparentHeader && !pathname.includes("questionnaire")}
-          />
+          {pathname === Paths.Login || pathname === Paths.Signup ? (
+            <Image
+              src="/images/Logo-White.png"
+              alt="Lionsentry White Logo"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="max-h-10"
+              style={{ width: "auto", height: "100%" }}
+            />
+          ) : (
+            <Logo color={"navy"} className="dark:fill-white" />
+          )}
         </Link>
 
         <div className="flex gap-5">

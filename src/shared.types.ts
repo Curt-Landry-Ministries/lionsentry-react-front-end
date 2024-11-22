@@ -3,14 +3,6 @@ type UserCredentials = {
   password: string;
 };
 
-interface DevotionalContent {
-  Title: string;
-  BiblePassage: string;
-  Personalization: string;
-  JournalingPrompt: string;
-  TimeStamp: string;
-}
-
 interface Question {
   id: number;
   title: string;
@@ -19,13 +11,13 @@ interface Question {
 
 type Devotional = {
   title: string;
-  // devotional: string;
   biblePassage: string;
   personalization: string;
   journalingPrompt: string;
   dateTimeCreated: string;
+  isFavorite: boolean;
   forUser: string;
-  id: string;
+  doc_id: string;
 };
 
 type WhyStatement = {
@@ -50,7 +42,7 @@ type Goal = {
   description?: string;
   deadline?: string | undefined | null;
   forUser: string;
-  id: string;
+  doc_id: string;
   category: "Spiritual" | "Physical" | "Other" | "Joy" | "Financial";
   isComplete: boolean;
   isDeleted: boolean;

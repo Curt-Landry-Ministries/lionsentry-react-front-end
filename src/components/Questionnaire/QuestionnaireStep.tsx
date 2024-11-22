@@ -1,5 +1,6 @@
 import { useUserStore } from "@/app/providers/userContext";
 import Image from "next/image";
+import QuestionnaireVideos from "./QuestionnaireVideos";
 
 export type QuestionnaireStepType = {
   index: number;
@@ -22,13 +23,24 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
     <div className="[&>iframe]:w-full [&>iframe]:min-h-[250px] md:[&>iframe]:min-h-[500px] [&>iframe]:pb-8 z-10 relative">
       {index > -1 && item ? (
         <>
-          <iframe
-            src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          />
+          {QuestionnaireVideos[index] ? (
+            <iframe
+              src={QuestionnaireVideos[index]}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          ) : (
+            <iframe
+              src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          )}
+
           <div className="flex gap-5 mb-5">
             <Image
               src="/images/question-icon.svg"

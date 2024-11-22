@@ -18,7 +18,7 @@ const GoalEditModal = ({
   goal: Goal;
   isOpen: boolean;
   updateIsOpen: (open: boolean) => void;
-  onUpdate: () => void;
+  onUpdate: (goalDate: Partial<Goal>) => void;
 }) => {
   const formikRef = useRef<FormikProps<Record<string, unknown>>>(null);
 
@@ -42,7 +42,12 @@ const GoalEditModal = ({
     actions.resetForm();
 
     updateIsOpen(false);
-    onUpdate();
+    onUpdate({
+      description: values.description,
+      deadline: values.deadline,
+      goal: values.title,
+      category: values.category,
+    });
   };
 
   const handleClose = () => {
@@ -55,6 +60,7 @@ const GoalEditModal = ({
       <div className="md:min-w-[80vw] lg:min-w-[800px]">
         <h3 className="mb-5">Edit Goal</h3>
         <Formik
+          enableReinitialize
           validationSchema={validationSchema}
           initialValues={initialValues}
           onSubmit={handleSubmit}
