@@ -5,13 +5,13 @@ import Modal from "./Modal";
 import { readFile } from "@/lib/helpers/cropImage";
 import ImageCropper from "./ImageCropper";
 import Button from "./Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useUserStore } from "@/app/providers/userContext";
 import ProfilePhoto from "./ProflePhoto";
 import { TrashIcon } from "@radix-ui/react-icons";
 import ZoomSlider from "./ZoomSlider";
-import { uploadProfilePhoto } from "@/lib/app/actions";
+import { saveUserDataPoint, uploadProfilePhoto } from "@/lib/app/actions";
 
 const ProfileModal = ({
   isOpen,
@@ -26,10 +26,23 @@ const ProfileModal = ({
   const [triggerChooser, setTriggerChoose] = useState(false);
   const [preview, setPreview] = useState(profile_photo);
 
-  const handleFileChange = async ({ target: { files } }: any) => {
-    const file = files && files[0];
+  useEffect(() => {
+    setPreview(profile_photo);
+  }, [profile_photo]);
+
+  const handleFileChange = async (e: any) => {
+    const file = e.target.files && e.target.files[0];
     const imageDataUrl = await readFile(file);
     setImage(imageDataUrl);
+    // reset file input so it can work again
+    e.target.value = null;
+  };
+
+  const handleDelete = async () => {
+    await saveUserDataPoint("profile_photo", "", "replace");
+
+    updateProfilePhoto("");
+    setPreview("");
   };
 
   const handleDone = async () => {
@@ -45,29 +58,30 @@ const ProfileModal = ({
 
     setTriggerChoose(false);
     resetStates();
+    updateOpen(false);
   };
 
   const handleCancel = () => {
+    setTriggerChoose(false);
+    setImage(profile_photo);
     resetStates();
     updateOpen(false);
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={() => updateOpen(false)}>
+    <Modal isOpen={isOpen} onClose={handleCancel}>
       <div className="text-center relative flex flex-col items-center min-w-[700px]">
         <h3 className="mb-12">Profile Picture</h3>
 
         {triggerChooser ? (
-          <div className="mx-auto w-60 h-60 rounded-full relative [&_.reactEasyCrop\_CropArea]:!text-white [&_.reactEasyCrop\_CropArea]:border-inactive [&_.reactEasyCrop\_CropArea]:border-1 [&_.reactEasyCrop\_CropArea]:!bg-opacity-0.8">
+          <div className="mx-auto w-[190px] h-[190px] rounded-full relative [&_.reactEasyCrop\_CropArea]:!text-white [&_.reactEasyCrop\_CropArea]:dark:!text-black [&_.reactEasyCrop\_CropArea]:border-inactive [&_.reactEasyCrop\_CropArea]:border-1 [&_.reactEasyCrop\_CropArea]:!bg-opacity-0.8">
             <ImageCropper />
           </div>
         ) : (
           <ProfilePhoto src={preview} name={name} />
         )}
-
-        {preview}
         <Button
-          className="text-sm text-primary"
+          className="text-sm text-primary mt-4"
           onClick={() => setTriggerChoose(true)}
           standardBtn={"text"}
           hasIcon={true}
@@ -105,7 +119,12 @@ const ProfileModal = ({
             Save Photo
           </Button>
 
-          <Button standardBtn={"text"} hasIcon className="text-primary">
+          <Button
+            standardBtn={"text"}
+            hasIcon
+            className="text-primary"
+            onClick={() => handleDelete()}
+          >
             <TrashIcon width={24} height={24} /> Delete
           </Button>
         </div>

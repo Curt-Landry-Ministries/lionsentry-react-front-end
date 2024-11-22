@@ -2,19 +2,22 @@
 import Image from "next/image";
 import Button from "../Global/Button";
 import Modal from "../Global/Modal";
-import { useEffect, useState } from "react";
-import { ChevronLeftIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
+// import { ChevronLeftIcon } from "@radix-ui/react-icons";
 import { fetchDevotionals, generateDevotional } from "@/lib/app/actions";
 import LoadingScreen from "../Global/LoadingScreen";
 import { useUserStore } from "@/app/providers/userContext";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { AuthedPaths } from "@/lib/constants";
 
 const DevotionalGenerateModal = () => {
   const { updateDevotionals } = useUserStore((s) => s);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [customGenerate, setCustomGenerate] = useState(false);
-  const [devotionalTopic, setDevotionalTopic] = useState("");
+  // const [customGenerate, setCustomGenerate] = useState(false);
+  // const [devotionalTopic, setDevotionalTopic] = useState("");
+
+  const router = useRouter();
 
   const inputStyle =
     "border border-cloud-darker bg-white dark:bg-dark-mode-subtle dark:border-dark-mode-strong w-full py-2 px-3 rounded";
@@ -23,20 +26,25 @@ const DevotionalGenerateModal = () => {
     setIsLoading(true);
     setIsOpen(false);
 
-    if (custom) {
-      alert("Generate Devotional with custom topic " + devotionalTopic);
-      setDevotionalTopic("");
-      setCustomGenerate(false);
-    } else {
-      await generateDevotional();
+    // if (custom) {
+    //   alert("Generate Devotional with custom topic " + devotionalTopic);
+    //   setDevotionalTopic("");
+    //   setCustomGenerate(false);
+    // } else {
+    const newDevotional = await generateDevotional();
 
-      const refetchDevotionals = await fetchDevotionals();
-      if (refetchDevotionals.success) {
-        updateDevotionals(refetchDevotionals.value);
+    const refetchDevotionals = await fetchDevotionals();
 
-        redirect(`/devotionals/devotional-0`);
-      }
+    if (
+      refetchDevotionals.success &&
+      newDevotional.success &&
+      newDevotional.value
+    ) {
+      updateDevotionals(refetchDevotionals.value);
+
+      router.push(`${AuthedPaths.Devotionals}/${newDevotional.value.doc_id}`);
     }
+    // }
 
     setTimeout(() => setIsLoading(false), 2000);
   };
@@ -62,7 +70,7 @@ const DevotionalGenerateModal = () => {
         <LoadingScreen
           isFullScreen={true}
           message="Generating Devotional"
-          className="bg-cloud"
+          className="bg-cloud dark:bg-black"
         />
       )}
 
@@ -70,31 +78,31 @@ const DevotionalGenerateModal = () => {
         <div className="text-center relative flex flex-col items-center md:min-w-[700px]">
           <h3 className="mb-8">Generate a Devotional</h3>
 
-          {!customGenerate ? (
-            <>
-              <Button
-                standardBtn={"gradient"}
-                onClick={() => handleGenerateDevotional(false)}
-                hasIcon={true}
-                className="!pr-2"
-              >
-                Generate Now{" "}
-                <Image
-                  src="/icons/AI-Sparks.svg"
-                  height={24}
-                  width={24}
-                  alt="AI sparks icon"
-                />
-              </Button>
+          {/* {!customGenerate ? ( */}
+          <>
+            <Button
+              standardBtn={"gradient"}
+              onClick={() => handleGenerateDevotional(false)}
+              hasIcon={true}
+              className="!pr-2"
+            >
+              Generate Now{" "}
+              <Image
+                src="/icons/AI-Sparks.svg"
+                height={24}
+                width={24}
+                alt="AI sparks icon"
+              />
+            </Button>
 
-              <div className="w-full my-8">
-                <div className="h-[1px] w-full bg-gradient-1"></div>
-                <span className="px-5 bg-white inline-block -translate-y-1/2">
-                  Or
-                </span>
-              </div>
-            </>
-          ) : (
+            {/* <div className="w-full my-8">
+              <div className="h-[1px] w-full bg-gradient-1"></div>
+              <span className="px-5 bg-white inline-block -translate-y-1/2">
+                Or
+              </span>
+            </div> */}
+          </>
+          {/* ) : (
             <Button
               hasIcon={true}
               standardBtn={"text"}
@@ -103,11 +111,11 @@ const DevotionalGenerateModal = () => {
             >
               <ChevronLeftIcon /> Back
             </Button>
-          )}
+          )} */}
 
-          <div className="w-full text-left">
+          {/* <div className="w-full text-left">
             <p className="font-semibold mb-2">
-              Write down a topic, or describe the devotional you'd like to
+              Write down a topic, or describe the devotional you&apos;d like to
               receive.
             </p>
             <textarea
@@ -118,9 +126,9 @@ const DevotionalGenerateModal = () => {
               onChange={(e) => setDevotionalTopic(e.currentTarget.value)}
               value={devotionalTopic}
             />
-          </div>
+          </div> */}
 
-          {customGenerate && (
+          {/* {customGenerate && (
             <Button
               standardBtn={"gradient"}
               onClick={() => handleGenerateDevotional(true)}
@@ -135,7 +143,7 @@ const DevotionalGenerateModal = () => {
                 alt="AI sparks icon"
               />
             </Button>
-          )}
+          )} */}
         </div>
       </Modal>
     </>

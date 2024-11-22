@@ -145,12 +145,12 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
     currentQuestionIndex % 2 === 0 ? "enterFromRight" : "enterFromLeft";
 
   return (
-    <div className="pt-16 pb-40 md:pt-24 md:pb-16">
+    <div className="pt-16 pb-40 md:pt-24 md:pb-16 content-container lg:max-w-[800px] lg:min-w-[800px]">
       {/* Black background for the entire component */}
       {isLoading ? (
         <LoadingScreen message="Generating Your Personalized Purpose Statement" /> // Display loading screen when isLoading is true
       ) : (
-        <div className="content-container flex-1">
+        <div className="flex-1">
           {currentQuestionIndex > -1 && (
             <ProgressBar
               current={currentQuestionIndex + 1}

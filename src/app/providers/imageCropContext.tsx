@@ -1,7 +1,27 @@
 import { createContext, useCallback, useContext, useState } from "react";
 import getCroppedImg from "@/lib/helpers/cropImage";
 
-export const ImageCropContext = createContext({});
+export const ImageCropContext = createContext({
+  image: null,
+  setImage: (image: any) => {},
+  zoom: 0,
+  setZoom: (zoom: number) => {},
+  crop: { x: 0, y: 0 },
+  setCrop: ({ x, y }: { x: number; y: number }) => {},
+  croppedAreaPixels: null,
+  setCroppedAreaPixels: (area: any) => {},
+  onCropComplete: (_croppedArea: any, croppedAreaPixels: any) => {},
+  getProcessedImage: (): any => {},
+  handleZoomIn: () => {},
+  handleZoomOut: () => {},
+  max_zoom: 0,
+  min_zoom: 0,
+  zoom_step: 0,
+  max_rotation: 0,
+  min_rotation: 0,
+  rotation_step: 0,
+  resetStates: () => {},
+});
 
 type ImageCropProviderType = {
   children: React.ReactNode;
@@ -15,7 +35,7 @@ type ImageCropProviderType = {
 
 const defaultImage = null;
 const defaultCrop = { x: 0, y: 0 };
-const defaultZoom = 3;
+const defaultZoom = 1.5;
 const defaultCroppedAreaPixels = null;
 
 const ImageCropProvider = ({

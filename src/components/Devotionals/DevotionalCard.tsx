@@ -1,10 +1,12 @@
-import { AuthedPaths } from "@/lib/constants";
 import Link from "next/link";
-import { DetailedHTMLProps, useState } from "react";
+import { DetailedHTMLProps, useEffect, useState } from "react";
 import DevotionalNone from "./DevotionalNone";
 import classNames from "classnames";
 import Button from "../Global/Button";
 import Heart from "../Global/Heart";
+import { fetchDevotionals, updateDevotional } from "@/lib/app/actions";
+import { useUserStore } from "@/app/providers/userContext";
+import DevotionalFavorite from "./DevotionalFavorite";
 
 export type DevotionalCard = DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -22,12 +24,6 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
 }) => {
   const devotionalDate = devotional && new Date(devotional.dateTimeCreated);
   const todayDate = new Date();
-  const [favorite, setFavorite] = useState(false); // Temp solution to show fav
-
-  const handleFavorite = () => {
-    alert("favorite a devotional");
-    setFavorite(!favorite);
-  };
 
   return (
     <div
@@ -36,9 +32,14 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
       )}
       {...props}
     >
-      <button className="absolute top-3 right-3" onClick={handleFavorite}>
-        <Heart isActive={favorite} />
-      </button>
+      {!showNone && (
+        <DevotionalFavorite
+          doc_id={devotional?.doc_id}
+          isFavorite={devotional?.isFavorite}
+          isCard={true}
+        />
+      )}
+
       <div
         className={classNames("title-line-style", {
           "pb-7": !showNone,
@@ -72,7 +73,7 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
               <>
                 <p>{devotional.journalingPrompt.substring(0, 250) + " ..."}</p>
 
-                <Link href={`/devotionals/devotional-${index}`}>
+                <Link href={`/devotionals/${devotional.doc_id}`}>
                   <Button standardBtn={"text"} className="text-primary flex-1">
                     Read More
                   </Button>

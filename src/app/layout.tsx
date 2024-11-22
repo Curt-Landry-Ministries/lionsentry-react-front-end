@@ -7,6 +7,9 @@ import { UserStoreProvider } from "./providers/userContext";
 export const metadata = {
   title: "Lionsentry",
   description: "Vision Statement Generator",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

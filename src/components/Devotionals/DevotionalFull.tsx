@@ -5,6 +5,7 @@ import DevotionalNone from "./DevotionalNone";
 import classNames from "classnames";
 import Heart from "../Global/Heart";
 import DevotionalGenerateModal from "./DevotionalGenerateModal";
+import DevotionalFavorite from "./DevotionalFavorite";
 
 export type DevotionalFull = DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -33,9 +34,10 @@ const DevotionalFull: React.FC<DevotionalFull> = ({
   const DevotionalTools = () => {
     return (
       <div>
-        <button onClick={handleFavorite}>
-          <Heart isActive={favorite} />
-        </button>
+        <DevotionalFavorite
+          isFavorite={devotional?.isFavorite}
+          doc_id={devotional?.doc_id}
+        />
       </div>
     );
   };
@@ -56,7 +58,9 @@ const DevotionalFull: React.FC<DevotionalFull> = ({
         })}
       >
         <div className="flex items-top">
-          <h3>{devotional?.title}</h3>
+          <h3>
+            {devotional?.title ? devotional?.title : "Today's Devotional"}
+          </h3>
           {(devotionalDate &&
             devotionalDate.setHours(0, 0, 0, 0) ===
               todayDate.setHours(0, 0, 0, 0)) ||
@@ -81,9 +85,11 @@ const DevotionalFull: React.FC<DevotionalFull> = ({
           </span>
         )}
 
-        <div className="w-full mt-6">
-          <DevotionalTools />
-        </div>
+        {!showNone && (
+          <div className="w-full mt-6">
+            <DevotionalTools />
+          </div>
+        )}
       </div>
 
       <div className="mt-7">

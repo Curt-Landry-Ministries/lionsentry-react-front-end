@@ -6,46 +6,42 @@ import Dropdown from "@/components/Global/CustomSelect";
 import GoalCreateModal from "@/components/Goals/GoalCreateModal";
 import GoalList from "@/components/Goals/GoalList";
 import { AuthedPaths } from "@/lib/constants";
+import { useGoals } from "@/lib/hooks/useGoals";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Goals = () => {
-  const { goals, getGoals } = useUserStore((s) => s);
-
   const router = useRouter();
 
+  const { isLoading } = useUserStore((s) => s);
+
+  const { goalsObj } = useGoals();
+
   const [currentCat, setCurrentCat] = useState("All");
-  const [filteredGoals, setFilteredGoals] = useState<Goal[]>(goals);
+  const [filteredGoals, setFilteredGoals] = useState<Goal[]>(goalsObj.all);
   const [openCreateModal, setOpenCreateModal] = useState(false);
 
-  const { current, completed } = useMemo(() => {
-    return {
-      current: goals.filter((item) => !item.isComplete && !item.isDeleted),
-      completed: goals.filter((item) => item.isComplete && !item.isDeleted),
-    };
-  }, [goals]);
-
   const setGoals = () => {
-    if (currentCat === "In Progress") setFilteredGoals(current);
-    else if (currentCat === "Complete") setFilteredGoals(completed);
-    else setFilteredGoals(goals);
+    if (currentCat === "In Progress") setFilteredGoals(goalsObj.current);
+    else if (currentCat === "Complete") setFilteredGoals(goalsObj.completed);
+    else setFilteredGoals(goalsObj.all);
   };
 
   useEffect(() => {
     setGoals();
-  }, [currentCat, goals]);
+  }, [currentCat, goalsObj]);
 
   useEffect(() => {
     const completedOnboarding = localStorage.getItem("completedOnboardingGoal");
 
     if (
-      (completedOnboarding && completedOnboarding === "true") ||
-      goals.length > 0
+      !isLoading &&
+      (!completedOnboarding || completedOnboarding !== "true") &&
+      goalsObj.all.length === 0
     )
-      getGoals();
-    else router.push(AuthedPaths.Principles);
-  }, []);
+      router.push(AuthedPaths.Principles);
+  }, [isLoading]);
 
   return (
     <>
@@ -77,7 +73,7 @@ const Goals = () => {
           </Button>
         </div>
         <div className="content-box">
-          {current.length > 0 ? (
+          {goalsObj.all.length > 0 ? (
             <GoalList goals={filteredGoals} />
           ) : (
             <div className="text-center flex flex-col items-center gap-8">

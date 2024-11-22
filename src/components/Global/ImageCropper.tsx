@@ -20,8 +20,8 @@ const ImageCropper = () => {
       cropSize={{ width: 185, height: 185 }}
       style={{
         containerStyle: {
-          height: 220,
-          width: 220,
+          height: 190,
+          width: 190,
           top: 8,
           bottom: 8,
           left: 8,

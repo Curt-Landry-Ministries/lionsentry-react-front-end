@@ -3,20 +3,25 @@ import Modal from "../Global/Modal";
 import GoalTag from "./GoalTag";
 import { useUserStore } from "@/app/providers/userContext";
 import Button from "../Global/Button";
+import { useGoals } from "@/lib/hooks/useGoals";
 
 const GoalCompleteModal = ({
-  goal,
+  goalId,
   isOpen,
   updateIsOpen,
 }: {
-  goal: Goal;
+  goalId: string;
   isOpen: boolean;
   updateIsOpen: (open: boolean) => void;
 }) => {
   const { name } = useUserStore((s) => s);
 
-  const handleComplete = () => {
-    alert("This goal is set to complete.");
+  const { currentGoal, updateGoalHook } = useGoals(goalId);
+
+  const handleComplete = async () => {
+    updateGoalHook({
+      isComplete: true,
+    });
 
     updateIsOpen(false);
   };
@@ -25,13 +30,15 @@ const GoalCompleteModal = ({
     <Modal isOpen={isOpen} onClose={() => updateIsOpen(false)}>
       <div className="max-w-sm">
         <div
-          className={`bg-${GoalTypeAsset[goal.category].color}-fade dark:bg-${
-            GoalTypeAsset[goal.category].color
+          className={`bg-${
+            GoalTypeAsset[currentGoal.category].color
+          }-fade dark:bg-${
+            GoalTypeAsset[currentGoal.category].color
           }-dark py-8 px-5 rounded-lg mb-5`}
         >
           <div className="max-w-md gap-2 flex flex-col items-center mx-auto text-center">
-            <GoalTag category={goal.category} />
-            <h3>{goal.goal}</h3>
+            <GoalTag category={currentGoal.category} />
+            <h3>{currentGoal.goal}</h3>
           </div>
         </div>
         <p className="mb-12">

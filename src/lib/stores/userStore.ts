@@ -40,7 +40,7 @@ export const defaultInitUserState: User = {
   whyStatements: [],
   onboardingAnswers: [],
   goals: [],
-  isLoading: false,
+  isLoading: true,
 };
 
 export const initUserStore = (): User => {

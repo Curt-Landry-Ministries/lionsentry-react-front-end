@@ -52,7 +52,7 @@ const GoalList = ({
 
       {goals.map((goal, index) => (
         <Link
-          href={`/goals/goal-${index}`}
+          href={`/goals/${goal.doc_id}`}
           className="[&:not(:first-child)]:pt-5 block"
           key={`goal-${index}`}
         >

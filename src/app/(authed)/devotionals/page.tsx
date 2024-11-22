@@ -5,19 +5,14 @@ import React, { useMemo, useState } from "react";
 import DevotionalCard from "@/components/Devotionals/DevotionalCard";
 import { useUserStore } from "@/app/providers/userContext";
 import Pagination from "@/components/Global/Pagination";
-import Button from "@/components/Global/Button";
-import { fetchDevotionals, generateDevotional } from "@/lib/app/actions";
 import LoadingScreen from "@/components/Global/LoadingScreen";
-import Image from "next/image";
 import Dropdown from "@/components/Global/CustomSelect";
 import DevotionalGenerateModal from "@/components/Devotionals/DevotionalGenerateModal";
 
 const pageSize = 7;
 
 const Devotionals: React.FC = () => {
-  const { devotionals, updateDevotionals, isLoading } = useUserStore(
-    (state) => state
-  );
+  const { devotionals, isLoading } = useUserStore((state) => state);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [currentView, setCurrentView] = useState("All");
@@ -26,6 +21,7 @@ const Devotionals: React.FC = () => {
     const firstPageIdx = (currentPage - 1) * pageSize;
     const lastPageIdx = firstPageIdx + pageSize;
     let filterDevotionals = devotionals;
+
     if (currentView !== "All") {
       if (currentView === "Favorite")
         filterDevotionals = devotionals.filter(
@@ -38,16 +34,6 @@ const Devotionals: React.FC = () => {
     }
     return filterDevotionals.slice(firstPageIdx, lastPageIdx);
   }, [currentPage, devotionals, currentView]);
-
-  const handleGenerateDevotionals = async () => {
-    setLoading(true);
-    await generateDevotional();
-
-    const refetchDevotionals = await fetchDevotionals();
-    if (refetchDevotionals.success) updateDevotionals(refetchDevotionals.value);
-
-    setLoading(false);
-  };
 
   return (
     <div className="mx-4 max-w-[1200px] md:mx-auto flex flex-col space-y-5 px-2 md:px-8">
@@ -84,22 +70,24 @@ const Devotionals: React.FC = () => {
           {devotionals.length === 0 ? (
             <DevotionalCard showNone={true} />
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-              {currentDevotionalData.map((devotional, index) => (
-                <DevotionalCard
-                  devotional={devotional}
-                  key={`devotional-${index}`}
-                  index={index}
-                />
-              ))}
+            <>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                {currentDevotionalData.map((devotional, index) => (
+                  <DevotionalCard
+                    devotional={devotional}
+                    key={`devotional-${index}`}
+                    index={index}
+                  />
+                ))}
+              </div>
 
               <Pagination
                 currentPage={currentPage}
-                totalCount={devotionals.length}
+                totalCount={currentDevotionalData.length}
                 pageSize={pageSize}
                 onPageChange={(page) => setCurrentPage(page)}
               />
-            </div>
+            </>
           )}
         </>
       )}

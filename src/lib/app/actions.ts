@@ -7,7 +7,6 @@ import { logout } from "../auth/actions";
 import { createServerAction, ServerActionError } from "../action-utils";
 import { Paths } from "../constants";
 import { redirect } from "next/navigation";
-import { readFileSync } from "fs";
 
 const BASE_URL = getBaseUrl(false);
 
@@ -40,14 +39,13 @@ export const fetchUserData = createServerAction(async () => {
     });
     const respNameEmail = await resp.json();
 
-    console.log(respNameEmail);
-
     userData.name =
       `${respNameEmail.firstName} ${respNameEmail.lastName}`.replace(
         /['"]+/g,
         ""
       );
     userData.email = respNameEmail.email;
+    userData.profile_photo = respNameEmail.photoURL;
 
     const whyStatementResp = await getLatestWhyStatementFromServer();
 
@@ -65,7 +63,6 @@ export const fetchUserData = createServerAction(async () => {
     userData.whyStatements = whyStatementResp.success
       ? [whyStatementResp.value]
       : [];
-    // userData.profile_photo = "/images/user_image.png"; // placeholder image for user
 
     return userData;
   } catch (error: any) {
@@ -122,9 +119,14 @@ export const submitAnswerToServer = createServerAction(
           "Content-Type": "application/json",
           Authorization: `Bearer ${authToken}`,
         },
-        body: JSON.stringify({ answer, question, questionIndex }),
+        body: JSON.stringify({
+          abswer: answer,
+          question: question,
+          questionIndex: questionIndex,
+        }),
       });
       const respData = await resp.json();
+
       return respData;
     } catch (error: any) {
       throw new ServerActionError(error.error || "Failed to submit answer");
@@ -167,10 +169,10 @@ export const generateWhyStatementFromAnswers = createServerAction(
           "Content-Type": "application/json",
           Authorization: `Bearer ${authToken}`,
         },
-        body: JSON.stringify({ questionsAnswers }),
+        // body: JSON.stringify({ questionsAnswers }),
       });
       logTest(`Received response:`);
-      logTest(resp);
+      logTest(await resp.json());
 
       if (!resp.ok) {
         throw new ServerActionError("Error generation whyStatement");
@@ -186,8 +188,34 @@ export const generateWhyStatementFromAnswers = createServerAction(
   }
 );
 
+export const updateDevotional = createServerAction(
+  async ({ doc_id, isFavorite }: { doc_id: string; isFavorite: boolean }) => {
+    const authToken = validateAuthToken();
+
+    try {
+      const resp = await fetch(`${BASE_URL}/update-devotional`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: JSON.stringify({
+          doc_id: doc_id,
+          isFavorite: isFavorite,
+        }),
+      });
+
+      const respData = await resp.json();
+
+      if (resp.ok) return respData;
+    } catch (err: any) {
+      throw new ServerActionError(err.error);
+    }
+  }
+);
+
 export const generateDevotional = createServerAction(
-  async (): Promise<DevotionalContent | undefined> => {
+  async (): Promise<Devotional | undefined> => {
     const authToken = validateAuthToken();
 
     try {
@@ -199,7 +227,7 @@ export const generateDevotional = createServerAction(
         },
         body: JSON.stringify({ saveToFirestore: true }),
       });
-      const respData: DevotionalContent = await resp.json();
+      const respData: Devotional = await resp.json();
 
       if (resp.ok) return respData;
     } catch (err: any) {
@@ -262,15 +290,11 @@ export const uploadProfilePhoto = createServerAction(
 
     const respData = await resp.json();
 
-    console.log(respData);
-
     if (!resp.ok) {
       throw new ServerActionError("Failed to upload profile photo");
     }
 
     return respData;
-
-    // return {};
   }
 );
 export const getLatestWhyStatementFromServer = createServerAction(
@@ -345,7 +369,45 @@ export const saveGoal = createServerAction(
     if (!resp.ok) {
       logError(respData);
 
-      throw new ServerActionError("Failed to save yout goal");
+      throw new ServerActionError("Failed to save your goal");
+    }
+
+    return respData;
+  }
+);
+
+export const updateGoal = createServerAction(
+  async ({
+    doc_id,
+    updateFields,
+  }: {
+    doc_id: string;
+    updateFields: Partial<Goal>;
+  }): Promise<any> => {
+    const authToken = validateAuthToken();
+
+    if (updateFields.deadline) {
+      updateFields.deadline = new Date(updateFields.deadline).toUTCString();
+    }
+
+    const resp = await fetch(`${BASE_URL}/update-goal`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: JSON.stringify({
+        doc_id: doc_id,
+        updateFields: updateFields,
+      }),
+    });
+
+    const respData = await resp.json();
+
+    if (!resp.ok) {
+      logError(respData);
+
+      throw new ServerActionError("Failed to save your goal");
     }
 
     return respData;

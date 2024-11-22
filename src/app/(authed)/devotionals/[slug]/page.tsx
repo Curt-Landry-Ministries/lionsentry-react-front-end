@@ -18,7 +18,7 @@ const SingleDevotional = ({ params }: { params: { slug: string } }) => {
 
   const devotional = useMemo(() => {
     return devotionals.filter(
-      (_, index) => index === parseInt(params.slug.replace("devotional-", ""))
+      (devotional) => devotional.doc_id === params.slug
     );
   }, [devotionals, params.slug]);
 

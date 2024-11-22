@@ -3,12 +3,16 @@ import Image from "next/image";
 const ProfilePhoto = ({
   src,
   name,
+  ...props
 }: {
   src: string | undefined;
   name?: string;
 }) => {
   return (
-    <div className="w-[170px] h-[170px] flex-shrink-0 relative flex justify-center rounded-full overflow-hidden bg-gradient-to-b from-[#FAFAFA] from-0% to-[#D3D3D3] to-100%">
+    <div
+      {...props}
+      className="w-[170px] h-[170px] flex-shrink-0 relative flex justify-center rounded-full overflow-hidden bg-gradient-to-b from-[#FAFAFA] from-0% to-[#D3D3D3] to-100%"
+    >
       {!!src ? (
         <Image
           src={src}

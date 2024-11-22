@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import Logo from "./Logo";
-import { AuthedPaths, Paths, MaxWindowSize } from "@/lib/constants";
+import { AuthedPaths, MaxWindowSize } from "@/lib/constants";
 import ThemeToggler from "./ThemeToggler";
 import useWindowSize from "@/lib/hooks/useWindowSize";
 import MobileMenu from "./MobileMenu";
@@ -11,10 +11,9 @@ import classnames from "classnames";
 import Image from "next/image";
 import { TriangleDownIcon } from "@radix-ui/react-icons";
 import { useUserStore } from "@/app/providers/userContext";
-import { logout } from "@/lib/auth/actions";
-import { useRouter } from "next/navigation";
 import ProfileModal from "./ProfileModal";
 import ImageCropProvider from "@/app/providers/imageCropContext";
+import SignoutModal from "./SignoutModal";
 
 const AuthedHeader = () => {
   const pathname = usePathname();
@@ -24,8 +23,9 @@ const AuthedHeader = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [transparentHeader, setTransparentHeader] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const [openSignout, setOpenSignout] = useState(false);
 
-  const { reset, profile_photo, name } = useUserStore((s) => s);
+  const { profile_photo, name } = useUserStore((s) => s);
 
   const windowSize = useWindowSize();
 
@@ -74,16 +74,6 @@ const AuthedHeader = () => {
     };
   }, []);
 
-  const router = useRouter();
-
-  const handleLogout = async () => {
-    await logout();
-    reset();
-    setDropdownOpen(false); // Close the dropdown
-
-    router.push(Paths.Home);
-  };
-
   return (
     <ImageCropProvider>
       <nav className="z-50 fixed w-full bg-navy dark:bg-dark-mode-subtle  text-cloud-darker shadow-modal">
@@ -94,7 +84,7 @@ const AuthedHeader = () => {
             })}
             href={AuthedPaths.Dashboard}
           >
-            <Logo noTheme={true} />
+            <Logo color={"white"} />
           </Link>
 
           <div className="flex gap-5 items-center">
@@ -162,11 +152,24 @@ const AuthedHeader = () => {
                     ref={dropdownRef}
                     className="absolute -left-full -bottom-[180%] md:left-0 w-40 bg-white rounded shadow-lg py-1 [&>*]:block [&>*]:px-3 [&>*]:py-2 text-black text-left hover:[&>*]:bg-primary hover:[&>*]:bg-opacity-10"
                   >
-                    <span className="" onClick={() => setOpenProfile(true)}>
+                    <span
+                      className=""
+                      onClick={() => {
+                        setOpenProfile(true);
+                        setDropdownOpen(false);
+                      }}
+                    >
                       Profile Picture
                     </span>
 
-                    <span onClick={handleLogout}>Sign Out</span>
+                    <span
+                      onClick={() => {
+                        setDropdownOpen(false);
+                        setOpenSignout(true);
+                      }}
+                    >
+                      Sign Out
+                    </span>
                   </div>
                 )}
               </button>
@@ -175,6 +178,7 @@ const AuthedHeader = () => {
         </div>
       </nav>
       <ProfileModal isOpen={openProfile} updateOpen={setOpenProfile} />
+      <SignoutModal isOpen={openSignout} updateOpen={setOpenSignout} />
     </ImageCropProvider>
   );
 };

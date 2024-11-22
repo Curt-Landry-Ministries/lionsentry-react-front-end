@@ -63,9 +63,6 @@ const MobileMenu = ({ darkHeader = false }) => {
                 <Link className="inline-block" href={AuthedPaths.Dashboard}>
                   Home
                 </Link>
-                <Link className="inline-block" href={AuthedPaths.MyWhy}>
-                  My Why
-                </Link>
                 <Link className="inline-block" href={AuthedPaths.Devotionals}>
                   Devotionals
                 </Link>
@@ -88,7 +85,7 @@ const MobileMenu = ({ darkHeader = false }) => {
             </div>
             <div className="h-[1px] w-full bg-gradient-1 bg-opacity-70 my-5"></div>
 
-            <Logo noTheme={true} />
+            <Logo color="white" />
             <span className="block text-xs">
               A Curt Landry Ministries Platform
             </span>
