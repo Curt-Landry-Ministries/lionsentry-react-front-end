@@ -13,6 +13,7 @@ import CTAContentImage from "@/components/Home/CTAContentImage";
 import SectionBoxCTA from "@/components/Home/SectionBoxCTA";
 import { motion, useScroll } from "framer-motion";
 import classnames from "classnames";
+import VideoComponent from "@/components/Global/VideoComponent";
 
 const Home: React.FC = () => {
   const scrollRef = useRef(null);
@@ -119,15 +120,13 @@ const Home: React.FC = () => {
           style={{ height: heightProgress * 96.5 + "%" }}
           viewport={{ root: scrollRef }}
         />
-        <div className="content-container [&>iframe]:w-full [&>iframe]:min-h-[194px] md:[&>iframe]:min-h-[500px] pt-24 md:pt-52 z-10 relative">
-          <iframe
-            src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          />
-        </div>
+
+        <VideoComponent
+          videoSrc="https://player.manage.broadcastcloud.tv/1efa8232-a5d5-6124-8d52-3bf9f65c553b/default?autoplay=false&debug=false&direct=true"
+          videoTitle="Lionsentry Homepage Video"
+          className="content-container [&>iframe]:w-full [&>iframe]:min-h-[200px] md:[&>iframe]:min-h-[370px] lg:[&>iframe]:min-h-[520px] xl:[&>iframe]:min-h-[550px] pt-24 md:pt-52 z-10 relative"
+        />
+
         <CTAContentImage
           title="Feeling Lost? Discover Your True Calling"
           content="<p>In a world filled with distractions and uncertainties, many of us struggle to find our true purpose and direction. We often feel overwhelmed, aimless, and unsure of how to live a life that aligns with our values and faith.</p><p>Without a clear purpose and intentional goals, we risk wandering through life without experiencing the fulfillment and impact God intends for us.</p>"
