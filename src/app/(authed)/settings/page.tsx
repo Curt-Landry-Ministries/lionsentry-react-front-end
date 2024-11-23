@@ -129,8 +129,8 @@ const Settings = () => {
             <h3>Delete account</h3>
             <p className="mb-4">
               Deleting your account will remove all of your information from our
-              database. This action can not be reversed. Type "Delete my
-              account" to confirm
+              database. This action can not be reversed. Type &quot;Delete my
+              account&quot; to confirm
             </p>
             <Formik
               validationSchema={deleteValidationSchema}
