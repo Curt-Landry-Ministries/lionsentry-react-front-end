@@ -1,0 +1,52 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches:
+      - test
+      - qa
+      - main
+      - "**"  # Match any branch for temporary builds
+  pull_request:
+    branches:
+      - test
+      - qa
+      - main
+      - "**"  # Match any branch for temporary builds
+
+env:
+  AWS_REGION: us-east-1
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+jobs:
+  build_dockerhub_image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Login to DockerHub
+        if: github.event_name == 'push' && (github.ref_name == 'test' || github.ref_name == 'qa' || github.ref_name == 'main')
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Set Docker Tag
+        id: docker_tag
+        run: |
+          if [[ "${GITHUB_REF##*/}" == "main" || "${GITHUB_REF##*/}" == "qa" || "${GITHUB_REF##*/}" == "test" ]]; then
+            echo "tag=${GITHUB_REF##*/}" >> $GITHUB_ENV
+          else
+            echo "tag=tmp" >> $GITHUB_ENV
+          fi
+
+      - name: Build Docker Image
+        run: |
+          # Sanitize the tag to remove any invalid characters
+          SAFE_TAG=$(echo ${{ env.tag }} | tr '/' '-' | tr '[:upper:]' '[:lower:]')
+          docker build -t lionsentry/lionsentry-react-front-end:$SAFE_TAG .
+
+      - name: Push Docker Image
+        if: github.event_name == 'push' && (github.ref_name == 'test' || github.ref_name == 'qa' || github.ref_name == 'main')
+        run: |
+          docker push lionsentry/lionsentry-react-front-end:${{ env.tag }}

@@ -1,17 +1,21 @@
-# Use the specified Node.js version as base image
-FROM node:18.16.1
+# Use the official Node.js 22.x image
+FROM node:22-alpine
 
-# Set the working directory in the container
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if available) to the working directory
-COPY package*.json ./
+# Install dependencies
+COPY package.json package-lock.json ./
+RUN npm install --only=production
 
-# Install the project dependencies
-RUN npm install
+# Copy the rest of the application code
+COPY . .
 
-# Run the app using npm
-CMD ["npm", "run", "build"]
+# Build the Next.js app
+RUN npm run build
 
-# Copy the entire project to the working directory
-COPY ./web-build ./
+# Expose the port Next.js is running on (default: 3000)
+EXPOSE 3000
+
+# Start the Next.js app
+CMD ["npm", "start"]

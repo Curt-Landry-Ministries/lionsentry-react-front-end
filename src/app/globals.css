@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root.dark {
+  --foreground-rgb: 255, 255, 255;
+  --inactive: #9D9D9D;
+  /* --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0; */
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  /* --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255; */
+}
+
+:root.dark {
+  @apply bg-black;
+}
+
+body {
+  @apply text-base;
+  color: rgb(var(--foreground-rgb));
+  /* background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb)); */
+}
+
+input,
+textarea {
+  color: rgb(var(--foreground-rgb));
+  background: var(--background-end-rgb);
+}
+/* .gradient-mask {
+  background-image: linear-gradient(rgba(0, 25, 86, 0) 3%, rgba(0, 25, 86, 1) 100%);  
+  mask-mode: alpha;
+}
+.top-gradient {
+  background: linear-gradient(90deg, #4394bf 0%, #6d55cb 23%, #a22a96 49%, #ad2444 77%, #d48637 100%);
+  mask-image: linear-gradient(90deg, rgba(0, 25, 86, 0) 0%, #001956 32%, #001956 67%, rgba(0, 25, 86, 0) 100%); 
+  mask-mode: alpha; 
+}
+
+.bottom-gradient {
+  background: linear-gradient(90deg, #6D55CB 0%, #A32A97 26%, #4394BF 50%, #6D55CB 77%, #AD2444 100%);
+  mask-image: linear-gradient(90deg, rgba(0, 25, 86, 0) 0%, #001956 32%, #001956 67%, rgba(0, 25, 86, 0) 100%); 
+  mask-mode: alpha; 
+} */
+
+.box-gradient {
+  --s: 40px; /* spread distance */
+  --x: 0px; /* X offset */
+  --y: 0px; /* Y offset */
+  --b: 40px; /* blur-radius */
+
+  position: relative;
+  transform: translate(0);
+  transform-style: preserve-3d;
+}
+
+.box-gradient:before {
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--s));
+  transform: translate3d(var(--x),var(--y),-1px);
+  clip-path: polygon(
+    -100vmax -100vmax,
+     100vmax -100vmax,
+     100vmax 100vmax,
+    -100vmax 100vmax,
+    -100vmax -100vmax,
+    calc(0px  + var(--s) - var(--x)) calc(0px  + var(--s) - var(--y)),
+    calc(0px  + var(--s) - var(--x)) calc(100% - var(--s) - var(--y)),
+    calc(100% - var(--s) - var(--x)) calc(100% - var(--s) - var(--y)),
+    calc(100% - var(--s) - var(--x)) calc(0px  + var(--s) - var(--y)),
+    calc(0px  + var(--s) - var(--x)) calc(0px  + var(--s) - var(--y))
+  );
+  filter: blur(var(--b));
+  opacity: 0.4;
+  @apply bg-gradient-1;
+}
+@layer base {
+  h1 {
+    @apply text-[32px];
+    @apply leading-[42px];
+    @apply font-serif;
+    @apply md:text-[38px];
+    @apply md:leading-[1.1];
+    @apply font-semibold;
+    @apply tracking-wide;
+  }
+  h2 {
+    @apply text-[21px];
+    @apply leading-[28px];
+    @apply font-serif;
+    @apply md:text-[32px];
+    @apply md:leading-[35px];
+    @apply font-semibold;
+
+  }
+  h3 {
+    @apply text-[20px];
+    @apply leading-[24px];
+    @apply font-sans;
+    @apply md:text-[24px];
+    @apply md:leading-[32px];
+    @apply font-medium;
+  }
+  h4 {
+
+  }
+  h5 {
+
+  }
+  .text-base {
+    line-height: 1.5rem;
+  }
+  .text-xl {
+    @apply leading-[1.875rem];
+    @apply md:text-[1.389vw];
+    @apply md:leading-[2.083vw];
+  }
+}
+
+
+/* Increase the minimum width of form elements */
+.form-container {
+  min-width: 650px; /* Adjust as needed */
+}
+
+/* Responsive adjustments */
+@media screen and (min-width: 640px) {
+  .form-container {
+    min-width: 450px; /* Increase width for larger screens */
+  }
+}
+
+@layer components {
+  .page-gradient-bg-dark {
+    @apply bg-gradient-to-tr from-slate-300 to-slate-800;
+  }
+  .page-gradient-bg {
+    @apply bg-gradient-to-tr from-cyan-500 via-red-200 to-amber-600;
+  }
+  .gradient-bg {
+    @apply bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500;
+  }
+
+  .gradient-bg-reverse {
+    @apply from-pink-500 via-purple-500 to-blue-500;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent gradient-bg;
+  }
+
+  .gradient-bottom-border {
+    @apply gradient-bg bg-[length:100%_3px] bg-no-repeat bg-bottom bg-gradient-to-r;
+  }
+
+  .main-btn {
+    @apply text-white px-6 py-2 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-purple-500 hover:to-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800;
+  }
+
+  .display-heading {
+    @apply text-12.5;
+    @apply lg:text-17.5; 
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-b;
+    @apply to-navy;
+    @apply from-white;
+    @apply bg-clip-text;
+    @apply text-transparent;
+  }
+
+  .link-style {
+    @apply text-primary;
+    @apply underline;
+    @apply underline-offset-4;
+  }
+  .content-container {
+    @apply px-5;
+    @apply md:max-w-[80vw];
+    @apply xl:max-w-[60vw];
+    @apply lg:min-w-[800px];
+    @apply mx-auto;
+  }
+  .title-line-style {
+    @apply relative;
+    @apply before:absolute;
+    @apply before:content-[''];
+    @apply before:bottom-0;
+    @apply before:left-0;
+    @apply before:h-2;
+    @apply before:w-20;
+    @apply before:rounded-3xl;
+    @apply before:bg-gradient-1;
+  }
+
+  .content-box {
+    @apply bg-white;
+    @apply shadow-content-box;
+    @apply p-7;
+    @apply mobile-only:px-5;
+    @apply rounded-md;
+    @apply dark:bg-dark-mode-subtle;
+    @apply dark:shadow-content-box-dark;
+  }
+}
