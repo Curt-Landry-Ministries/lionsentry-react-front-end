@@ -10,6 +10,9 @@ import Button from "../Global/Button";
 import Link from "next/link";
 import { login } from "@/lib/auth/actions";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
+import { useUserStore } from "@/app/providers/userContext";
+import { useRouter } from "next/navigation";
+import { AuthedPaths } from "@/lib/constants";
 
 const LoginForm = () => {
   const [errors, setErrors] = useState("");
@@ -20,6 +23,10 @@ const LoginForm = () => {
       .required("Password is required"),
   });
 
+  const { fetchUserData } = useUserStore((s) => s);
+
+  const router = useRouter();
+
   const initialValues: FormikValues = {
     email: "",
     password: "",
@@ -29,11 +36,19 @@ const LoginForm = () => {
     values: FormikValues,
     actions: FormikHelpers<FormikValues>
   ) => {
-    try {
-      await login({ email: values.email, password: values.password });
-    } catch (error: any) {
+    const resp = await login({
+      email: values.email,
+      password: values.password,
+    });
+
+    if (resp.success) {
+      await fetchUserData();
+
+      router.push(AuthedPaths.Dashboard);
+    } else {
       setErrors(
-        "Issue with logging in. Make sure your credentials are correct."
+        resp.error ||
+          "Issue with logging in. Make sure your credentials are correct."
       );
     }
   };
@@ -47,7 +62,6 @@ const LoginForm = () => {
     >
       <Form>
         <Input
-          label="Email"
           type="email"
           name="email"
           id="email"
@@ -55,7 +69,6 @@ const LoginForm = () => {
           required
         />
         <Input
-          label="Password"
           type="password"
           name="password"
           id="password"
@@ -64,7 +77,12 @@ const LoginForm = () => {
         />
         {errors && <p className="text-red-500 text-xs mb-4">{errors}</p>}
 
-        <Button type="submit" standardBtn={"primary"} hasIcon={true}>
+        <Button
+          type="submit"
+          className="w-full"
+          standardBtn={"primary"}
+          hasIcon={true}
+        >
           Sign In With Email <ChevronRightIcon height={24} width={24} />
         </Button>
 

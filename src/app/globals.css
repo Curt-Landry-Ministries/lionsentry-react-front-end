@@ -4,6 +4,7 @@
 
 :root.dark {
   --foreground-rgb: 255, 255, 255;
+  --inactive: #9D9D9D;
   /* --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0; */
 }
@@ -95,13 +96,19 @@ textarea {
   h2 {
     @apply text-[21px];
     @apply leading-[28px];
-    @apply font-sans;
-    @apply md:text-[1.667vw];
-    @apply md:leading-[2.222vw];
+    @apply font-serif;
+    @apply md:text-[32px];
+    @apply md:leading-[35px];
+    @apply font-semibold;
 
   }
   h3 {
-
+    @apply text-[20px];
+    @apply leading-[24px];
+    @apply font-sans;
+    @apply md:text-[24px];
+    @apply md:leading-[32px];
+    @apply font-medium;
   }
   h4 {
 
@@ -183,5 +190,26 @@ textarea {
     @apply xl:max-w-[60vw];
     @apply lg:min-w-[800px];
     @apply mx-auto;
+  }
+  .title-line-style {
+    @apply relative;
+    @apply before:absolute;
+    @apply before:content-[''];
+    @apply before:bottom-0;
+    @apply before:left-0;
+    @apply before:h-2;
+    @apply before:w-20;
+    @apply before:rounded-3xl;
+    @apply before:bg-gradient-1;
+  }
+
+  .content-box {
+    @apply bg-white;
+    @apply shadow-content-box;
+    @apply p-7;
+    @apply mobile-only:px-5;
+    @apply rounded-md;
+    @apply dark:bg-dark-mode-subtle;
+    @apply dark:shadow-content-box-dark;
   }
 }

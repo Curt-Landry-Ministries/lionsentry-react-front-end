@@ -4,6 +4,7 @@ import { Paths } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
+import Logo from "./Logo";
 
 const Footer = () => {
   const currentYear = useMemo(() => new Date().getFullYear(), []);
@@ -21,7 +22,7 @@ const Footer = () => {
         <div className="flex-1 flex flex-col justify-center">
           <div className="self-center">
             <div className="flex justify-center items-center flex-col md:flex-row flex-wrap gap-5 text-base md:text-xs px-10">
-              <div className="font-serif text-2xl">LionSentry</div>
+              <Logo color={"gray"} />
 
               <Link href="https://www.curtlandry.com/" target="_blank">
                 Curt Landry Ministries
@@ -33,7 +34,7 @@ const Footer = () => {
           </div>
 
           <Image
-            src={"/images/LS-Logo.webp"}
+            src={"/images/LS-logo.webp"}
             width={40}
             height={40}
             alt="LionSentry Logo"

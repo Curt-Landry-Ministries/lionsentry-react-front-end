@@ -1,179 +1,421 @@
 "use server";
 
-import { getBaseUrl, validateAuthToken } from '../utils';
-import { cookies } from 'next/headers';
+import { User } from "../stores/userStore";
+import { getBaseUrl, logError, logTest, validateAuthToken } from "../utils";
+import { cookies } from "next/headers";
+import { logout } from "../auth/actions";
+import { createServerAction, ServerActionError } from "../action-utils";
+import { Paths } from "../constants";
+import { redirect } from "next/navigation";
 
 const BASE_URL = getBaseUrl(false);
 
-export const submitAnswerToServer = async (answer: string, question: string, questionIndex: number) => {
+export const fetchUserData = createServerAction(async () => {
+  const userID = cookies().get("userID")?.value;
+
   const authToken = validateAuthToken();
 
-  const resp = await fetch(`${BASE_URL}/submit-onboarding-answer`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${authToken}`
-    },
-    body: JSON.stringify({ answer, question, questionIndex })
-  });
-  const respData = await resp.json();
-  return respData;
-} 
+  let userData: User = {
+    isLoading: false,
+    name: "",
+    email: "",
+    logins: [],
+    profile_photo: "",
+    devotionals: [],
+    emails: [],
+    whyStatements: [],
+    onboardingAnswers: [],
+    goals: [],
+  };
 
-export const fetchAnswersFromServer = async (authToken: string) => {
-  const resp = await fetch(`${BASE_URL}/get-answers`, {
-    method: "GET",
-    headers: {
-      "Authorization": `Bearer ${authToken}`
-    }
-  });
-
-  if(!resp.ok) throw new Error("Failed to fetch answers from the server");
-
-  return await resp.json();
-}
-
-export const generateWhyStatementFromAnswers = async (questions: any[], answers: string[]) => {
-  const authToken = validateAuthToken();
-
-  const questionsAnswers = questions.map((q, index) => ({
-    questions: q.title,
-    answer: answers[index] || ""
-  }));
-
-  console.log("Sending questions and answers to server:", questionsAnswers);
+  if (!userID || !authToken) throw new ServerActionError("Unauthorized Access");
 
   try {
-    const resp = await fetch(`${BASE_URL}/generate-why-statement`, {
+    const resp = await fetch(`${BASE_URL}/get-user-info`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    const respNameEmail = await resp.json();
+
+    userData.name =
+      `${respNameEmail.firstName} ${respNameEmail.lastName}`.replace(
+        /['"]+/g,
+        ""
+      );
+    userData.email = respNameEmail.email;
+    userData.profile_photo = respNameEmail.photoURL;
+
+    const whyStatementResp = await getLatestWhyStatementFromServer();
+
+    if (!whyStatementResp.success) {
+      await logout();
+
+      redirect(Paths.Login);
+    }
+
+    const devotionalsResp = await fetchDevotionals();
+    const goalsResp = await fetchGoals();
+
+    userData.devotionals = devotionalsResp.success ? devotionalsResp.value : [];
+    userData.goals = goalsResp.success ? goalsResp.value : [];
+    userData.whyStatements = whyStatementResp.success
+      ? [whyStatementResp.value]
+      : [];
+
+    return userData;
+  } catch (error: any) {
+    if (error.error == "Invalid authentication token") logout();
+
+    throw new ServerActionError(error || "Failed to fetch user data");
+  }
+});
+
+export const fetchGoals = createServerAction(async () => {
+  const authToken = validateAuthToken();
+
+  try {
+    const resp = await fetch(`${BASE_URL}/get-goals`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    if (!resp.ok)
+      throw new ServerActionError("Failed to fetch goals from the server");
+
+    return await resp.json();
+  } catch (error: any) {
+    throw new ServerActionError(error.error || "Failed to fetch goal");
+  }
+});
+
+export const fetchDevotionals = createServerAction(async () => {
+  const authToken = validateAuthToken();
+  const resp = await fetch(`${BASE_URL}/get-devotionals`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  });
+
+  if (!resp.ok) {
+    throw new ServerActionError("Failed to fetch devotionals from the server");
+  }
+
+  return await resp.json();
+});
+
+export const submitAnswerToServer = createServerAction(
+  async (answer: string, question: string, questionIndex: number) => {
+    const authToken = validateAuthToken();
+
+    try {
+      const resp = await fetch(`${BASE_URL}/submit-onboarding-answer`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: JSON.stringify({
+          answer: answer,
+          question: question,
+          questionIndex: questionIndex,
+        }),
+      });
+      const respData = await resp.json();
+
+      return respData;
+    } catch (error: any) {
+      throw new ServerActionError(error.error || "Failed to submit answer");
+    }
+  }
+);
+
+export const fetchAnswersFromServer = createServerAction(
+  async (authToken: string) => {
+    const resp = await fetch(`${BASE_URL}/get-answers`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    if (!resp.ok)
+      throw new ServerActionError("Failed to fetch answers from the server");
+
+    return await resp.json();
+  }
+);
+
+export const generateWhyStatementFromAnswers = createServerAction(
+  async (questions: any[], answers: string[]) => {
+    const authToken = validateAuthToken();
+
+    const questionsAnswers = questions.map((q, index) => ({
+      questions: q.title,
+      answer: answers[index] || "",
+    }));
+
+    const payload = {
+      answers: questionsAnswers
+    }
+
+    logTest(`Sending questions and answers to server`);
+    logTest(questionsAnswers);
+
+    try {
+      const resp = await fetch(`${BASE_URL}/generate-why-statement`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: JSON.stringify(payload)
+      });
+      logTest(`Received response:`);
+      const respData = await resp.json();
+
+      // Log response data
+      logTest(`Received response:${JSON.stringify(respData)}`);
+
+      // Check both HTTP status and response success
+      if (!respData.whyStatement) {
+        throw new ServerActionError("WhyStatement generation failed.");
+      }
+
+      cookies().set("whyStatement", respData.whyStatement);
+      return respData.whyStatement;
+    } catch (error: any) {
+      throw new ServerActionError(error.error);
+    }
+  }
+);
+
+export const updateDevotional = createServerAction(
+  async ({ doc_id, isFavorite }: { doc_id: string; isFavorite: boolean }) => {
+    const authToken = validateAuthToken();
+
+    try {
+      const resp = await fetch(`${BASE_URL}/update-devotional`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: JSON.stringify({
+          doc_id: doc_id,
+          isFavorite: isFavorite,
+        }),
+      });
+
+      const respData = await resp.json();
+
+      if (resp.ok) return respData;
+    } catch (err: any) {
+      throw new ServerActionError(err.error);
+    }
+  }
+);
+
+export const generateDevotional = createServerAction(
+  async (): Promise<Devotional | undefined> => {
+    const authToken = validateAuthToken();
+
+    try {
+      const resp = await fetch(`${BASE_URL}/generate-devotional`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: JSON.stringify({ saveToFirestore: true }),
+      });
+      const respData: Devotional = await resp.json();
+
+      if (resp.ok) return respData;
+    } catch (err: any) {
+      throw new ServerActionError(err.error);
+    }
+  }
+);
+
+export const saveUserDataPoint = createServerAction(
+  async (key: string, value: any, action: "replace" | "append" = "replace") => {
+    const authToken = validateAuthToken();
+
+    const resp = await fetch(`${BASE_URL}/save-user-data-point`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${authToken}`
+        Authorization: `Bearer ${authToken}`,
       },
-      body: JSON.stringify({ questionsAnswers })
+      body: JSON.stringify({
+        targetUserId: cookies().get("userID")?.value,
+        dataPoint: key,
+        action: action,
+        value: JSON.stringify(value),
+      }),
     });
-    console.log("Received response:", resp);
-
-    if(!resp.ok) {
-      console.log("Error generation whyStatement:", resp);
-      throw new Error(`HTTP error!: ${resp.status}`);
-    }
-
     const respData = await resp.json();
 
-    if('error' in respData) {
-      throw new Error(respData.error);
-    } else {
-      return respData.whyStatement;
+    if (!resp.ok) {
+      logTest(respData);
+
+      // Provide more specific error messages based on status code
+      if (resp.status === 401) {
+        throw new ServerActionError("Unauthorized access");
+      } else if (resp.status === 403) {
+        throw new ServerActionError("Forbidden access");
+      } else {
+        throw new ServerActionError("An error occurred while saving data");
+      }
     }
-
-  } catch (error) {
-    console.error("Error in generating Why Statement:", error);
-
-    throw error;
-  }
-}
-
-export const generateDevotional = async(): Promise<DevotionalContent> => {
-  const authToken = validateAuthToken();
-
-  const resp = await fetch(`${BASE_URL}/generate-devotional`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${authToken}`
-    },
-    body: JSON.stringify({ saveToFirestore: true})
-  });
-
-  if(resp.ok) {
-    const respData: DevotionalContent = await resp.json();
 
     return respData;
-  } else {
-    console.error("Response status:", resp.status);
-    throw new Error(`HTTP error! status: ${resp.status}`)
   }
-}
+);
 
-export const saveUserDataPoint = async (key: string, value: any, action: 'replace' | 'append' = 'replace') => {
-  const authToken = validateAuthToken();
+export const uploadProfilePhoto = createServerAction(
+  async (formData: FormData): Promise<any> => {
+    const authToken = validateAuthToken();
 
-  const resp = await fetch(`${BASE_URL}/save-user-data-point`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${authToken}`
-    },
-    body: JSON.stringify({
-      targetUserId: cookies().get('userID')?.value,
-      dataPoint: key,
-      action: action,
-      value: JSON.stringify(value)
-    })
-  });
-  const respData = await resp.json();
-
-  if(!resp.ok) {
-    console.error('Server responsded with error:', respData);
-
-    // Provide more specific error messages based on status code
-    if (resp.status === 401) {
-      throw new Error('Unauthorized access');
-    } else if (resp.status === 403) {
-      throw new Error('Forbidden access');
-    } else {
-      throw new Error('An error occurred while saving data');
+    if (cookies().get("userID")?.value) {
+      formData.append("user_id", cookies().get("userID")?.value as string);
     }
-  }
 
-  return respData;
-}
+    const resp = await fetch(`${BASE_URL}/upload-profile-photo`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: formData,
+    });
 
-export const getLatestWhyStatementFromServer = async (): Promise<string> => {
-  const authToken = validateAuthToken();
-
-  const resp = await fetch(`${BASE_URL}/get-latest-why-statement`, {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${authToken}`
-    }
-  });
-
-  if(resp.ok) {
     const respData = await resp.json();
 
-    if(respData && respData.whyStatement) {
-      cookies().set(respData.whyStatement);
-      return respData.whyStatement;
-    } else {
-      throw new Error('No Why Statement field found');
+    if (!resp.ok) {
+      throw new ServerActionError("Failed to upload profile photo");
     }
-  } else if(resp.status === 404) {
-    throw new Error('No Why Statement found for the user');
-  } else {
-    throw new Error('Failed to retrieve the latest Why Statement');
+
+    return respData;
   }
-}
+);
+export const getLatestWhyStatementFromServer = createServerAction(
+  async (): Promise<any> => {
+    const authToken = validateAuthToken();
 
-export const getLatestWhyStatement = async (): Promise<string | null> => {
-  const storeStatement = cookies().get('whyStatement')?.value;
+    const resp = await fetch(`${BASE_URL}/get-latest-why-statement`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    cookies().delete("whyStatement");
 
-  if(storeStatement) return storeStatement;
-   
-  const requestStatement = await getLatestWhyStatementFromServer();
+    if (resp.ok) {
+      const respData = await resp.json();
 
-  if(requestStatement) return requestStatement;
-  
-  throw new Error ('Error getting latest why statement');
-}
-
-export const fetchQuestionsFromServer = async (): Promise<Question[]> => {
-  const resp = await fetch(`${BASE_URL}/get-questions`);
-
-  if(!resp.ok) {
-    throw new Error("Failed to fetch questions from the server");
+      if (respData && respData.whyStatement) {
+        cookies().set("whyStatement", respData.whyStatement);
+        return respData;
+      } else {
+        logTest("No Why Statement field found");
+        return null;
+      }
+    } else if (resp.status === 404) {
+      return null;
+    } else {
+      throw new ServerActionError("Failed to fetch why statement");
+    }
   }
+);
 
-  return await resp.json();
-}
+export const fetchQuestionsFromServer = createServerAction(
+  async (): Promise<Question[] | any> => {
+    const resp = await fetch(`${BASE_URL}/get-questions`);
+
+    if (!resp.ok) {
+      throw new ServerActionError("Failed to fetch questions from the server");
+    }
+
+    return await resp.json();
+  }
+);
+
+export const saveGoal = createServerAction(
+  async ({
+    goal,
+    description,
+    category,
+    deadline = "",
+  }: Pick<
+    Goal,
+    "goal" | "description" | "category" | "deadline"
+  >): Promise<any> => {
+    const authToken = validateAuthToken();
+
+    const resp = await fetch(`${BASE_URL}/save-goals`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: JSON.stringify({
+        goal: goal,
+        category: category,
+        description: description,
+        deadline: deadline ? new Date(deadline).toUTCString() : "", // convert to UTC time
+      }),
+    });
+    const respData = await resp.json();
+
+    if (!resp.ok) {
+      logError(respData);
+
+      throw new ServerActionError("Failed to save your goal");
+    }
+
+    return respData;
+  }
+);
+
+export const updateGoal = createServerAction(
+  async ({
+    doc_id,
+    updateFields,
+  }: {
+    doc_id: string;
+    updateFields: Partial<Goal>;
+  }): Promise<any> => {
+    const authToken = validateAuthToken();
+
+    if (updateFields.deadline) {
+      updateFields.deadline = new Date(updateFields.deadline).toUTCString();
+    }
+
+    const resp = await fetch(`${BASE_URL}/update-goal`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: JSON.stringify({
+        doc_id: doc_id,
+        updateFields: updateFields,
+      }),
+    });
+
+    const respData = await resp.json();
+
+    if (!resp.ok) {
+      logError(respData);
+
+      throw new ServerActionError("Failed to save your goal");
+    }
+
+    return respData;
+  }
+);

@@ -1,8 +1,9 @@
+import { useUserStore } from "@/app/providers/userContext";
 import Image from "next/image";
+import QuestionnaireVideos from "./QuestionnaireVideos";
 
 export type QuestionnaireStepType = {
   index: number;
-  numberOfQues: number;
   item: Question;
   currentAnswer: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -10,25 +11,35 @@ export type QuestionnaireStepType = {
 
 const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
   index,
-  numberOfQues,
   item,
   currentAnswer,
   onChange,
 }: QuestionnaireStepType) => {
+  const { name } = useUserStore((s) => s);
+  const inputStyle =
+    "border border-cloud-darker bg-white dark:bg-dark-mode-subtle dark:border-dark-mode-strong w-full py-2 px-3 rounded";
+
   return (
     <div className="[&>iframe]:w-full [&>iframe]:min-h-[250px] md:[&>iframe]:min-h-[500px] [&>iframe]:pb-8 z-10 relative">
       {index > -1 && item ? (
         <>
-          <iframe
-            src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          />
-          <p className="mb-8">
-            Question {index + 1}/{numberOfQues}
-          </p>
+          {QuestionnaireVideos[index] ? (
+            <iframe
+              src={QuestionnaireVideos[index]}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          ) : (
+            <iframe
+              src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          )}
 
           <div className="flex gap-5 mb-5">
             <Image
@@ -39,13 +50,13 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
             />
 
             <div>
-              <p>{item.title}</p>
+              <p className="font-semibold">{item.title}</p>
               <p>{item.subtitle}</p>
             </div>
           </div>
 
           <textarea
-            className="border w-full bg-white text-black py-2 px-3"
+            className={inputStyle}
             rows={8}
             placeholder="Write answer here"
             onChange={onChange}
@@ -54,7 +65,7 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
         </>
       ) : (
         <>
-          <h2 className="pb-8">Welcome, Paul</h2>
+          <h2 className="pb-8">Welcome, {name}!</h2>
           <iframe
             src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
             title="YouTube video player"

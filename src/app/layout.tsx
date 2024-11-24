@@ -2,10 +2,14 @@
 import "./globals.css";
 import { ThemeProvider } from "./providers/themeContext"; // Adjust the import path if necessary
 import { inter, astoria } from "../fonts/fonts";
+import { UserStoreProvider } from "./providers/userContext";
 
 export const metadata = {
   title: "Lionsentry",
   description: "Vision Statement Generator",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
@@ -16,7 +20,9 @@ export default function RootLayout({
   return (
     <ThemeProvider>
       <html lang="en" className={`${inter.variable} ${astoria.variable}`}>
-        <body>{children}</body>
+        <body>
+          <UserStoreProvider>{children}</UserStoreProvider>
+        </body>
       </html>
     </ThemeProvider>
   );

@@ -4,20 +4,31 @@ import { useEffect, useState } from "react";
 import Questionnaire from "./questionnaire";
 import LoadingScreen from "@/components/Global/LoadingScreen";
 import { fetchQuestionsFromServer } from "@/lib/app/actions";
+import { useUserStore } from "@/app/providers/userContext";
+import { useRouter } from "next/navigation";
+import { AuthedPaths } from "@/lib/constants";
 
 const Pages: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const { whyStatements, isLoading } = useUserStore((s) => s);
+  const router = useRouter();
+
   useEffect(() => {
     const getQuestions = async () => {
       const data = await fetchQuestionsFromServer();
-      setQuestions(data);
+      if (data.success) setQuestions(data.value);
       setLoading(false);
     };
 
     getQuestions();
   }, []);
+
+  useEffect(() => {
+    if (!isLoading && whyStatements.length > 0)
+      router.push(AuthedPaths.Dashboard);
+  }, [whyStatements]);
 
   return (
     <div className="flex flex-col w-full bg-cloud dark:bg-black">

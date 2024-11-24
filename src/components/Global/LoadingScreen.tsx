@@ -8,21 +8,27 @@ interface LoadingScreenProps {
   message: string;
   size?: "sm" | "md" | "lg";
   isFullScreen?: boolean;
+  className?: string;
 }
 
 const LoadingScreen: React.FC<LoadingScreenProps> = ({
   message,
-  size = "sm",
+  size = "md",
   isFullScreen = false,
+  className,
 }) => {
   return (
     <div
-      className={classNames("", {
-        "min-h-screen min-w-full": isFullScreen,
-      })}
+      className={classNames(
+        "flex justify-center items-center",
+        {
+          "h-screen w-screen fixed z-50 top-0 left-0": isFullScreen,
+        },
+        className
+      )}
     >
       <div className="max-w-xl flex flex-col items-center justify-between">
-        <div className="h-[90px] w-[189px]">
+        <div className="h-[90px] w-[190px]">
           <Image
             src={"/images/infinite-gradient.svg"}
             width={190}
@@ -42,7 +48,13 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({
           </div>
         </div>
 
-        <h1 className="text-center mt-12">{message}</h1>
+        <h1
+          className={classNames("text-center mt-12", {
+            "text-2xl": size === "sm",
+          })}
+        >
+          {message}
+        </h1>
       </div>
     </div>
   );
