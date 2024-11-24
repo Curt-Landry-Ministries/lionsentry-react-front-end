@@ -149,7 +149,7 @@ export const submitAnswerToServer = createServerAction(
           Authorization: `Bearer ${authToken}`,
         },
         body: JSON.stringify({
-          abswer: answer,
+          answer: answer,
           question: question,
           questionIndex: questionIndex,
         }),
@@ -179,32 +179,49 @@ export const fetchAnswersFromServer = createServerAction(
   }
 );
 
-export const generateWhyStatementFromAnswers = createServerAction(async () => {
-  const authToken = validateAuthToken();
+export const generateWhyStatementFromAnswers = createServerAction(
+  async (questions: any[], answers: string[]) => {
+    const authToken = validateAuthToken();
 
-  try {
-    const resp = await fetch(`${BASE_URL}/generate-why-statement`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    logTest(`Received response:`);
-    logTest(await resp.json());
+    const questionsAnswers = questions.map((q, index) => ({
+      questions: q.title,
+      answer: answers[index] || "",
+    }));
 
-    if (!resp.ok) {
-      throw new ServerActionError("Error generation whyStatement");
+    const payload = {
+      answers: questionsAnswers,
+    };
+
+    logTest(`Sending questions and answers to server`);
+    logTest(questionsAnswers);
+
+    try {
+      const resp = await fetch(`${BASE_URL}/generate-why-statement`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: JSON.stringify(payload),
+      });
+      logTest(`Received response:`);
+      const respData = await resp.json();
+
+      // Log response data
+      logTest(`Received response:${JSON.stringify(respData)}`);
+
+      // Check both HTTP status and response success
+      if (!respData.whyStatement) {
+        throw new ServerActionError("WhyStatement generation failed.");
+      }
+
+      cookies().set("whyStatement", respData.whyStatement);
+      return respData.whyStatement;
+    } catch (error: any) {
+      throw new ServerActionError(error.error);
     }
-
-    const respData = await resp.json();
-
-    cookies().set("whyStatement", respData.whyStatement);
-    return respData.whyStatement;
-  } catch (error: any) {
-    throw new ServerActionError(error.error);
   }
-});
+);
 
 export const updateDevotional = createServerAction(
   async ({ doc_id, isFavorite }: { doc_id: string; isFavorite: boolean }) => {

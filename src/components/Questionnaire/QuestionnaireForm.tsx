@@ -112,7 +112,10 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
 
     // Generate the Why statement after submitting all answers
     try {
-      const generatedWhyStatement = await generateWhyStatementFromAnswers();
+      const generatedWhyStatement = await generateWhyStatementFromAnswers(
+        questions.map((q) => ({ title: q.title })), // Send only the question titles
+        questionAnswerPairs.map((qa) => qa.answer) // Send the corresponding answers
+      );
       logTest(generatedWhyStatement);
 
       // Redirect to the dashboard page
