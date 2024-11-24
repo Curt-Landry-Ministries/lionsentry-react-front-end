@@ -159,6 +159,10 @@ export const generateWhyStatementFromAnswers = createServerAction(
       answer: answers[index] || "",
     }));
 
+    const payload = {
+      answers: questionsAnswers
+    }
+
     logTest(`Sending questions and answers to server`);
     logTest(questionsAnswers);
 
@@ -169,16 +173,18 @@ export const generateWhyStatementFromAnswers = createServerAction(
           "Content-Type": "application/json",
           Authorization: `Bearer ${authToken}`,
         },
-        // body: JSON.stringify({ questionsAnswers }),
+        body: JSON.stringify(payload)
       });
       logTest(`Received response:`);
-      logTest(await resp.json());
-
-      if (!resp.ok) {
-        throw new ServerActionError("Error generation whyStatement");
-      }
-
       const respData = await resp.json();
+
+      // Log response data
+      logTest(`Received response:${JSON.stringify(respData)}`);
+
+      // Check both HTTP status and response success
+      if (!respData.whyStatement) {
+        throw new ServerActionError("WhyStatement generation failed.");
+      }
 
       cookies().set("whyStatement", respData.whyStatement);
       return respData.whyStatement;
