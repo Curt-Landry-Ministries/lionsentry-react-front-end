@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { logout } from "@/lib/auth/actions";
 import { isLoggedIn } from "@/lib/utils";
 import Logo from "./Logo";
-import { MaxWindowSize, Paths } from "@/lib/constants";
+import { AuthedPaths, MaxWindowSize, Paths } from "@/lib/constants";
 import Button from "./Button";
 import ThemeToggler from "./ThemeToggler";
 import useWindowSize from "@/lib/hooks/useWindowSize";

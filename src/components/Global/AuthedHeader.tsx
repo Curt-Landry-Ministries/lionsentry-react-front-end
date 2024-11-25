@@ -11,8 +11,6 @@ import classnames from "classnames";
 import Image from "next/image";
 import { TriangleDownIcon } from "@radix-ui/react-icons";
 import { useUserStore } from "@/app/providers/userContext";
-import ProfileModal from "./ProfileModal";
-import ImageCropProvider from "@/app/providers/imageCropContext";
 import SignoutModal from "./SignoutModal";
 
 const AuthedHeader = () => {
@@ -22,7 +20,6 @@ const AuthedHeader = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [transparentHeader, setTransparentHeader] = useState(false);
-  const [openProfile, setOpenProfile] = useState(false);
   const [openSignout, setOpenSignout] = useState(false);
 
   const { profile_photo, name } = useUserStore((s) => s);
@@ -75,7 +72,7 @@ const AuthedHeader = () => {
   }, []);
 
   return (
-    <ImageCropProvider>
+    <>
       <nav className="z-50 fixed w-full bg-navy dark:bg-dark-mode-subtle  text-cloud-darker shadow-modal">
         <div className="flex flex-wrap items-center justify-between mx-auto px-4 md:px-10 py-3 lg:py-0 relative">
           <Link
@@ -135,7 +132,7 @@ const AuthedHeader = () => {
                   <Image
                     src={profile_photo ? profile_photo : "/icons/User.svg"}
                     fill
-                    alt={`${name} Profile Photo`}
+                    alt={`${name()} Profile Photo`}
                     style={{
                       objectFit: "cover",
                       borderRadius: "100px",
@@ -152,15 +149,7 @@ const AuthedHeader = () => {
                     ref={dropdownRef}
                     className="absolute -left-full -bottom-[180%] md:left-0 w-40 bg-white rounded shadow-lg py-1 [&>*]:block [&>*]:px-3 [&>*]:py-2 text-black text-left hover:[&>*]:bg-primary hover:[&>*]:bg-opacity-10"
                   >
-                    <span
-                      className=""
-                      onClick={() => {
-                        setOpenProfile(true);
-                        setDropdownOpen(false);
-                      }}
-                    >
-                      Profile Picture
-                    </span>
+                    <Link href={AuthedPaths.Settings}>Settings</Link>
 
                     <span
                       onClick={() => {
@@ -177,9 +166,8 @@ const AuthedHeader = () => {
           </div>
         </div>
       </nav>
-      <ProfileModal isOpen={openProfile} updateOpen={setOpenProfile} />
       <SignoutModal isOpen={openSignout} updateOpen={setOpenSignout} />
-    </ImageCropProvider>
+    </>
   );
 };
 

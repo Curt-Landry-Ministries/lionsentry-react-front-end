@@ -10,6 +10,41 @@ import { redirect } from "next/navigation";
 
 const BASE_URL = getBaseUrl(false);
 
+export const fetchBasicData = createServerAction(async () => {
+  const userID = cookies().get("userID")?.value;
+  const authToken = validateAuthToken();
+  if (!userID || !authToken) throw new ServerActionError("Unauthorized Access");
+
+  try {
+    const resp = await fetch(`${BASE_URL}/get-user-info`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    const respNameEmail = await resp.json();
+
+    let userData: Partial<User> = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      profile_photo: "",
+    };
+
+    userData.firstName = respNameEmail.firstName.replace(/['"]+/g, "");
+    userData.lastName = respNameEmail.lastName.replace(/['"]+/g, "");
+
+    userData.email = respNameEmail.email.replace(/['"]+/g, "");
+    userData.profile_photo = respNameEmail.photoURL;
+
+    return userData;
+  } catch (error: any) {
+    if (error.error == "Invalid authentication token") logout();
+
+    throw new ServerActionError(error || "Failed to fetch user basic data");
+  }
+});
+
 export const fetchUserData = createServerAction(async () => {
   const userID = cookies().get("userID")?.value;
 
@@ -17,7 +52,8 @@ export const fetchUserData = createServerAction(async () => {
 
   let userData: User = {
     isLoading: false,
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     logins: [],
     profile_photo: "",
@@ -31,21 +67,14 @@ export const fetchUserData = createServerAction(async () => {
   if (!userID || !authToken) throw new ServerActionError("Unauthorized Access");
 
   try {
-    const resp = await fetch(`${BASE_URL}/get-user-info`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    const respNameEmail = await resp.json();
+    const basicData = await fetchBasicData();
 
-    userData.name =
-      `${respNameEmail.firstName} ${respNameEmail.lastName}`.replace(
-        /['"]+/g,
-        ""
-      );
-    userData.email = respNameEmail.email;
-    userData.profile_photo = respNameEmail.photoURL;
+    if (basicData.success) {
+      userData = {
+        ...userData,
+        ...basicData.value,
+      };
+    }
 
     const whyStatementResp = await getLatestWhyStatementFromServer();
 
@@ -160,8 +189,8 @@ export const generateWhyStatementFromAnswers = createServerAction(
     }));
 
     const payload = {
-      answers: questionsAnswers
-    }
+      answers: questionsAnswers,
+    };
 
     logTest(`Sending questions and answers to server`);
     logTest(questionsAnswers);
@@ -173,7 +202,7 @@ export const generateWhyStatementFromAnswers = createServerAction(
           "Content-Type": "application/json",
           Authorization: `Bearer ${authToken}`,
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
       logTest(`Received response:`);
       const respData = await resp.json();
@@ -256,7 +285,7 @@ export const saveUserDataPoint = createServerAction(
         targetUserId: cookies().get("userID")?.value,
         dataPoint: key,
         action: action,
-        value: JSON.stringify(value),
+        value: value,
       }),
     });
     const respData = await resp.json();

@@ -78,7 +78,7 @@ const ProfileModal = ({
             <ImageCropper />
           </div>
         ) : (
-          <ProfilePhoto src={preview} name={name} />
+          <ProfilePhoto src={preview} name={name()} />
         )}
         <Button
           className="text-sm text-primary mt-4"
