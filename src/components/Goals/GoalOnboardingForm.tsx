@@ -185,7 +185,7 @@ const GoalOnboardingForm: React.FC = () => {
 
           <div className="text-inactive dark:text-inactive-dark flex gap-1 mt-14">
             <Image
-              src="/icons/Clock.svg"
+              src="/icons/clock.svg"
               width={24}
               height={24}
               alt="Clock Icon"
