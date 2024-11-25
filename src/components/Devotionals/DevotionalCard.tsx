@@ -3,9 +3,6 @@ import { DetailedHTMLProps, useEffect, useState } from "react";
 import DevotionalNone from "./DevotionalNone";
 import classNames from "classnames";
 import Button from "../Global/Button";
-import Heart from "../Global/Heart";
-import { fetchDevotionals, updateDevotional } from "@/lib/app/actions";
-import { useUserStore } from "@/app/providers/userContext";
 import DevotionalFavorite from "./DevotionalFavorite";
 
 export type DevotionalCard = DetailedHTMLProps<
@@ -71,7 +68,10 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
           <>
             {devotional && (
               <>
-                <p>{devotional.journalingPrompt.substring(0, 250) + " ..."}</p>
+                <p>
+                  {devotional.journalingPrompt &&
+                    devotional.journalingPrompt.substring(0, 250) + " ..."}
+                </p>
 
                 <Link href={`/devotionals/${devotional.doc_id}`}>
                   <Button standardBtn={"text"} className="text-primary flex-1">
