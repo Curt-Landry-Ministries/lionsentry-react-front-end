@@ -1,8 +1,9 @@
 import { createStore } from "zustand/vanilla";
-import { fetchGoals, fetchUserData } from "../app/actions";
+import { fetchBasicData, fetchGoals, fetchUserData } from "../app/actions";
 
 export type User = {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   logins: string[];
   profile_photo?: string;
@@ -15,7 +16,9 @@ export type User = {
 };
 
 export type UserAction = {
-  updateName: (name: User["name"]) => void;
+  name: () => string;
+  updateFirstName: (firstName: User["firstName"]) => void;
+  updateLastName: (lastName: User["lastName"]) => void;
   updateEmail: (email: User["email"]) => void;
   updateLogins: (logins: User["logins"]) => void;
   updateProfilePhoto: (profile_photo: User["profile_photo"]) => void;
@@ -24,6 +27,7 @@ export type UserAction = {
   updateWhyStatements: (whyStatements: User["whyStatements"]) => void;
   updateGoals: (goals: User["goals"]) => void;
   fetchUserData: () => Promise<void>;
+  fetchBasicData: () => Promise<void>;
   getGoals: () => Promise<void>;
   reset: () => void;
 };
@@ -31,7 +35,8 @@ export type UserAction = {
 export type UserStore = User & UserAction;
 
 export const defaultInitUserState: User = {
-  name: "",
+  firstName: "",
+  lastName: "",
   email: "",
   logins: [],
   profile_photo: "",
@@ -48,9 +53,11 @@ export const initUserStore = (): User => {
 };
 
 export const createUserStore = (initState: User = defaultInitUserState) => {
-  return createStore<UserStore>()((set) => ({
+  return createStore<UserStore>()((set, get) => ({
     ...initState,
-    updateName: (name) => set(() => ({ name: name })),
+    name: () => `${get().firstName} ${get().lastName}`,
+    updateFirstName: (firstName) => set(() => ({ firstName: firstName })),
+    updateLastName: (lastName) => set(() => ({ lastName: lastName })),
     updateEmail: (email) => set(() => ({ email: email })),
     updateLogins: (logins) => set(() => ({ logins: logins })),
     updateProfilePhoto: (profile_photo) =>
@@ -64,6 +71,13 @@ export const createUserStore = (initState: User = defaultInitUserState) => {
     fetchUserData: async () => {
       set(() => ({ isLoading: true }));
       const response = await fetchUserData();
+
+      if (response.success)
+        set(() => ({ ...response.value, isLoading: false }));
+    },
+    fetchBasicData: async () => {
+      set(() => ({ isLoading: true }));
+      const response = await fetchBasicData();
 
       if (response.success)
         set(() => ({ ...response.value, isLoading: false }));

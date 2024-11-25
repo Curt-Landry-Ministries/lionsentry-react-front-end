@@ -42,8 +42,8 @@ const GoalCompleteModal = ({
           </div>
         </div>
         <p className="mb-12">
-          Hey {name}, we just want to confirm that you&apos;d like to mark this
-          goal as &quot;complete&quot;?
+          Hey {name()}, we just want to confirm that you&apos;d like to mark
+          this goal as &quot;complete&quot;?
         </p>
         <Button
           standardBtn={"primary"}

@@ -34,7 +34,7 @@ const Dashboard = () => {
     <>
       <div className="grid md:grid-cols-5 gap-7 bg-white dark:bg-black mx-4">
         <div className="content-box flex flex-wrap md:flex-nowrap gap-7 w-full md:col-span-5">
-          <ProfilePhoto src={profile_photo} name={name} />
+          <ProfilePhoto src={profile_photo} name={name()} />
 
           <div className="flex flex-col">
             <h2 className="pb-5 mb-5 title-line-style">My Why</h2>

@@ -12,13 +12,13 @@ import { useRouter } from "next/navigation";
 import { AuthedPaths } from "@/lib/constants";
 import LoadingScreen from "../Global/LoadingScreen";
 import { useUserStore } from "@/app/providers/userContext";
-import { logError, logTest } from "@/lib/utils";
+import { logTest } from "@/lib/utils";
 
 const SignupForm = () => {
   const [errors, setErrors] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const { updateName, updateEmail } = useUserStore((s) => s);
+  const { fetchBasicData } = useUserStore((s) => s);
 
   const validationSchema = Yup.object({
     email: Yup.string().email("Email is invalid").required("Email is required"),
@@ -71,10 +71,9 @@ const SignupForm = () => {
           await saveUserDataPoint("lastName", values.lastName, "replace");
         }
 
-        updateName(`${values.firstName} ${values.lastName}`);
-        updateEmail(values.email);
-
         logTest("Name saved successfully");
+
+        await fetchBasicData();
 
         localStorage.setItem("showWelcomeModal", "false");
         // Redirect to the questionnaire or any other appropriate page
