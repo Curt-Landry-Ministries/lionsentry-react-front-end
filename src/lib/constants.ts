@@ -14,6 +14,7 @@ export enum AuthedPaths {
   Devotionals = "/devotionals",
   Principles = "/goals/principles",
   OnboardingGoals = "/goals/onboarding",
+  Settings = "/settings",
 }
 
 export enum MaxWindowSize {

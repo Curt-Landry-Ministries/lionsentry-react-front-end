@@ -1,6 +1,7 @@
 import { useUserStore } from "@/app/providers/userContext";
 import Image from "next/image";
 import QuestionnaireVideos from "./QuestionnaireVideos";
+import VideoComponent from "../Global/VideoComponent";
 
 export type QuestionnaireStepType = {
   index: number;
@@ -20,24 +21,14 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
     "border border-cloud-darker bg-white dark:bg-dark-mode-subtle dark:border-dark-mode-strong w-full py-2 px-3 rounded";
 
   return (
-    <div className="[&>iframe]:w-full [&>iframe]:min-h-[250px] md:[&>iframe]:min-h-[500px] [&>iframe]:pb-8 z-10 relative">
+    <div className="z-10 relative">
       {index > -1 && item ? (
         <>
-          {QuestionnaireVideos[index] ? (
-            <iframe
-              src={QuestionnaireVideos[index]}
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            />
-          ) : (
-            <iframe
-              src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
+          {QuestionnaireVideos[index] && (
+            <VideoComponent
+              videoSrc={QuestionnaireVideos[index]}
+              videoTitle={`Question ${index + 1} Video`}
+              className="[&>iframe]:w-full [&>iframe]:min-h-[230px] md:[&>iframe]:min-h-[300px] lg:[&>iframe]:min-h-[480px] [&>iframe]:pb-8"
             />
           )}
 
@@ -65,13 +56,11 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
         </>
       ) : (
         <>
-          <h2 className="pb-8">Welcome, {name}!</h2>
-          <iframe
-            src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
+          <h2 className="pb-8">Welcome, {name()}!</h2>
+          <VideoComponent
+            videoSrc="https://player.manage.broadcastcloud.tv/1efa826f-79d3-6084-a301-ff6683206c46/default?autoplay=false&debug=false&direct=true"
+            videoTitle={`Welcome Video`}
+            className="[&>iframe]:w-full [&>iframe]:min-h-[230px] md:[&>iframe]:min-h-[300px] lg:[&>iframe]:min-h-[480px] [&>iframe]:pb-8"
           />
 
           <p>First thing we want to do is create your purpose statement.</p>

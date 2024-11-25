@@ -4,6 +4,7 @@ import Link from "next/link";
 import Button from "@/components/Global/Button";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 import { AuthedPaths } from "@/lib/constants";
+import VideoComponent from "@/components/Global/VideoComponent";
 
 const GoalPrinciples = () => {
   const principles = [
@@ -51,13 +52,10 @@ const GoalPrinciples = () => {
         than a conqueror.
       </p>
 
-      <iframe
-        src="https://www.youtube.com/embed/u31qwQUeGuM?si=hQpRtxns7WLx-KE1"
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerPolicy="strict-origin-when-cross-origin"
-        allowFullScreen
-        className="w-full min-h-[200px] md:min-h-[340px]"
+      <VideoComponent
+        videoSrc="https://player.manage.broadcastcloud.tv/1efa8e63-71e2-6564-8532-6bfff47d3bc7/default?autoplay=false&debug=false&direct=true"
+        videoTitle="Goals Principle Video"
+        className="[&>iframe]:w-full [&>iframe]:min-h-[200px] [&>iframe]:md:min-h-[340px]"
       />
       <div className="mt-10">
         {principles.map((item, index) => (
