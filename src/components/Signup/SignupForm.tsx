@@ -142,6 +142,7 @@ const SignupForm = () => {
           placeholder="Last Name"
           required
         />
+
         <Input
           options={[
             {
@@ -155,6 +156,7 @@ const SignupForm = () => {
           id="termsAndConditions"
           required
         />
+
         {errors && <p className="text-red-500 text-xs mb-4">{errors}</p>}
 
         <Button type="submit" className="w-full" standardBtn={"primary"}>

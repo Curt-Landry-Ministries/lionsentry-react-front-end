@@ -18,7 +18,7 @@ const DevotionalNone = () => {
         you further align to those goals you are currently working on.
       </p>
       <Button standardBtn={"primary"}>
-        <Link href={AuthedPaths.Goals}>Set Goals</Link>
+        <Link href={AuthedPaths.Devotionals}>Generate Devotionals</Link>
       </Button>
     </div>
   );

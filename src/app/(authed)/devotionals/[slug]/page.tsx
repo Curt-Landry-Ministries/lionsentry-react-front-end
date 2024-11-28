@@ -1,17 +1,11 @@
 "use client";
 import { useUserStore } from "@/app/providers/userContext";
 import DevotionalFull from "@/components/Devotionals/DevotionalFull";
-import AlertBanner from "@/components/Global/AlertBanner";
 import Button from "@/components/Global/Button";
-import GoalCompleteModal from "@/components/Goals/GoalCompleteModal";
-import GoalEditModal from "@/components/Goals/GoalEditModal";
-import GoalTag from "@/components/Goals/GoalTag";
-import { AuthedPaths, GoalTypeAsset } from "@/lib/constants";
-import { formatDate } from "@/lib/utils-global";
+import { AuthedPaths } from "@/lib/constants";
 import { ChevronLeftIcon } from "@radix-ui/react-icons";
-import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 const SingleDevotional = ({ params }: { params: { slug: string } }) => {
   const { devotionals } = useUserStore((s) => s);
