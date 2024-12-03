@@ -63,9 +63,13 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
             className="[&>iframe]:w-full [&>iframe]:min-h-[230px] md:[&>iframe]:min-h-[300px] lg:[&>iframe]:min-h-[480px] [&>iframe]:pb-8"
           />
 
-          <p>First thing we want to do is create your purpose statement.</p>
-
-          <p>Text to be written about this TBD.</p>
+          <p>
+            Begin your journey by identifying your personal mission
+            statement—your “why.” This foundational step helps you set clear
+            goals, overcome challenges, and become the best version of yourself.
+            Follow the prompts, answer honestly, and trust the process as you
+            uncover your unique purpose and passions. Let’s get started!
+          </p>
         </>
       )}
     </div>
