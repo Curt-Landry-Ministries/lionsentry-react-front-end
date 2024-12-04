@@ -8,13 +8,13 @@ import Link from "next/link";
 import { useMemo } from "react";
 
 const SingleDevotional = ({ params }: { params: { slug: string } }) => {
+  const slug = params.slug;
+
   const { devotionals } = useUserStore((s) => s);
 
   const devotional = useMemo(() => {
-    return devotionals.filter(
-      (devotional) => devotional.doc_id === params.slug
-    );
-  }, [devotionals, params.slug]);
+    return devotionals.filter((devotional) => devotional.doc_id === slug);
+  }, [devotionals, slug]);
 
   return (
     devotional &&

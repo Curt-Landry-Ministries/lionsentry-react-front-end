@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "./providers/themeContext"; // Adjust the import path if necessary
 import { inter, astoria } from "../fonts/fonts";
 import { UserStoreProvider } from "./providers/userContext";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata = {
   title: "Lionsentry",
@@ -23,6 +24,7 @@ export default function RootLayout({
         <body>
           <UserStoreProvider>{children}</UserStoreProvider>
         </body>
+        <GoogleAnalytics gaId="G-MS69VFWLH5" />
       </html>
     </ThemeProvider>
   );

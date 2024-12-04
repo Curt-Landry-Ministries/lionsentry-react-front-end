@@ -69,7 +69,7 @@ const GoalPrinciples = () => {
               <Image
                 src={item.image}
                 fill
-                objectFit="contain"
+                className="object-contain"
                 alt={`Principle ${index + 1} Image`}
               />{" "}
             </div>

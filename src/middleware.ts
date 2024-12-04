@@ -3,14 +3,17 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { AuthedPaths, Paths } from "./lib/constants";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
+  const cookiesStore = await cookies();
+
   const pathname = request.nextUrl.pathname;
   const isAuthenticated =
-    !!cookies().get("authToken")?.value || !!cookies().get("userID")?.value;
+    !!cookiesStore.get("authToken")?.value ||
+    !!cookiesStore.get("userID")?.value;
   const loginOrSignup =
     pathname.startsWith(Paths.Login) || pathname.startsWith(Paths.Signup);
   const url = request.nextUrl.clone();
-  const whyStatement = !!cookies().get("whyStatement")?.value;
+  const whyStatement = !!cookiesStore.get("whyStatement")?.value;
 
   if (url.pathname === "/" && !isAuthenticated) {
     url.pathname = "/home";

@@ -13,11 +13,13 @@ import Link from "next/link";
 import { useState } from "react";
 
 const SingleGoal = ({ params }: { params: { slug: string } }) => {
+  const slug = params.slug;
+
   const [completeOpen, setCompleteOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [goalUpdate, setGoalUpdate] = useState(false);
 
-  const { currentGoal, updateGoalHook } = useGoals(params.slug);
+  const { currentGoal, updateGoalHook } = useGoals(slug);
 
   const handleReviveGoal = async () =>
     await updateGoalHook({

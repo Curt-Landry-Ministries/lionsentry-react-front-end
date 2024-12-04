@@ -11,7 +11,9 @@ const CONTENT_ENGINE: string = process.env.CONTENT_ENGINE
   : "";
 
 export const fetchBasicData = createServerAction(async () => {
-  const userID = cookies().get("userID")?.value;
+  const cookiesStore = await cookies();
+
+  const userID = cookiesStore.get("userID")?.value;
   const authToken = await validateAuthToken();
   if (!userID || !authToken) throw new ServerActionError("Unauthorized Access");
 
@@ -44,7 +46,9 @@ export const fetchBasicData = createServerAction(async () => {
 });
 
 export const fetchUserData = createServerAction(async () => {
-  const userID = cookies().get("userID")?.value;
+  const cookiesStore = await cookies();
+
+  const userID = cookiesStore.get("userID")?.value;
 
   const authToken = await validateAuthToken();
 
@@ -171,6 +175,8 @@ export const fetchAnswersFromServer = createServerAction(
 
 export const generateWhyStatementFromAnswers = createServerAction(
   async (questions: any[], answers: string[]) => {
+    const cookiesStore = await cookies();
+
     const authToken = await validateAuthToken();
 
     const questionsAnswers = questions.map((q, index) => ({
@@ -206,7 +212,7 @@ export const generateWhyStatementFromAnswers = createServerAction(
         throw new ServerActionError("WhyStatement generation failed.");
       }
 
-      cookies().set("whyStatement", respData.whyStatement);
+      cookiesStore.set("whyStatement", respData.whyStatement);
       return respData.whyStatement;
     } catch (error: any) {
       throw new ServerActionError(error.error);
@@ -267,6 +273,8 @@ export const generateDevotional = createServerAction(
 
 export const saveUserDataPoint = createServerAction(
   async (key: string, value: any, action: "replace" | "append" = "replace") => {
+    const cookiesStore = await cookies();
+
     const authToken = await validateAuthToken();
 
     const resp = await fetch(`${BASE_URL}/save-user-data-point`, {
@@ -276,7 +284,7 @@ export const saveUserDataPoint = createServerAction(
         Authorization: `Bearer ${authToken}`,
       },
       body: JSON.stringify({
-        targetUserId: cookies().get("userID")?.value,
+        targetUserId: cookiesStore.get("userID")?.value,
         dataPoint: key,
         action: action,
         value: value,
@@ -303,10 +311,12 @@ export const saveUserDataPoint = createServerAction(
 
 export const uploadProfilePhoto = createServerAction(
   async (formData: FormData): Promise<any> => {
+    const cookiesStore = await cookies();
+
     const authToken = await validateAuthToken();
 
-    if (cookies().get("userID")?.value) {
-      formData.append("user_id", cookies().get("userID")?.value as string);
+    if (cookiesStore.get("userID")?.value) {
+      formData.append("user_id", cookiesStore.get("userID")?.value as string);
     }
 
     const resp = await fetch(`${BASE_URL}/upload-profile-photo`, {
@@ -328,6 +338,8 @@ export const uploadProfilePhoto = createServerAction(
 );
 export const getLatestWhyStatementFromServer = createServerAction(
   async (): Promise<any> => {
+    const cookiesStore = await cookies();
+
     const authToken = await validateAuthToken();
 
     const resp = await fetch(`${BASE_URL}/get-latest-why-statement`, {
@@ -336,13 +348,13 @@ export const getLatestWhyStatementFromServer = createServerAction(
         Authorization: `Bearer ${authToken}`,
       },
     });
-    cookies().delete("whyStatement");
+    cookiesStore.delete("whyStatement");
 
     if (resp.ok) {
       const respData = await resp.json();
 
       if (respData && respData.whyStatement) {
-        cookies().set("whyStatement", respData.whyStatement);
+        cookiesStore.set("whyStatement", respData.whyStatement);
         return respData;
       } else {
         logTest("No Why Statement field found");
