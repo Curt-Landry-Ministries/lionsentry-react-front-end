@@ -4,10 +4,12 @@ import { logout, refreshUserToken } from "./auth/actions";
 import { LOCAL_TESTING } from "./utils-global";
 
 const validateAuthToken = async () => {
-  const authToken = cookies().get("authToken")?.value;
-  const startTime = cookies().get("startAuth")?.value;
-  const expiresIn = cookies().get("expiresIn")?.value;
-  const refreshToken = cookies().get("refreshToken")?.value;
+  const cookiesStore = await cookies();
+
+  const authToken = cookiesStore.get("authToken")?.value;
+  const startTime = cookiesStore.get("startAuth")?.value;
+  const expiresIn = cookiesStore.get("expiresIn")?.value;
+  const refreshToken = cookiesStore.get("refreshToken")?.value;
 
   if (!authToken || !startTime || !expiresIn || !refreshToken) await logout();
 
@@ -27,11 +29,13 @@ const validateAuthToken = async () => {
 };
 
 const isLoggedIn = async () => {
-  return Promise.resolve(!!cookies().get("authToken")?.value);
+  const cookiesStore = await cookies();
+  return !!cookiesStore.get("authToken")?.value;
 };
 
 const hasWhyStatement = async () => {
-  return Promise.resolve(!!cookies().get("whyStatement")?.value);
+  const cookiesStore = await cookies();
+  return cookiesStore.get("whyStatement")?.value;
 };
 
 const logError = (error: any) => {

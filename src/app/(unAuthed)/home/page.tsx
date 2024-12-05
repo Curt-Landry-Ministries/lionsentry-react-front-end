@@ -33,7 +33,7 @@ const Home: React.FC = () => {
       subText: "Step 1",
       title: 'Craft Your "Why" Statement',
       mainText:
-        "We help you craft your personal mission statement—your “why,” drawing  from your core beliefs, values, and giftings. This is the bedrock of setting your goals.",
+        "We help you craft your personal mission statement—your “why,” drawing from your core beliefs, values, and giftings. This is the bedrock of setting your goals.",
     },
     {
       subText: "Step 2",
@@ -45,7 +45,7 @@ const Home: React.FC = () => {
       subText: "Step 3",
       title: "Get Daily Encouragement",
       mainText:
-        "You’ll get scriptures from God’s Word that speak directly to your mission, passions, goals, and challenges, helping you stay focused and encouraged.  ",
+        "You’ll get scriptures from God’s Word that speak directly to your mission, passions, goals, and challenges, helping you stay focused and encouraged!",
     },
   ];
   return (
@@ -74,7 +74,9 @@ const Home: React.FC = () => {
               alt="LionSentry Logo"
             />
             <h1 className="display-heading leading-[86%] mt-10 text-center font-medium">
-              <span className="text-gradient block">Find Your Purpose</span>
+              <span className="text-gradient block">
+                Discover Your Kingdom Mission.
+              </span>
               <span>Live with Intention</span>
             </h1>
             <p className="text-center text-2xl leading-tight my-7">
@@ -115,16 +117,16 @@ const Home: React.FC = () => {
         />
 
         <CTAContentImage
-          title="Feeling Lost? Discover Your True Calling"
-          content="<p>You were created by God on purpose for a purpose. Yet distractions and challenges can throw you off course, leaving you feeling unfulfilled and unfocused.</p><p>Discovering your mission—your “why”—gives you the confidence and focus you need to walk in God’s purpose every day and impact the lives of others.</p><p>Live a life transformed by your personal “why”—your life’s mission—and inspire others the way God designed you to do.</p>"
+          title="Your Life’s Mission Will Inspire Others. But What Is It?"
+          content="<p>You were created by God <b>on purpose for a purpose.</b> Yet distractions and challenges can throw you off course, leaving you feeling unfulfilled and unfocused.</p><p>Discovering your mission—<b>your “why”</b>—gives you the <b>confidence and focus</b> you need to walk in <b>God’s purpose</b> every day and <b>impact the lives</b> of others.</p><p>Live a life transformed by your personal “why”—your life’s mission—and inspire others the way God designed you to do.</p>"
           buttonText='Discover my "why"'
           buttonLink="/signup"
           image={"/images/discover-my-calling.gif"}
         />
 
         <CTAContentImage
-          title="Your Path to Clarity and Intention"
-          content="<p>Knowing your “why” establishes a clear path forward and roadmap to fulfilling your God-given purpose.</p><p>Everyone’s personal mission and journey in life is unique. This is why we developed a tool that walks you through developing a personalized “why” statement and provides clear direction for your life based on God’s Word!</p>"
+          title="Your Why. Your Path. Your Purpose."
+          content="<p>Knowing your “why” establishes a clear path forward and roadmap to fulfilling your purpose.</p><p>Everyone’s personal mission and journey in life is unique. This is why we developed a tool that walks you through developing a personalized “why” statement and provides clear direction for your life based on God’s Word.</p>"
           buttonText='Discover my "why"'
           buttonLink="/signup"
           image={"/images/path-to-clarity.gif"}
@@ -140,7 +142,7 @@ const Home: React.FC = () => {
             className="mb-6 w-[95%] h-auto absolute -top-24 left-0 -z-10 hidden md:block"
           />
           <div className="content-container">
-            <h1 className="text-center mb-16">How to Use LionSentry</h1>
+            <h1 className="text-center mb-16">How It Works</h1>
 
             {howToUseContent.map((item, key) => (
               <TwoColumnText
@@ -193,18 +195,15 @@ const Home: React.FC = () => {
             Our heart is to help you harness your God-given potential so you can
             make the impact He designed you for! The daily personalized
             devotions keep you right on track and deepen your faith, anchoring
-            your goals to your mission. As a result, you become more confident
-            and feel fulfilled.
+            you to your mission. As a result, you become more confident and feel
+            fulfilled.
           </p>
 
           <p>
-            A coming-soon features is the Reflection Journal. This feature
+            One of our newest features is the Reflection Journal. This feature
             allows you to jot down ideas, prayers, revelation, and scriptures
-            the Lord brings to mind as He takes you on your purpose journey!
-          </p>
-
-          <p>
-            We encourage you to use this feature to get even more out of your
+            the Lord brings to mind as He takes you on your purpose journey! We
+            encourage you to use this feature to get even more out of your
             goal-setting experience.
           </p>
         </>
@@ -216,8 +215,7 @@ const Home: React.FC = () => {
           <p className="mb-8 text-xl">
             If you want to see others fulfill their God-given purposes and make
             a great impact for His Kingdom, prayerfully consider donating. Every
-            donation helps to advance His Kingdom and His purposes through
-            others like you!
+            donation helps to advance His Kingdom and His purposes!
           </p>
           <Link href="https://shop.curtlandry.com/donate/" target="_blank">
             <Button standardBtn={"primary"}>Donate</Button>
@@ -235,7 +233,7 @@ const Home: React.FC = () => {
             alt="LionSentry Logo"
             className="mb-6"
           />
-          <h1>About Our Ministry</h1>
+          <h1>LionSentry’s “Why” Statement</h1>
           <p className="text-lg">
             We know that feeling stuck and without direction leaves you feeling
             unfulfilled. We want to help Believers refocus and set their minds

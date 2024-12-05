@@ -1,3 +1,5 @@
+"use client";
+
 import { useUserStore } from "@/app/providers/userContext";
 import { fetchDevotionals, updateDevotional } from "@/lib/app/actions";
 import { useEffect, useState } from "react";
