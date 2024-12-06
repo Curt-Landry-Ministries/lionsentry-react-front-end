@@ -42,7 +42,7 @@ const GoalPrinciples = () => {
   ];
   return (
     <div className="flex flex-col w-full max-w-screen-sm mx-auto px-4">
-      <h3>Let&apos;s Prepare for Setting Goals</h3>
+      <h3 className="mb-8">Let&apos;s Prepare for Setting Goals</h3>
 
       <p className="mb-10">
         Pause and invite the Holy Spirit to align your mindset with God’s as you
@@ -89,14 +89,13 @@ const GoalPrinciples = () => {
       </div>
 
       <div className="my-12">
-        <h3 className="mb-8">Answer these 7 questions.</h3>
+        <h3 className="mb-8">Let’s get started!</h3>
         <p>
           As you read through and prayerfully consider each principle above,
           think about the habits and patterns you want to change to grow your
           faith, get healthier, live generously, and find more joy in life. Tie
           the goals you set back to your why statement.
         </p>
-        <p>Let’s get started!</p>
       </div>
 
       <Link href={AuthedPaths.OnboardingGoals} className="ml-auto">
