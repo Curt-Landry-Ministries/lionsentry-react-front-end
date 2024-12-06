@@ -42,14 +42,14 @@ const GoalPrinciples = () => {
   ];
   return (
     <div className="flex flex-col w-full max-w-screen-sm mx-auto px-4">
-      <h3>Let&apos;s Prepare for Setting Goals</h3>
+      <h3 className="mb-8">Let&apos;s Prepare for Setting Goals</h3>
 
       <p className="mb-10">
-        Pause and invite the Holy Spirit to align your mindset with God&apos;s
-        as you read the key principles below: Seek His Kingdom, remember the
-        power to achieve success comes from God, thank Him for the covenant you
-        have with Him, walk in the Spirit, and thank Him for making you more
-        than a conqueror.
+        Pause and invite the Holy Spirit to align your mindset with God’s as you
+        read the key principles below: Seek His Kingdom, remember the power to
+        achieve success comes from God, thank Him for the covenant you have with
+        Him, walk in the Spirit, and thank Him for making you more than a
+        conqueror.
       </p>
 
       <VideoComponent
@@ -69,7 +69,7 @@ const GoalPrinciples = () => {
               <Image
                 src={item.image}
                 fill
-                objectFit="contain"
+                className="object-contain"
                 alt={`Principle ${index + 1} Image`}
               />{" "}
             </div>
@@ -89,7 +89,7 @@ const GoalPrinciples = () => {
       </div>
 
       <div className="my-12">
-        <h3 className="mb-8">Let&apos;s get started!</h3>
+        <h3 className="mb-8">Let’s get started!</h3>
         <p>
           As you read through and prayerfully consider each principle above,
           think about the habits and patterns you want to change to grow your

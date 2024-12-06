@@ -1,30 +1,41 @@
 "use server";
 import { cookies } from "next/headers";
+import { logout, refreshUserToken } from "./auth/actions";
+import { LOCAL_TESTING } from "./utils-global";
 
-const LOCAL_TESTING: boolean = process.env.NEXT_PUBLIC_LOCAL_TESTING === "true"; // change to true when testing locally
+const validateAuthToken = async () => {
+  const cookiesStore = await cookies();
 
-const getBaseUrl = (isAuth: boolean): string => {
-  return `https://${LOCAL_TESTING ? "test-api" : "api"}.lionsentry.com/${
-    isAuth ? "auth_server" : "app_server"
-  }`;
-};
+  const authToken = cookiesStore.get("authToken")?.value;
+  const startTime = cookiesStore.get("startAuth")?.value;
+  const expiresIn = cookiesStore.get("expiresIn")?.value;
+  const refreshToken = cookiesStore.get("refreshToken")?.value;
 
-const validateAuthToken = () => {
-  const authToken = cookies().get("authToken")?.value;
+  if (!authToken || !startTime || !expiresIn || !refreshToken) await logout();
 
-  if (!authToken) {
-    return false;
+  const now = new Date();
+  const isExpired =
+    (now.valueOf() - new Date(startTime as string).valueOf()) / 1000 >
+    parseInt(expiresIn as string);
+
+  if (isExpired) {
+    await logout();
   } else {
-    return authToken;
+    const freshToken = await refreshUserToken();
+
+    if (!freshToken.success) await logout();
+    else return freshToken.value;
   }
 };
 
 const isLoggedIn = async () => {
-  return Promise.resolve(!!cookies().get("authToken")?.value);
+  const cookiesStore = await cookies();
+  return !!cookiesStore.get("authToken")?.value;
 };
 
 const hasWhyStatement = async () => {
-  return Promise.resolve(!!cookies().get("whyStatement")?.value);
+  const cookiesStore = await cookies();
+  return cookiesStore.get("whyStatement")?.value;
 };
 
 const logError = (error: any) => {
@@ -39,11 +50,4 @@ const logTest = (message: any) => {
   }
 };
 
-export {
-  getBaseUrl,
-  validateAuthToken,
-  isLoggedIn,
-  hasWhyStatement,
-  logError,
-  logTest,
-};
+export { validateAuthToken, isLoggedIn, hasWhyStatement, logError, logTest };

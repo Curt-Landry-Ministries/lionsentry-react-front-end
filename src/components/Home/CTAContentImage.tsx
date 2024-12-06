@@ -7,10 +7,11 @@ import { MaxWindowSize } from "@/lib/constants";
 
 export type CTAContentImageType = {
   title: string;
-  content: string;
+  content?: string;
   image: string | any;
   buttonText?: string;
   buttonLink?: string;
+  children?: React.ReactNode;
 };
 
 const CTAContentImage: React.FC<CTAContentImageType> = ({
@@ -26,10 +27,13 @@ const CTAContentImage: React.FC<CTAContentImageType> = ({
     <div className="flex px-5 md:max-w-[90vw] lg:max-w-[75vw] mx-auto items-center gap-24 py-12 md:py-32 flex-wrap md:flex-nowrap">
       <div className="w-full md:w-1/2">
         <h1 className="mb-4">{title}</h1>
-        <div
-          className="[&>p]:mb-5"
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
+
+        {content && (
+          <div
+            className="[&>p]:mb-5"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
+        )}
 
         {windowSize.width < MaxWindowSize.Mobile ? (
           <Image

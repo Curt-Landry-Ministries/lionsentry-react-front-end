@@ -31,33 +31,21 @@ const Home: React.FC = () => {
   const howToUseContent = [
     {
       subText: "Step 1",
-      title: "Answer the Questions",
+      title: 'Craft Your "Why" Statement',
       mainText:
-        "Friends, embark on a journey to uncover your Divine Purpose and Faith Vision with the Divine Mission app. Reflect on your strengths, acknowledge your weaknesses, and take a step toward the unique mission that God has designed just for you. Embrace the extraordinary purpose He has planned for your life, and let the Divine Mission app be your guide in discovering and living out your true calling.",
+        "We help you craft your personal mission statement—your “why,” drawing from your core beliefs, values, and giftings. This is the bedrock of setting your goals.",
     },
     {
       subText: "Step 2",
-      title: "Receive Purpose Statement",
+      title: "Set Your Goals",
       mainText:
-        "Friends, embark on a journey to uncover your Divine Purpose and Faith Vision with the Divine Mission app. Reflect on your strengths, acknowledge your weaknesses, and take a step toward the unique mission that God has designed just for you. Embrace the extraordinary purpose He has planned for your life, and let the Divine Mission app be your guide in discovering and living out your true calling.",
+        "Five goals are set that tie directly to beliefs, values, and giftings to help you overcome challenges so you can walk with confidence and authority into your purpose.",
     },
     {
       subText: "Step 3",
-      title: "Set Your Goals",
+      title: "Get Daily Encouragement",
       mainText:
-        "Friends, embark on a journey to uncover your Divine Purpose and Faith Vision with the Divine Mission app. Reflect on your strengths, acknowledge your weaknesses, and take a step toward the unique mission that God has designed just for you. Embrace the extraordinary purpose He has planned for your life, and let the Divine Mission app be your guide in discovering and living out your true calling.",
-    },
-    {
-      subText: "Step 4",
-      title: "Receive Daily Devotionals",
-      mainText:
-        "Friends, embark on a journey to uncover your Divine Purpose and Faith Vision with the Divine Mission app. Reflect on your strengths, acknowledge your weaknesses, and take a step toward the unique mission that God has designed just for you. Embrace the extraordinary purpose He has planned for your life, and let the Divine Mission app be your guide in discovering and living out your true calling.",
-    },
-    {
-      subText: "Step 5",
-      title: "Live with Intention",
-      mainText:
-        "Friends, embark on a journey to uncover your Divine Purpose and Faith Vision with the Divine Mission app. Reflect on your strengths, acknowledge your weaknesses, and take a step toward the unique mission that God has designed just for you. Embrace the extraordinary purpose He has planned for your life, and let the Divine Mission app be your guide in discovering and living out your true calling.",
+        "You’ll get scriptures from God’s Word that speak directly to your mission, passions, goals, and challenges, helping you stay focused and encouraged!",
     },
   ];
   return (
@@ -78,7 +66,7 @@ const Home: React.FC = () => {
             className="w-full h-full absolute top-0 left-0 hidden md:block -z-10"
             alt="Lionsentry line hero graphic"
           />
-          <div className="content-container flex flex-col items-center justify-center h-full">
+          <div className="max-w-[700px] mx-auto flex flex-col items-center justify-center h-full">
             <Image
               src={"/images/LS-logo.webp"}
               width={70}
@@ -86,13 +74,14 @@ const Home: React.FC = () => {
               alt="LionSentry Logo"
             />
             <h1 className="display-heading leading-[86%] mt-10 text-center font-medium">
-              <span className="text-gradient block">Find Your Purpose</span>
+              <span className="text-gradient block">
+                Discover Your Kingdom Mission.
+              </span>
               <span>Live with Intention</span>
             </h1>
             <p className="text-center text-2xl leading-tight my-7">
-              Transform Your Life with Our Personalized Purpose Statement and
-              Goal-Setting Framework with TruPath<sup>TM</sup>, a LionSentry
-              Product.
+              Transform your life with a personalized roadmap that helps you
+              walk in your Kingdom purpose every day.
             </p>
             <div className="flex justify-center gap-4">
               <Link href="/signup">
@@ -124,21 +113,21 @@ const Home: React.FC = () => {
         <VideoComponent
           videoSrc="https://player.manage.broadcastcloud.tv/1efa8232-a5d5-6124-8d52-3bf9f65c553b/default?autoplay=false&debug=false&direct=true"
           videoTitle="Lionsentry Homepage Video"
-          className="content-container [&>iframe]:w-full [&>iframe]:min-h-[200px] md:[&>iframe]:min-h-[370px] lg:[&>iframe]:min-h-[520px] xl:[&>iframe]:min-h-[550px] pt-24 md:pt-52 z-10 relative"
+          className="px-4 md:max-w-[90vw] xl:max-w-[72vw] mx-auto [&>iframe]:w-full [&>iframe]:min-h-[200px] md:[&>iframe]:min-h-[370px] lg:[&>iframe]:min-h-[520px] xl:[&>iframe]:min-h-[550px] pt-24 md:pt-52 z-10 relative"
         />
 
         <CTAContentImage
-          title="Feeling Lost? Discover Your True Calling"
-          content="<p>In a world filled with distractions and uncertainties, many of us struggle to find our true purpose and direction. We often feel overwhelmed, aimless, and unsure of how to live a life that aligns with our values and faith.</p><p>Without a clear purpose and intentional goals, we risk wandering through life without experiencing the fulfillment and impact God intends for us.</p>"
-          buttonText="Discover my calling"
+          title="Your Life’s Mission Will Inspire Others. But What Is It?"
+          content="<p>You were created by God <b>on purpose for a purpose.</b> Yet distractions and challenges can throw you off course, leaving you feeling unfulfilled and unfocused.</p><p>Discovering your mission—<b>your “why”</b>—gives you the <b>confidence and focus</b> you need to walk in <b>God’s purpose</b> every day and <b>impact the lives</b> of others.</p><p>Live a life transformed by your personal “why”—your life’s mission—and inspire others the way God designed you to do.</p>"
+          buttonText='Discover my "why"'
           buttonLink="/signup"
           image={"/images/discover-my-calling.gif"}
         />
 
         <CTAContentImage
-          title="Your Path to Clarity and Intention"
-          content="<p>Introducing our revolutionary digital tool designed to help you discover your God-given purpose and live with intentionality.</p><p>Through a simple process, you'll answer seven insightful questions that will reveal a customized purpose statement tailored to your unique journey, along with daily devotionals sent straight to your email. Following this, our platform will guide you through creating five SMART goals using the ACT framework, empowering you to take practical steps toward a life of meaning and direction.</p>"
-          buttonText="I'm ready"
+          title="Your Why. Your Path. Your Purpose."
+          content="<p>Knowing your “why” establishes a clear path forward and roadmap to fulfilling your purpose.</p><p>Everyone’s personal mission and journey in life is unique. This is why we developed a tool that walks you through developing a personalized “why” statement and provides clear direction for your life based on God’s Word.</p>"
+          buttonText='Discover my "why"'
           buttonLink="/signup"
           image={"/images/path-to-clarity.gif"}
         />
@@ -153,7 +142,7 @@ const Home: React.FC = () => {
             className="mb-6 w-[95%] h-auto absolute -top-24 left-0 -z-10 hidden md:block"
           />
           <div className="content-container">
-            <h1 className="text-center mb-16">How to Use TruPath</h1>
+            <h1 className="text-center mb-16">How It Works</h1>
 
             {howToUseContent.map((item, key) => (
               <TwoColumnText
@@ -163,6 +152,22 @@ const Home: React.FC = () => {
                 key={key}
               />
             ))}
+
+            <div className="text-2xl space-y-10 mb-20">
+              <h2>Your Roadmap for Living with Intention</h2>
+              <p>
+                These simple steps lead you on the path of living with
+                intention. This roadmap keeps your focus on your mission with
+                every step and gives you the daily direction and encouragement
+                you need to make the impact you desire.
+              </p>
+              <p>
+                Because situations change and life has unexpected turns, you
+                goals do too--that’s okay! You can revisit and revise your goals
+                as needed. We’re here to help you grow—wherever you go. You
+                aren’t alone on this journey!
+              </p>
+            </div>
 
             <div className="w-full text-center">
               <Link href={Paths.Signup}>
@@ -181,11 +186,44 @@ const Home: React.FC = () => {
       </LeftRight>
       <SectionBoxCTA
         title="Grow in Faith"
-        content="Throughout this process, you will find scriptural references and spiritual encouragement to deepen your faith and keep you grounded in God's plan for your life."
         image={"/images/grow_in_faith.png"}
-        buttonLink="/"
-        buttonText="I'm ready to grow"
-      />
+        buttonLink={Paths.Signup}
+        buttonText="Get Started Today"
+      >
+        <>
+          <p>
+            Our heart is to help you harness your God-given potential so you can
+            make the impact He designed you for! The daily personalized
+            devotions keep you right on track and deepen your faith, anchoring
+            you to your mission. As a result, you become more confident and feel
+            fulfilled.
+          </p>
+
+          <p>
+            One of our newest features is the Reflection Journal. This feature
+            allows you to jot down ideas, prayers, revelation, and scriptures
+            the Lord brings to mind as He takes you on your purpose journey! We
+            encourage you to use this feature to get even more out of your
+            goal-setting experience.
+          </p>
+        </>
+      </SectionBoxCTA>
+      <div className="pt-12 pb-16 px-4">
+        <div className="max-w-[620px] text-center mx-auto">
+          <div className="w-[150px] h-[1px] bg-gradient-1 opacity-70 mx-auto mb-14"></div>
+          <h1 className="mb-4">Make a Donation</h1>
+          <p className="mb-8 text-xl">
+            If you want to see others fulfill their God-given purposes and make
+            a great impact for His Kingdom, prayerfully consider donating. Every
+            donation helps to advance His Kingdom and His purposes!
+          </p>
+          <Link href="https://shop.curtlandry.com/donate/" target="_blank">
+            <Button standardBtn={"primary"}>Donate</Button>
+          </Link>
+        </div>
+        <div className="w-[150px] h-[1px] bg-gradient-1 opacity-70 mx-auto mt-14"></div>
+      </div>
+
       <ImageBGSection imageUrl="/images/bg-image.png">
         <div className="content-container flex flex-col items-center text-center gap-4 text-white">
           <Image
@@ -195,21 +233,28 @@ const Home: React.FC = () => {
             alt="LionSentry Logo"
             className="mb-6"
           />
-          <h1>About Our Ministry</h1>
-          <p className="text-xl">
-            We believe that every person has a unique calling, and through our
-            digital tools, we aim to provide practical and spiritual guidance to
-            help you navigate your journey.
+          <h1>LionSentry’s “Why” Statement</h1>
+          <p className="text-lg">
+            We know that feeling stuck and without direction leaves you feeling
+            unfulfilled. We want to help Believers refocus and set their minds
+            and missions on the things that matter most, equipping them with the
+            confidence they need to make a great impact for the Kingdom.
           </p>
-          <p className="text-xl">
-            Our team is passionate about creating resources that inspire growth,
-            intentional living, and a deeper relationship with God. Join us on
-            this transformative path and see how purposeful living can impact
-            every aspect of your life.
+          <p className="text-lg">
+            This is LionSentry’s mission—our “why”—to provide a starting point
+            and a step-by-step direction and encouragement to help you grow in
+            faith and experience a more fulfilling and purposeful life.
+          </p>
+          <p className="text-lg">
+            The journey of discovering your God-given mission is worth it.
+            You’re worth it. And we trust that with the guidance and direction
+            you need, your life will make a great impact on others.
           </p>
           <div className="flex justify-center gap-4 mt-6">
             <Link href="/signup">
-              <Button standardBtn={"primary"}>Start Now</Button>
+              <Button standardBtn={"primary"}>
+                Discover My &quot;Why&quot;
+              </Button>
             </Link>
             <Link href="/login">
               <Button standardBtn={"secondary"}>Learn More</Button>

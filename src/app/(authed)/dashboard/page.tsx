@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { AuthedPaths } from "@/lib/constants";
 import Button from "@/components/Global/Button";
-import DevotionalCard from "@/components/Devotionals/DevotionalCard";
 import GoalList from "@/components/Goals/GoalList";
 import Modal from "@/components/Global/Modal";
 import ProfilePhoto from "@/components/Global/ProflePhoto";
@@ -41,7 +40,10 @@ const Dashboard = () => {
             {whyStatements.length > 0 && (
               <>
                 <p className="flex-1">
-                  {whyStatements[whyStatements.length - 1].whyStatement}
+                  {whyStatements[whyStatements.length - 1] &&
+                    whyStatements[
+                      whyStatements.length - 1
+                    ].whyStatement.replace('"Why Statement": ', "")}
                 </p>
               </>
             )}

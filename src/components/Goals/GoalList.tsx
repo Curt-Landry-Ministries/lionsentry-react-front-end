@@ -1,4 +1,4 @@
-import { GoalTypeAsset, MaxWindowSize } from "@/lib/constants";
+import { MaxWindowSize } from "@/lib/constants";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 import classNames from "classnames";
 import GoalHeader from "./GoalHeader";

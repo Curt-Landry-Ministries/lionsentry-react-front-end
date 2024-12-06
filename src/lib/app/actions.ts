@@ -1,18 +1,20 @@
 "use server";
-
 import { User } from "../stores/userStore";
-import { getBaseUrl, logError, logTest, validateAuthToken } from "../utils";
+import { logError, logTest, validateAuthToken } from "../utils";
+import { getBaseUrl } from "../utils-global";
 import { cookies } from "next/headers";
-import { logout } from "../auth/actions";
 import { createServerAction, ServerActionError } from "../action-utils";
-import { Paths } from "../constants";
-import { redirect } from "next/navigation";
 
 const BASE_URL = getBaseUrl(false);
+const CONTENT_ENGINE: string = process.env.CONTENT_ENGINE
+  ? process.env.CONTENT_ENGINE
+  : "";
 
 export const fetchBasicData = createServerAction(async () => {
-  const userID = cookies().get("userID")?.value;
-  const authToken = validateAuthToken();
+  const cookiesStore = await cookies();
+
+  const userID = cookiesStore.get("userID")?.value;
+  const authToken = await validateAuthToken();
   if (!userID || !authToken) throw new ServerActionError("Unauthorized Access");
 
   try {
@@ -39,16 +41,16 @@ export const fetchBasicData = createServerAction(async () => {
 
     return userData;
   } catch (error: any) {
-    if (error.error == "Invalid authentication token") logout();
-
     throw new ServerActionError(error || "Failed to fetch user basic data");
   }
 });
 
 export const fetchUserData = createServerAction(async () => {
-  const userID = cookies().get("userID")?.value;
+  const cookiesStore = await cookies();
 
-  const authToken = validateAuthToken();
+  const userID = cookiesStore.get("userID")?.value;
+
+  const authToken = await validateAuthToken();
 
   let userData: User = {
     isLoading: false,
@@ -78,12 +80,6 @@ export const fetchUserData = createServerAction(async () => {
 
     const whyStatementResp = await getLatestWhyStatementFromServer();
 
-    if (!whyStatementResp.success) {
-      await logout();
-
-      redirect(Paths.Login);
-    }
-
     const devotionalsResp = await fetchDevotionals();
     const goalsResp = await fetchGoals();
 
@@ -95,14 +91,12 @@ export const fetchUserData = createServerAction(async () => {
 
     return userData;
   } catch (error: any) {
-    if (error.error == "Invalid authentication token") logout();
-
     throw new ServerActionError(error || "Failed to fetch user data");
   }
 });
 
 export const fetchGoals = createServerAction(async () => {
-  const authToken = validateAuthToken();
+  const authToken = await validateAuthToken();
 
   try {
     const resp = await fetch(`${BASE_URL}/get-goals`, {
@@ -122,7 +116,7 @@ export const fetchGoals = createServerAction(async () => {
 });
 
 export const fetchDevotionals = createServerAction(async () => {
-  const authToken = validateAuthToken();
+  const authToken = await validateAuthToken();
   const resp = await fetch(`${BASE_URL}/get-devotionals`, {
     method: "GET",
     headers: {
@@ -139,7 +133,7 @@ export const fetchDevotionals = createServerAction(async () => {
 
 export const submitAnswerToServer = createServerAction(
   async (answer: string, question: string, questionIndex: number) => {
-    const authToken = validateAuthToken();
+    const authToken = await validateAuthToken();
 
     try {
       const resp = await fetch(`${BASE_URL}/submit-onboarding-answer`, {
@@ -181,7 +175,9 @@ export const fetchAnswersFromServer = createServerAction(
 
 export const generateWhyStatementFromAnswers = createServerAction(
   async (questions: any[], answers: string[]) => {
-    const authToken = validateAuthToken();
+    const cookiesStore = await cookies();
+
+    const authToken = await validateAuthToken();
 
     const questionsAnswers = questions.map((q, index) => ({
       questions: q.title,
@@ -190,6 +186,7 @@ export const generateWhyStatementFromAnswers = createServerAction(
 
     const payload = {
       answers: questionsAnswers,
+      "content-type": CONTENT_ENGINE,
     };
 
     logTest(`Sending questions and answers to server`);
@@ -215,7 +212,7 @@ export const generateWhyStatementFromAnswers = createServerAction(
         throw new ServerActionError("WhyStatement generation failed.");
       }
 
-      cookies().set("whyStatement", respData.whyStatement);
+      cookiesStore.set("whyStatement", respData.whyStatement);
       return respData.whyStatement;
     } catch (error: any) {
       throw new ServerActionError(error.error);
@@ -225,7 +222,7 @@ export const generateWhyStatementFromAnswers = createServerAction(
 
 export const updateDevotional = createServerAction(
   async ({ doc_id, isFavorite }: { doc_id: string; isFavorite: boolean }) => {
-    const authToken = validateAuthToken();
+    const authToken = await validateAuthToken();
 
     try {
       const resp = await fetch(`${BASE_URL}/update-devotional`, {
@@ -251,7 +248,7 @@ export const updateDevotional = createServerAction(
 
 export const generateDevotional = createServerAction(
   async (): Promise<Devotional | undefined> => {
-    const authToken = validateAuthToken();
+    const authToken = await validateAuthToken();
 
     try {
       const resp = await fetch(`${BASE_URL}/generate-devotional`, {
@@ -260,7 +257,10 @@ export const generateDevotional = createServerAction(
           "Content-Type": "application/json",
           Authorization: `Bearer ${authToken}`,
         },
-        body: JSON.stringify({ saveToFirestore: true }),
+        body: JSON.stringify({
+          saveToFirestore: true,
+          "content-type": CONTENT_ENGINE,
+        }),
       });
       const respData: Devotional = await resp.json();
 
@@ -273,7 +273,9 @@ export const generateDevotional = createServerAction(
 
 export const saveUserDataPoint = createServerAction(
   async (key: string, value: any, action: "replace" | "append" = "replace") => {
-    const authToken = validateAuthToken();
+    const cookiesStore = await cookies();
+
+    const authToken = await validateAuthToken();
 
     const resp = await fetch(`${BASE_URL}/save-user-data-point`, {
       method: "POST",
@@ -282,7 +284,7 @@ export const saveUserDataPoint = createServerAction(
         Authorization: `Bearer ${authToken}`,
       },
       body: JSON.stringify({
-        targetUserId: cookies().get("userID")?.value,
+        targetUserId: cookiesStore.get("userID")?.value,
         dataPoint: key,
         action: action,
         value: value,
@@ -309,10 +311,12 @@ export const saveUserDataPoint = createServerAction(
 
 export const uploadProfilePhoto = createServerAction(
   async (formData: FormData): Promise<any> => {
-    const authToken = validateAuthToken();
+    const cookiesStore = await cookies();
 
-    if (cookies().get("userID")?.value) {
-      formData.append("user_id", cookies().get("userID")?.value as string);
+    const authToken = await validateAuthToken();
+
+    if (cookiesStore.get("userID")?.value) {
+      formData.append("user_id", cookiesStore.get("userID")?.value as string);
     }
 
     const resp = await fetch(`${BASE_URL}/upload-profile-photo`, {
@@ -334,7 +338,9 @@ export const uploadProfilePhoto = createServerAction(
 );
 export const getLatestWhyStatementFromServer = createServerAction(
   async (): Promise<any> => {
-    const authToken = validateAuthToken();
+    const cookiesStore = await cookies();
+
+    const authToken = await validateAuthToken();
 
     const resp = await fetch(`${BASE_URL}/get-latest-why-statement`, {
       method: "GET",
@@ -342,13 +348,13 @@ export const getLatestWhyStatementFromServer = createServerAction(
         Authorization: `Bearer ${authToken}`,
       },
     });
-    cookies().delete("whyStatement");
+    cookiesStore.delete("whyStatement");
 
     if (resp.ok) {
       const respData = await resp.json();
 
       if (respData && respData.whyStatement) {
-        cookies().set("whyStatement", respData.whyStatement);
+        cookiesStore.set("whyStatement", respData.whyStatement);
         return respData;
       } else {
         logTest("No Why Statement field found");
@@ -384,7 +390,7 @@ export const saveGoal = createServerAction(
     Goal,
     "goal" | "description" | "category" | "deadline"
   >): Promise<any> => {
-    const authToken = validateAuthToken();
+    const authToken = await validateAuthToken();
 
     const resp = await fetch(`${BASE_URL}/save-goals`, {
       method: "POST",
@@ -419,7 +425,7 @@ export const updateGoal = createServerAction(
     doc_id: string;
     updateFields: Partial<Goal>;
   }): Promise<any> => {
-    const authToken = validateAuthToken();
+    const authToken = await validateAuthToken();
 
     if (updateFields.deadline) {
       updateFields.deadline = new Date(updateFields.deadline).toUTCString();

@@ -24,13 +24,6 @@ const DevotionalFull: React.FC<DevotionalFull> = ({
   const devotionalDate = devotional && new Date(devotional.dateTimeCreated);
   const todayDate = new Date();
 
-  const [favorite, setFavorite] = useState(false); // Temp solution to show fav
-
-  const handleFavorite = () => {
-    alert("favorite a devotional");
-    setFavorite(!favorite);
-  };
-
   const DevotionalTools = () => {
     return (
       <div>
