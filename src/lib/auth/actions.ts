@@ -2,16 +2,19 @@
 import "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { jwtDecode } from "jwt-decode";
-import { getBaseUrl, logError, logTest } from "../utils";
+import { getBaseUrl } from "../utils-global";
+import { logError, logTest } from "../utils";
 import { cookies } from "next/headers";
+import { createServerAction, ServerActionError } from "../action-utils";
 import { redirect } from "next/navigation";
 import { Paths } from "../constants";
-import { createServerAction, ServerActionError } from "../action-utils";
 
 const BASE_URL = getBaseUrl(true);
 
 export const login = createServerAction(
   async (credentials: UserCredentials): Promise<any> => {
+    const cookiesStore = await cookies();
+
     const { email, password } = credentials;
 
     const resp = await fetch(`${BASE_URL}/get-id-token`, {
@@ -29,12 +32,15 @@ export const login = createServerAction(
     }
 
     if (resp.ok && respData.idToken) {
-      cookies().set("authToken", respData.idToken);
+      cookiesStore.set("authToken", respData.idToken);
+      cookiesStore.set("refreshToken", respData.refreshToken);
+      cookiesStore.set("expiresIn", respData.expiresIn);
+      cookiesStore.set("startAuth", new Date().toString());
 
       const decodedToken: any = jwtDecode(respData.idToken);
       const userId = decodedToken.user_id;
 
-      cookies().set("userID", userId);
+      cookiesStore.set("userID", userId);
 
       logTest(`User Logged in: ${email}`);
 
@@ -43,10 +49,49 @@ export const login = createServerAction(
   }
 );
 
+export const refreshUserToken = createServerAction(async (): Promise<any> => {
+  const cookiesStore = await cookies();
+
+  const refreshToken = cookiesStore.get("refreshToken")?.value;
+
+  const resp = await fetch(`${BASE_URL}/refresh-id-token`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      grant_type: "refresh_token",
+      refreshToken: refreshToken,
+    }),
+  });
+
+  const respData = await resp.json();
+
+  if (!resp.ok) {
+    throw new ServerActionError(respData.error || "Failed to refresh token");
+  }
+
+  if (resp.ok && respData.idToken) {
+    cookiesStore.set("authToken", respData.idToken);
+    cookiesStore.set("refreshToken", respData.refreshToken);
+    cookiesStore.set("expiresIn", respData.expiresIn);
+    cookiesStore.set("startAuth", new Date().toString());
+
+    return respData.idToken;
+  }
+});
+
 export const logout = async (): Promise<void> => {
-  cookies().delete("authToken");
-  cookies().delete("userID");
-  cookies().delete("whyStatement");
+  const cookiesStore = await cookies();
+
+  cookiesStore.delete("authToken");
+  cookiesStore.delete("userID");
+  cookiesStore.delete("refreshToken");
+  cookiesStore.delete("expiresIn");
+  cookiesStore.delete("startAuth");
+  cookiesStore.delete("whyStatement");
+
+  redirect(Paths.Login);
 };
 
 export const signup = createServerAction(
@@ -74,6 +119,8 @@ export const signup = createServerAction(
 );
 
 export const fetchUserId = createServerAction(async (): Promise<any> => {
+  const cookiesStore = await cookies();
+
   const resp = await fetch(`${BASE_URL}/get-id-token`);
   const respData = await resp.json();
 
@@ -82,7 +129,7 @@ export const fetchUserId = createServerAction(async (): Promise<any> => {
     const decodedToken: any = jwtDecode(idToken);
     const userID = decodedToken.user_id;
 
-    cookies().set("userID", userID);
+    cookiesStore.set("userID", userID);
     return userID;
   }
 

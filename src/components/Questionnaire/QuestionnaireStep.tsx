@@ -62,10 +62,29 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
             videoTitle={`Welcome Video`}
             className="[&>iframe]:w-full [&>iframe]:min-h-[230px] md:[&>iframe]:min-h-[300px] lg:[&>iframe]:min-h-[480px] [&>iframe]:pb-8"
           />
-
-          <p>First thing we want to do is create your purpose statement.</p>
-
-          <p>Text to be written about this TBD.</p>
+          <div className="space-y-3">
+            <p>I’m excited to be on this journey with you.</p>
+            <p>
+              The first thing is developing your personal mission statement—your
+              “why”
+            </p>
+            <p>
+              Your “why” is the foundational piece that will provide direction
+              and help you establish attainable goals and overcome challenges—to
+              become the best version of yourself.
+            </p>
+            <p>
+              Once you click “start,” you’ll go through a series of questions,
+              don’t overthink it. There’s no right or wrong answer. Just jot
+              down the first things that come to mind.
+            </p>
+            <p>
+              The point of this process is to simply draw out what God has
+              deposited in you, how you are uniquely created, and to determine
+              where you are most passionate.
+            </p>
+            <p>Let’s get started!</p>
+          </div>
         </>
       )}
     </div>

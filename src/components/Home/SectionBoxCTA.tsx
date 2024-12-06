@@ -9,24 +9,21 @@ import CenterGradient from "../Global/Gradients/CenterGradient";
 
 const SectionBoxCTA: React.FC<CTAContentImageType> = ({
   title,
-  content,
   image,
   buttonText,
   buttonLink,
+  children,
 }) => {
   const windowSize = useWindowSize();
   return (
     <CenterGradient>
-      <div className="py-24 md:py-36 text-black dark:text-white">
-        <div className="bg-white dark:bg-black md:max-w-[70vw] flex overflow-hidden items-center gap-10 p-5 md:p-10 rounded-3xl flex-wrap md:flex-nowrap mx-5">
-          <div className="w-full md:w-2/3">
+      <div className="py-24 lg:py-36 text-black dark:text-white">
+        <div className="bg-white dark:bg-black md:max-w-[70vw] flex overflow-hidden items-center gap-10 p-5 md:p-10 rounded-3xl flex-wrap lg:flex-nowrap mx-5">
+          <div className="w-full lg:w-2/3">
             <h1 className="mb-4">{title}</h1>
-            <div
-              className="[&>p]:mb-5"
-              dangerouslySetInnerHTML={{ __html: content }}
-            />
+            <div className="[&>p]:mb-5">{children}</div>
 
-            {windowSize.width < MaxWindowSize.Mobile ? (
+            {windowSize.width < MaxWindowSize.Desktop ? (
               <Image
                 className="mt-4 w-full h-auto rounded-3xl"
                 src={image}
@@ -48,7 +45,7 @@ const SectionBoxCTA: React.FC<CTAContentImageType> = ({
             )}
           </div>
 
-          {windowSize.width > MaxWindowSize.Mobile ? (
+          {windowSize.width > MaxWindowSize.Desktop ? (
             <div className="w-full md:w-1/3">
               <Image
                 className="w-full h-auto rounded-3xl"
