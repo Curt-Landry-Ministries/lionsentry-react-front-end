@@ -3,7 +3,7 @@ import "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { jwtDecode } from "jwt-decode";
 import { getBaseUrl } from "../utils-global";
-import { logError, logTest } from "../utils";
+import { logTest, validateAuthToken } from "../utils";
 import { cookies } from "next/headers";
 import { createServerAction, ServerActionError } from "../action-utils";
 import { redirect } from "next/navigation";
@@ -137,6 +137,35 @@ export const fetchUserId = createServerAction(async (): Promise<any> => {
     throw new ServerActionError(respData.error || "Failed to fetch user id");
   }
 });
+
+export const createKeapUser = createServerAction(
+  async (email: string, firstName: string, lastName: string) => {
+    const authToken = await validateAuthToken();
+
+    const resp = await fetch(`${BASE_URL}/create-keap-user`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: JSON.stringify({
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+      }),
+    });
+
+    const respData = await resp.json();
+
+    logTest(respData);
+
+    if (resp.ok) return respData;
+    else
+      throw new ServerActionError(
+        `Failed to to create Keap user: ${respData.error}`
+      );
+  }
+);
 
 export const deleteUser = createServerAction(async (): Promise<void> => {
   const auth = getAuth();
