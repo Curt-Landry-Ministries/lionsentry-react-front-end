@@ -83,7 +83,7 @@ const Devotionals: React.FC = () => {
 
               <Pagination
                 currentPage={currentPage}
-                totalCount={currentDevotionalData.length}
+                totalCount={devotionals.length}
                 pageSize={pageSize}
                 onPageChange={(page) => setCurrentPage(page)}
               />

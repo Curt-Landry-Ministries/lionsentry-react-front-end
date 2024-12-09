@@ -1,4 +1,4 @@
-import { DOTS, usePagigation } from "@/lib/hooks/usePagination";
+import { DOTS, usePagination } from "@/lib/hooks/usePagination";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import classNames from "classnames";
 
@@ -19,7 +19,7 @@ const Pagination = ({
   pageSize,
   className = "",
 }: Pagination) => {
-  const paginationRange = usePagigation({
+  const paginationRange = usePagination({
     currentPage,
     totalCount,
     siblingCount,

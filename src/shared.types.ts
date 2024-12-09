@@ -10,10 +10,13 @@ interface Question {
 }
 
 type Devotional = {
-  title: string;
-  biblePassage: string;
-  personalization: string;
-  journalingPrompt: string;
+  title?: string;
+  introduction: string;
+  verse: string;
+  insight: string;
+  life_application: string;
+  declaration: string;
+  prayer: string;
   dateTimeCreated: string;
   isFavorite: boolean;
   forUser: string;

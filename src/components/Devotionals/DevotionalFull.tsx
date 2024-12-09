@@ -1,9 +1,8 @@
 import { AuthedPaths } from "@/lib/constants";
 import Link from "next/link";
-import { DetailedHTMLProps, useState } from "react";
+import { DetailedHTMLProps } from "react";
 import DevotionalNone from "./DevotionalNone";
 import classNames from "classnames";
-import Heart from "../Global/Heart";
 import DevotionalGenerateModal from "./DevotionalGenerateModal";
 import DevotionalFavorite from "./DevotionalFavorite";
 
@@ -91,11 +90,14 @@ const DevotionalFull: React.FC<DevotionalFull> = ({
         ) : (
           <>
             {devotional && (
-              <>
-                <p>{devotional.journalingPrompt}</p>
-                <p className="font-bold my-5">{devotional.biblePassage}</p>
-                <p>{devotional.personalization}</p>
-              </>
+              <div className="space-y-5">
+                <p>{devotional.introduction}</p>
+                <p className="font-bold">{devotional.verse}</p>
+                <p>{devotional.insight}</p>
+                <p>{devotional.life_application}</p>
+                <p>{devotional.declaration}</p>
+                <p>{devotional.prayer}</p>
+              </div>
             )}
           </>
         )}

@@ -44,7 +44,7 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
         })}
       >
         <div className="flex items-center">
-          <h3>{devotional?.title}</h3>
+          {/* <h3>{devotional?.title}</h3> */}
           {(devotionalDate &&
             devotionalDate.setHours(0, 0, 0, 0) ===
               todayDate.setHours(0, 0, 0, 0)) ||
@@ -68,10 +68,7 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
           <>
             {devotional && (
               <>
-                <p>
-                  {devotional.journalingPrompt &&
-                    devotional.journalingPrompt.substring(0, 250) + " ..."}
-                </p>
+                <p>{devotional.introduction && devotional.introduction}</p>
 
                 <Link href={`/devotionals/${devotional.doc_id}`}>
                   <Button standardBtn={"text"} className="text-primary flex-1">
