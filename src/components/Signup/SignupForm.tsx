@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import Input from "../Global/Forms/Input";
 import Button from "../Global/Button";
 import Link from "next/link";
-import { login, signup } from "@/lib/auth/actions";
+import { login, signup, createKeapUser } from "@/lib/auth/actions";
 import { saveUserDataPoint } from "@/lib/app/actions";
 import { useRouter } from "next/navigation";
 import { AuthedPaths } from "@/lib/constants";
@@ -67,9 +67,19 @@ const SignupForm = () => {
       if (loginResp.success) {
         await saveUserDataPoint("firstName", values.firstName, "replace");
 
-        if (values.lastName) {
-          await saveUserDataPoint("lastName", values.lastName, "replace");
-        }
+        const lastName = values.lastName ? values.lastName : "";
+
+        if (values.lastName)
+          await saveUserDataPoint("lastName", lastName, "replace");
+
+        const keapCreation = await createKeapUser(
+          values.email,
+          values.firstName,
+          lastName
+        );
+
+        if (keapCreation.success) logTest(keapCreation.value);
+        else logTest(keapCreation.error);
 
         logTest("Name saved successfully");
 
