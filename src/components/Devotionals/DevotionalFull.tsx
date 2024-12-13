@@ -5,12 +5,14 @@ import DevotionalNone from "./DevotionalNone";
 import classNames from "classnames";
 import DevotionalGenerateModal from "./DevotionalGenerateModal";
 import DevotionalFavorite from "./DevotionalFavorite";
+import Image from "next/image";
+import { useDevotional } from "@/lib/hooks/useDevotional";
 
 export type DevotionalFull = DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 > & {
-  devotional?: Devotional;
+  devotional: Devotional;
   showNone?: boolean;
   inDashboard?: boolean;
 };
@@ -20,8 +22,8 @@ const DevotionalFull: React.FC<DevotionalFull> = ({
   inDashboard = false,
   ...props
 }) => {
-  const devotionalDate = devotional && new Date(devotional.dateTimeCreated);
-  const todayDate = new Date();
+  const { devotionalDate, isNewFormat, devotionalHeader } =
+    useDevotional(devotional);
 
   const DevotionalTools = () => {
     return (
@@ -39,24 +41,52 @@ const DevotionalFull: React.FC<DevotionalFull> = ({
       className={classNames({
         "bg-white dark:bg-opacity-10 dark:shadow-none shadow-content-box p-7 rounded-md relative":
           inDashboard,
-        "content-container": !inDashboard,
+        "max-w-5xl mx-auto px-4": !inDashboard,
       })}
       {...props}
     >
       <div
-        className={classNames("title-line-style", {
-          "pb-7": !showNone,
-          "pb-3": showNone,
-        })}
+        className={classNames(
+          "title-line-style center-line content-container mx-auto",
+          {
+            "pb-7": !showNone,
+            "pb-3": showNone,
+          }
+        )}
       >
-        <div className="flex items-top">
-          <h3>
+        <div>
+          <div className="flex w-full justify-between items-center">
+            {devotional && devotional.dateTimeCreated && (
+              <span className="text-white block">
+                {new Date(devotional.dateTimeCreated).toLocaleDateString(
+                  "en-US",
+                  {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  }
+                )}
+              </span>
+            )}
+            {!showNone && (
+              <DevotionalFavorite
+                isFavorite={devotional?.isFavorite}
+                doc_id={devotional?.doc_id}
+              />
+            )}
+          </div>
+
+          <h3 className="w-full text-center mb-5">
             {devotional?.title ? devotional?.title : "Today's Devotional"}
           </h3>
-          {(devotionalDate &&
-            devotionalDate.setHours(0, 0, 0, 0) ===
-              todayDate.setHours(0, 0, 0, 0)) ||
-            showNone}
+
+          {devotional && devotional.introduction && (
+            <p className="text-center">{devotional.introduction}</p>
+          )}
+
+          {devotional && devotional.journalingPrompt && (
+            <p className="text-center">{devotional.journalingPrompt}</p>
+          )}
 
           {inDashboard && (
             <Link
@@ -67,48 +97,60 @@ const DevotionalFull: React.FC<DevotionalFull> = ({
             </Link>
           )}
         </div>
-        {devotional && devotional.dateTimeCreated && (
-          <span className="text-inactive block">
-            {new Date(devotional.dateTimeCreated).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })}
-          </span>
-        )}
-
-        {!showNone && (
-          <div className="w-full mt-6">
-            <DevotionalTools />
-          </div>
-        )}
       </div>
 
-      <div className="mt-7">
+      <div className="mt-10">
         {showNone ? (
           <DevotionalNone />
         ) : (
           <>
             {devotional && (
               <div className="space-y-5">
-                <p>{devotional.introduction}</p>
-                <p className="font-bold">{devotional.verse}</p>
-                <p>{devotional.insight}</p>
-                <p>{devotional.life_application}</p>
-                <p>{devotional.declaration}</p>
-                <p>{devotional.prayer}</p>
+                <p className="font-bold text-center mb-16">
+                  {devotional.verse
+                    ? devotional.verse
+                    : devotional.biblePassage}
+                </p>
+                {isNewFormat ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-7 [&>.devotional-box]:bg-white [&>.devotional-box]:p-4 [&>.devotional-box]:rounded-2xl text-black">
+                    {Object.keys(devotionalHeader).map((key) => (
+                      <div
+                        className="devotional-box"
+                        key={`devotional-box-${key}`}
+                      >
+                        <div className="flex items-center gap-1">
+                          <Image
+                            src={devotionalHeader[key].icon}
+                            width={60}
+                            height={60}
+                            alt={`devotional-icon-${key}`}
+                          />
+                          <h3>{devotionalHeader[key].title}</h3>
+                        </div>
+                        <div className="h-[1px] w-full bg-gradient-1 flex-1 my-4" />
+
+                        <p>{devotional[key as keyof Devotional]}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  devotional.personalization && (
+                    <p className="text-center">{devotional.personalization}</p>
+                  )
+                )}
               </div>
             )}
           </>
         )}
       </div>
 
-      {!inDashboard && (
-        <div className="border-t border-cloud-darker mt-8 py-8 flex justify-between">
+      <div className="mt-12 mx-4">
+        <div className="h-[1px] w-full bg-gradient-1 flex-1" />
+        <div className="py-8 flex justify-between">
           <DevotionalTools />
-          <DevotionalGenerateModal />
+          {!inDashboard && <DevotionalGenerateModal />}
         </div>
-      )}
+      </div>
     </div>
   );
 };

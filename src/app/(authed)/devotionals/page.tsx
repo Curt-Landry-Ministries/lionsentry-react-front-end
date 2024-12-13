@@ -71,7 +71,7 @@ const Devotionals: React.FC = () => {
             <DevotionalCard showNone={true} />
           ) : (
             <>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {currentDevotionalData.map((devotional, index) => (
                   <DevotionalCard
                     devotional={devotional}

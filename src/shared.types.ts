@@ -11,16 +11,22 @@ interface Question {
 
 type Devotional = {
   title?: string;
-  introduction: string;
-  verse: string;
-  insight: string;
-  life_application: string;
-  declaration: string;
-  prayer: string;
   dateTimeCreated: string;
   isFavorite: boolean;
   forUser: string;
   doc_id: string;
+
+  // new format
+  introduction?: string;
+  verse?: string;
+  insight?: string;
+  life_application?: string;
+  declaration?: string;
+  prayer?: string;
+  // old format
+  biblePassage?: string;
+  personalization?: string;
+  journalingPrompt?: string;
 };
 
 type WhyStatement = {
