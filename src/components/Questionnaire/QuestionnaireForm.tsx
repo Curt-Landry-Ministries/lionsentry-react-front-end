@@ -15,6 +15,7 @@ import { useUserStore } from "@/app/providers/userContext";
 import { AuthedPaths } from "@/lib/constants";
 import { logError, logTest } from "@/lib/utils";
 import useLoggedIn from "@/lib/hooks/useLoggedIn";
+import { refreshUserToken } from "@/lib/auth/actions";
 const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
   questions,
 }) => {
@@ -60,7 +61,11 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
     });
   };
 
-  const handleNavigate = (direction: number = 1) => {
+  const handleNavigate = async (direction: number = 1) => {
+    // refresh token in case user takes longer than
+    // 1 hour to finish the questionnaire
+    await refreshUserToken();
+
     if (
       currentQuestionIndex + direction < questions.length &&
       currentQuestionIndex + direction > -1

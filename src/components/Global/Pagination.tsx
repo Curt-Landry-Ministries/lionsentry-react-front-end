@@ -28,8 +28,13 @@ const Pagination = ({
 
   if (currentPage === 0 || paginationRange.length < 2) return null;
 
-  const onNavigate = (direction: 1 | -1) =>
-    onPageChange(currentPage + direction);
+  const onNavigate = (direction: 1 | -1) => {
+    const nextPage = currentPage + direction;
+
+    if (nextPage === 0 || nextPage > paginationRange.length) return;
+
+    return onPageChange(nextPage);
+  };
 
   let lastPage = paginationRange[paginationRange.length - 1];
 
