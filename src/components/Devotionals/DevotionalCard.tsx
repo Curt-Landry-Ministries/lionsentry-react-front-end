@@ -34,7 +34,7 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
       </div>
 
       <div
-        className={classNames("title-line-style", {
+        className={classNames("title-line-style z-10", {
           "pb-7": !showNone,
           "pb-3": showNone,
         })}
@@ -57,7 +57,7 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
         )}
       </div>
 
-      <div className="mt-7 flex flex-col flex-1 justify-between">
+      <div className="mt-7 flex flex-col flex-1 justify-between z-10">
         {showNone ? (
           <DevotionalNone />
         ) : (

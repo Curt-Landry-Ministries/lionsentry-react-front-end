@@ -204,7 +204,7 @@ export const generateWhyStatementFromAnswers = createServerAction(
         },
         body: JSON.stringify(payload),
       });
-      logTest(`Received response:`);
+
       const respData = await resp.json();
 
       // Log response data
