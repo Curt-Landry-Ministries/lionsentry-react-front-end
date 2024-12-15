@@ -75,7 +75,7 @@ const DevotionalGenerateModal = () => {
       )}
 
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="text-center relative flex flex-col items-center md:min-w-[700px] text-black">
+        <div className="text-center relative flex flex-col items-center md:min-w-[700px] text-black dark:text-white">
           <h3 className="mb-8">Generate a Devotional</h3>
 
           {/* {!customGenerate ? ( */}
