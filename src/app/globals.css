@@ -203,6 +203,10 @@ textarea {
     @apply before:bg-gradient-1;
   }
 
+  .title-line-style.center-line {
+    @apply before:left-[calc(50%-2.5rem)];
+  }
+
   .content-box {
     @apply bg-white;
     @apply shadow-content-box;

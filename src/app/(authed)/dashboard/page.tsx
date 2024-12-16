@@ -9,7 +9,7 @@ import Button from "@/components/Global/Button";
 import GoalList from "@/components/Goals/GoalList";
 import Modal from "@/components/Global/Modal";
 import ProfilePhoto from "@/components/Global/ProflePhoto";
-import DevotionalFull from "@/components/Devotionals/DevotionalFull";
+import DevotionalDashboard from "@/components/Devotionals/DevotionalDashboard";
 
 const Dashboard = () => {
   const { whyStatements, goals, devotionals, name, profile_photo } =
@@ -31,8 +31,8 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="grid md:grid-cols-5 gap-7 bg-white dark:bg-black mx-4">
-        <div className="content-box flex flex-wrap md:flex-nowrap gap-7 w-full md:col-span-5">
+      <div className="grid lg:grid-cols-5 gap-7 bg-white dark:bg-black mx-4">
+        <div className="content-box flex flex-wrap md:flex-nowrap gap-7 w-full lg:col-span-5">
           <ProfilePhoto src={profile_photo} name={name()} />
 
           <div className="flex flex-col">
@@ -49,19 +49,21 @@ const Dashboard = () => {
             )}
           </div>
         </div>
-        <div className="md:col-span-3">
-          <DevotionalFull
+        <div className="lg:col-span-3 content-box">
+          <DevotionalDashboard
             showNone={devotionals.length === 0}
             devotional={devotionals && devotionals[0]}
-            inDashboard={true}
           />
         </div>
 
-        <div className="content-box md:col-span-2">
+        <div className="content-box lg:col-span-2">
           <div className="flex">
             <h3 className="title-line-style pb-3">My Goals</h3>
-            <Link href={AuthedPaths.Goals} className="link-style ml-auto">
-              See All
+            <Link
+              href={AuthedPaths.Goals}
+              className="link-style ml-auto flex-shrink-0 pl-2"
+            >
+              <Button standardBtn="text">See All</Button>
             </Link>
           </div>
           <div className="mt-7">
