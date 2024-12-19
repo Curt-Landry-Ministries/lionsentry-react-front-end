@@ -138,6 +138,11 @@ const config: Config = {
         "gradient-5-dark": `linear-gradient(transparent 0%, ${theme(
           "colors.black"
         )} 20%, ${theme("colors.black")} 72%, transparent 100%)`,
+        "gradient-6": `linear-gradient(90deg, ${theme(
+          "colors.gradient-blue.DEFAULT"
+        )} 0%,${theme("colors.gradient-purple.DEFAULT")} 16.5%,${theme(
+          "colors.gradient-pink.DEFAULT"
+        )} 45%,${theme("colors.gradient-red.DEFAULT")} 60.5%)`,
       }),
       padding: {
         "2.5": "0.625rem",
