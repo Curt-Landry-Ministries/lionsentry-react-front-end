@@ -3,7 +3,7 @@ import AuthedHeader from "@/components/Global/AuthedHeader";
 import SimpleFooter from "@/components/Global/SimpleFooter";
 import React, { useEffect } from "react";
 import { useUserStore } from "../providers/userContext";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import classNames from "classnames";
 
 export default function AuthedLayout({
@@ -12,7 +12,6 @@ export default function AuthedLayout({
   children: React.ReactNode;
 }) {
   const { fetchUserData, whyStatements } = useUserStore((s) => s);
-  const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -41,9 +40,19 @@ export default function AuthedLayout({
             }
           )}
         >
-          <div className="py-24 md:py-36 container mx-auto">{children}</div>
+          <div
+            className={classNames({
+              "py-24 md:py-36 container mx-auto": !/^\/devotionals\/.+$/.test(
+                pathname
+              ),
+            })}
+          >
+            {children}
+          </div>
 
-          {!pathname.includes("principles") && <SimpleFooter />}
+          {!pathname.includes("principles") && (
+            <SimpleFooter darkTheme={!/^devotionals\/.+$/.test(pathname)} />
+          )}
         </div>
       </div>
     </div>

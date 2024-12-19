@@ -19,7 +19,7 @@ const range = (start: number, end: number) => {
 };
 
 /** From https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/ */
-export const usePagigation = ({
+export const usePagination = ({
   totalCount,
   pageSize,
   siblingCount = 1,

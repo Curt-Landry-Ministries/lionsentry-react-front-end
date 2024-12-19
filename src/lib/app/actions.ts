@@ -83,7 +83,10 @@ export const fetchUserData = createServerAction(async () => {
     const devotionalsResp = await fetchDevotionals();
     const goalsResp = await fetchGoals();
 
-    userData.devotionals = devotionalsResp.success ? devotionalsResp.value : [];
+    userData.devotionals = devotionalsResp.success
+      ? [...devotionalsResp.value]
+      : [];
+
     userData.goals = goalsResp.success ? goalsResp.value : [];
     userData.whyStatements = whyStatementResp.success
       ? [whyStatementResp.value]
@@ -201,7 +204,7 @@ export const generateWhyStatementFromAnswers = createServerAction(
         },
         body: JSON.stringify(payload),
       });
-      logTest(`Received response:`);
+
       const respData = await resp.json();
 
       // Log response data
@@ -213,6 +216,7 @@ export const generateWhyStatementFromAnswers = createServerAction(
       }
 
       cookiesStore.set("whyStatement", respData.whyStatement);
+
       return respData.whyStatement;
     } catch (error: any) {
       throw new ServerActionError(error.error);

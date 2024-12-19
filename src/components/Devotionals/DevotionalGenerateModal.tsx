@@ -70,12 +70,12 @@ const DevotionalGenerateModal = () => {
         <LoadingScreen
           isFullScreen={true}
           message="Generating Devotional"
-          className="bg-cloud dark:bg-black"
+          className="bg-cloud dark:bg-black text-black dark:text-white"
         />
       )}
 
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="text-center relative flex flex-col items-center md:min-w-[700px]">
+        <div className="text-center relative flex flex-col items-center md:min-w-[700px] text-black dark:text-white">
           <h3 className="mb-8">Generate a Devotional</h3>
 
           {/* {!customGenerate ? ( */}

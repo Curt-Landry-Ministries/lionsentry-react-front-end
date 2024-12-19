@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { DetailedHTMLProps, useEffect, useState } from "react";
+import { DetailedHTMLProps } from "react";
 import DevotionalNone from "./DevotionalNone";
 import classNames from "classnames";
 import Button from "../Global/Button";
@@ -25,20 +25,16 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
   return (
     <div
       className={classNames(
-        "bg-white dark:bg-opacity-10 dark:shadow-none shadow-content-box px-7 py-8 rounded-md relative flex flex-col"
+        "bg-navy text-white dark:shadow-none shadow-content-box px-7 py-8 rounded-md relative flex flex-col"
       )}
       {...props}
     >
-      {!showNone && (
-        <DevotionalFavorite
-          doc_id={devotional?.doc_id}
-          isFavorite={devotional?.isFavorite}
-          isCard={true}
-        />
-      )}
+      <div className="bg-gradient-6 w-full h-1/4 absolute top-0 left-0 -rotate-180 [mask-image:theme(backgroundImage.gradient-3)] dark:[mask-image:theme(backgroundImage.gradient-3-dark)] [mask-type:alpha] z-0">
+        <div className="bg-gradient-4 [mask-type:alpha] w-full h-full -rotate-180"></div>
+      </div>
 
       <div
-        className={classNames("title-line-style", {
+        className={classNames("title-line-style z-10", {
           "pb-7": !showNone,
           "pb-3": showNone,
         })}
@@ -51,7 +47,7 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
             showNone}
         </div>
         {devotional && devotional.dateTimeCreated && (
-          <span className="text-inactive block">
+          <span className="block">
             {new Date(devotional.dateTimeCreated).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
@@ -61,20 +57,24 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
         )}
       </div>
 
-      <div className="mt-7 flex flex-col flex-1 justify-between">
+      <div className="mt-7 flex flex-col flex-1 justify-between z-10">
         {showNone ? (
           <DevotionalNone />
         ) : (
           <>
             {devotional && (
               <>
-                <p>
-                  {devotional.journalingPrompt &&
-                    devotional.journalingPrompt.substring(0, 250) + " ..."}
-                </p>
-
+                {devotional.introduction && <p>{devotional.introduction}</p>}
+                {devotional.journalingPrompt && (
+                  <p>
+                    {devotional.journalingPrompt.substring(0, 250) + " ..."}
+                  </p>
+                )}
                 <Link href={`/devotionals/${devotional.doc_id}`}>
-                  <Button standardBtn={"text"} className="text-primary flex-1">
+                  <Button
+                    standardBtn={"text"}
+                    className="text-primary flex-1 py-5"
+                  >
                     Read More
                   </Button>
                 </Link>
@@ -83,6 +83,13 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
           </>
         )}
       </div>
+
+      {!showNone && (
+        <DevotionalFavorite
+          doc_id={devotional?.doc_id}
+          isFavorite={devotional?.isFavorite}
+        />
+      )}
     </div>
   );
 };
