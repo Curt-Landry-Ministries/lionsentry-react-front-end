@@ -1,6 +1,4 @@
 "use client";
-
-"use client";
 import React, { useState } from "react";
 import FormWrapper from "../Global/Forms/FormWrapper";
 import { Form, FormikHelpers, FormikValues } from "formik";
@@ -12,7 +10,7 @@ import { login } from "@/lib/auth/actions";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 import { useUserStore } from "@/app/providers/userContext";
 import { useRouter } from "next/navigation";
-import { AuthedPaths } from "@/lib/constants";
+import { AuthedPaths, Paths } from "@/lib/constants";
 
 const LoginForm = () => {
   const [errors, setErrors] = useState("");
@@ -90,9 +88,15 @@ const LoginForm = () => {
           New here?{" "}
           <Link
             className="text-primary underline underline-offset-4"
-            href="/signup"
+            href={Paths.Signup}
           >
             Create an Account
+          </Link>{" "}
+          <Link
+            className="text-primary underline underline-offset-4 block"
+            href={Paths.ResetPassword}
+          >
+            Forgot your password?
           </Link>
         </p>
       </Form>
