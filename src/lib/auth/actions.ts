@@ -162,7 +162,7 @@ export const createKeapUser = createServerAction(
     if (resp.ok) return respData;
     else
       throw new ServerActionError(
-        `Failed to to create Keap user: ${respData.error}`
+        `Failed to create Keap user: ${respData.error}`
       );
   }
 );
@@ -192,4 +192,24 @@ export const deleteUser = createServerAction(async (): Promise<void> => {
       throw new ServerActionError(`Failed to delete user: ${respData.error}`);
     }
   }
+});
+
+export const resetPassword = createServerAction(async (email: string) => {
+  const resp = await fetch(`${BASE_URL}/reset-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+    }),
+  });
+
+  const respData = await resp.json();
+
+  logTest(resp);
+
+  if (resp.ok) return respData;
+  else
+    throw new ServerActionError(`Failed to reset password: ${respData.error}`);
 });
