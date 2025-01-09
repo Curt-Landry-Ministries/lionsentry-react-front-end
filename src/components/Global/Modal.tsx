@@ -23,7 +23,7 @@ const Modal: React.FC<ModalProps> = ({
       className={classnames(
         "fixed top-0 left-0 h-screen w-screen flex items-center justify-center opacity-1 transform delay-200 duration-300",
         {
-          "opacity-0 -z-50": !isOpen,
+          "opacity-0 -z-50 hidden": !isOpen,
           "z-50": isOpen,
         }
       )}

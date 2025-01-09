@@ -19,6 +19,8 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
   const { name } = useUserStore((s) => s);
   const inputStyle =
     "border border-cloud-darker bg-white dark:bg-dark-mode-subtle dark:border-dark-mode-strong w-full py-2 px-3 rounded";
+  const videoContainerStyle =
+    "md:max-w-[90vw] lg:max-w-[950px] mx-auto [&>iframe]:min-h-[calc(100vw*0.6)] md:[&>iframe]:min-h-[calc(100vw*0.48)] lg:[&>iframe]:min-h-[480px] [&>iframe]:w-full [&>iframe]:pb-8";
 
   return (
     <div className="z-10 relative">
@@ -28,7 +30,7 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
             <VideoComponent
               videoSrc={QuestionnaireVideos[index]}
               videoTitle={`Question ${index + 1} Video`}
-              className="[&>iframe]:w-full [&>iframe]:min-h-[230px] md:[&>iframe]:min-h-[300px] lg:[&>iframe]:min-h-[480px] [&>iframe]:pb-8"
+              className={videoContainerStyle}
             />
           )}
 
@@ -60,23 +62,23 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
           <VideoComponent
             videoSrc="https://player.manage.broadcastcloud.tv/1efa826f-79d3-6084-a301-ff6683206c46/default?autoplay=false&debug=false&direct=true"
             videoTitle={`Welcome Video`}
-            className="[&>iframe]:w-full [&>iframe]:min-h-[230px] md:[&>iframe]:min-h-[300px] lg:[&>iframe]:min-h-[480px] [&>iframe]:pb-8"
+            className={videoContainerStyle}
           />
           <div className="space-y-3">
             <p>I’m excited to be on this journey with you.</p>
             <p>
               The first thing is developing your personal mission statement—your
-              “why”
+              “why.”
             </p>
             <p>
               Your “why” is the foundational piece that will provide direction
-              and help you establish attainable goals and overcome challenges—to
+              and help you establish attainable goals and overcome challenges to
               become the best version of yourself.
             </p>
             <p>
-              Once you click “start,” you’ll go through a series of questions,
-              don’t overthink it. There’s no right or wrong answer. Just jot
-              down the first things that come to mind.
+              Don't overthink it. Once you click “start,” you’ll go through a
+              series of questions, don’t overthink it. There’s no right or wrong
+              answer. Just jot down the first things that come to mind.
             </p>
             <p>
               The point of this process is to simply draw out what God has

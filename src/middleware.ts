@@ -11,7 +11,9 @@ export async function middleware(request: NextRequest) {
     !!cookiesStore.get("authToken")?.value ||
     !!cookiesStore.get("userID")?.value;
   const loginOrSignup =
-    pathname.startsWith(Paths.Login) || pathname.startsWith(Paths.Signup);
+    pathname.startsWith(Paths.Login) ||
+    pathname.startsWith(Paths.Signup) ||
+    pathname.startsWith(Paths.ResetPassword);
   const url = request.nextUrl.clone();
   const whyStatement = !!cookiesStore.get("whyStatement")?.value;
 
