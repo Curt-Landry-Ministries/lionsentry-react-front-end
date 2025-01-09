@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import FormWrapper from "../Global/Forms/FormWrapper";
-import { Form, FormikHelpers, FormikValues } from "formik";
+import { Form, FormikValues } from "formik";
 import * as Yup from "yup";
 import Input from "../Global/Forms/Input";
 import Button from "../Global/Button";
@@ -12,7 +12,7 @@ import { Paths } from "@/lib/constants";
 
 const ResetPasswordForm = () => {
   const [errors, setErrors] = useState("");
-  const [showSuccess, setShowSuccess] = useState(true);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email").required("Email is required"),
