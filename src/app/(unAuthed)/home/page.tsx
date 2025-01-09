@@ -113,7 +113,7 @@ const Home: React.FC = () => {
         <VideoComponent
           videoSrc="https://player.manage.broadcastcloud.tv/1efa8232-a5d5-6124-8d52-3bf9f65c553b/default?autoplay=false&debug=false&direct=true"
           videoTitle="Lionsentry Homepage Video"
-          className="px-4 md:max-w-[90vw] xl:max-w-[72vw] mx-auto [&>iframe]:w-full [&>iframe]:min-h-[200px] md:[&>iframe]:min-h-[370px] lg:[&>iframe]:min-h-[520px] xl:[&>iframe]:min-h-[550px] pt-24 md:pt-52 z-10 relative"
+          className="px-4 md:max-w-[90vw] lg:max-w-[950px] mx-auto [&>iframe]:min-h-[calc(100vw*0.5)] lg:[&>iframe]:min-h-[550px] [&>iframe]:w-full pt-24 md:pt-52 z-10 relative"
         />
 
         <CTAContentImage
@@ -186,7 +186,7 @@ const Home: React.FC = () => {
       </LeftRight>
       <SectionBoxCTA
         title="Grow in Faith"
-        image={"/images/grow_in_faith.png"}
+        image={"/images/rabbi-and-christie-photo.jpg"}
         buttonLink={Paths.Signup}
         buttonText="Get Started Today"
       >

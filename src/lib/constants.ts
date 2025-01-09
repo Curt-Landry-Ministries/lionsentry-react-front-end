@@ -2,6 +2,7 @@ export enum Paths {
   Home = "/",
   Login = "/login",
   Signup = "/signup",
+  ResetPassword = "/reset-password",
   Terms = "#",
   Privacy = "#",
 }

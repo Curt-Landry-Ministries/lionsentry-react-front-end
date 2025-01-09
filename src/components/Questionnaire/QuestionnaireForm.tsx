@@ -109,8 +109,6 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
       for (const { answer, question, questionIndex } of questionAnswerPairs) {
         await submitAnswerToServer(answer, question, questionIndex);
       }
-
-      localStorage.removeItem("onboardingCurrentState");
     } catch (error) {
       logError(error);
     }
@@ -124,7 +122,10 @@ const QuestionnaireForm: React.FC<{ questions: Question[] }> = ({
       logTest(generatedWhyStatement);
 
       // Redirect to the dashboard page
-      if (generatedWhyStatement.success) router.push(AuthedPaths.Dashboard);
+      if (generatedWhyStatement.success) {
+        localStorage.removeItem("onboardingCurrentState");
+        router.push(AuthedPaths.Dashboard);
+      }
     } catch (error) {
       logTest(error);
     } finally {

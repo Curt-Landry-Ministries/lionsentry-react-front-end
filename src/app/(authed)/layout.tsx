@@ -11,7 +11,7 @@ export default function AuthedLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { fetchUserData, whyStatements } = useUserStore((s) => s);
+  const { fetchUserData } = useUserStore((s) => s);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -22,10 +22,6 @@ export default function AuthedLayout({
     asyncFetchData();
   }, []);
 
-  useEffect(() => {
-    // Waiting for the endpoint to validate auth token before turning this on to make sure the flow work correctly
-    // if (whyStatements.length === 0) router.push(AuthedPaths.Questionnaire);
-  }, [whyStatements]);
   return (
     <div className="min-h-screen flex flex-col items-start">
       <AuthedHeader />
@@ -49,7 +45,6 @@ export default function AuthedLayout({
           >
             {children}
           </div>
-
           {!pathname.includes("principles") && (
             <SimpleFooter darkTheme={!/^devotionals\/.+$/.test(pathname)} />
           )}
