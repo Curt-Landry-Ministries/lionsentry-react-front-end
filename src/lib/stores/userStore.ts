@@ -79,7 +79,7 @@ export const createUserStore = (initState: User = defaultInitUserState) => {
       set(() => ({ isLoading: true }));
       const response = await fetchBasicData();
 
-      if (response.success) {
+      if (!!response && response.success) {
         set(() => ({ ...response.value, isLoading: false }));
       }
     },

@@ -15,9 +15,9 @@ import Button from "../Global/Button";
 import ProgressBar from "../Global/ProgressBar";
 import { useUserStore } from "@/app/providers/userContext";
 import { AuthedPaths } from "@/lib/constants";
-import { logError, logTest } from "@/lib/utils";
+import { logTest } from "@/lib/utils";
 import useLoggedIn from "@/lib/hooks/useLoggedIn";
-import { logout, refreshUserToken } from "@/lib/auth/actions";
+import { refreshUserToken } from "@/lib/auth/actions";
 
 const QuestionnaireForm: React.FC<{
   questions: Question[];
@@ -82,17 +82,18 @@ const QuestionnaireForm: React.FC<{
     await refreshUserToken();
 
     const nextIndex =
-      currentQuestionIndex >= -1 && currentQuestionIndex < 12
+      currentQuestionIndex + direction >= -1 &&
+      currentQuestionIndex + direction < 13
         ? currentQuestionIndex + direction
         : currentQuestionIndex;
 
-    await saveAnswersToServer();
+    setCurrentQuestionIndex(nextIndex);
 
     if (nextIndex < questions.length && nextIndex > -1) {
-      setCurrentQuestionIndex(nextIndex);
-
       window.scrollTo(0, 0);
     }
+
+    await saveAnswersToServer();
 
     if (nextIndex === questions.length - 1) handleSubmit();
   };
