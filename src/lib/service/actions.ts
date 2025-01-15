@@ -17,8 +17,6 @@ export const submitToKeap = async (values: any) => {
       process.env.KEAP_INFUSIONSOFT_VERSION
     );
 
-    console.log(formData);
-
     const res = await fetch(
       `https://is104.infusionsoft.app/app/form/process/${process.env.KEAP_FORM_XID}`,
       {
@@ -29,7 +27,5 @@ export const submitToKeap = async (values: any) => {
         body: formData,
       }
     );
-
-    console.log(res);
   }
 };

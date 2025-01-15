@@ -138,8 +138,6 @@ export const submitAnswerToServer = createServerAction(
   async (answer: string, question: string, questionIndex: number) => {
     const authToken = await validateAuthToken();
 
-    console.log(authToken);
-
     try {
       const resp = await fetch(`${BASE_URL}/submit-onboarding-answer`, {
         method: "POST",
