@@ -139,10 +139,6 @@ const QuestionnaireForm: React.FC<{
     } finally {
       setIsLoading(false); // Hide loading indicator after processing is done
     }
-
-    // Clear the answers and reset the current question index after submission
-    setAnswers({});
-    setCurrentQuestionIndex(0);
   };
 
   // Variants for animation
