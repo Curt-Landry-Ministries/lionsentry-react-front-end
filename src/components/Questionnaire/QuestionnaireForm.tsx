@@ -83,9 +83,11 @@ const QuestionnaireForm: React.FC<{
 
     const nextIndex =
       currentQuestionIndex + direction >= -1 &&
-      currentQuestionIndex + direction < 13
+      currentQuestionIndex + direction <= 13
         ? currentQuestionIndex + direction
         : currentQuestionIndex;
+
+    await saveAnswersToServer();
 
     setCurrentQuestionIndex(nextIndex);
 
@@ -93,9 +95,7 @@ const QuestionnaireForm: React.FC<{
       window.scrollTo(0, 0);
     }
 
-    await saveAnswersToServer();
-
-    if (nextIndex === questions.length - 1) handleSubmit();
+    if (nextIndex === questions.length) handleSubmit();
   };
 
   const saveAnswersToServer = async () => {
