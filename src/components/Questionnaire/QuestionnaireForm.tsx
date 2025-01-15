@@ -80,7 +80,11 @@ const QuestionnaireForm: React.FC<{
     // refresh token in case user takes longer than
     // 1 hour to finish the questionnaire
     await refreshUserToken();
-    const nextIndex = currentQuestionIndex + direction;
+
+    const nextIndex =
+      currentQuestionIndex >= -1 && currentQuestionIndex < 12
+        ? currentQuestionIndex + direction
+        : currentQuestionIndex;
 
     await saveAnswersToServer();
 
@@ -117,15 +121,6 @@ const QuestionnaireForm: React.FC<{
 
     logTest(questionAnswerPairs);
 
-    // Submit each answer to the server individually
-    try {
-      for (const { answer, question, questionIndex } of questionAnswerPairs) {
-        await submitAnswerToServer(answer, question, questionIndex);
-      }
-    } catch (error) {
-      logError(error);
-    }
-
     // Generate the Why statement after submitting all answers
     try {
       const generatedWhyStatement = await generateWhyStatementFromAnswers(
@@ -136,7 +131,6 @@ const QuestionnaireForm: React.FC<{
 
       // Redirect to the dashboard page
       if (generatedWhyStatement.success) {
-        localStorage.removeItem("onboardingCurrentState");
         router.push(AuthedPaths.Dashboard);
       }
     } catch (error) {
