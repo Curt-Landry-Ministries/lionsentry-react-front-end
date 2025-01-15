@@ -87,13 +87,12 @@ const QuestionnaireForm: React.FC<{
         ? currentQuestionIndex + direction
         : currentQuestionIndex;
 
-    await saveAnswersToServer();
-
-    setCurrentQuestionIndex(nextIndex);
-
     if (nextIndex < questions.length && nextIndex > -1) {
+      setCurrentQuestionIndex(nextIndex);
       window.scrollTo(0, 0);
     }
+
+    await saveAnswersToServer();
 
     if (nextIndex === questions.length) handleSubmit();
   };
