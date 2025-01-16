@@ -72,14 +72,16 @@ const SignupForm = () => {
         if (values.lastName)
           await saveUserDataPoint("lastName", lastName, "replace");
 
-        const keapCreation = await createKeapUser(
-          values.email,
-          values.firstName,
-          lastName
-        );
+        if (process.env.NEXT_PUBLIC_LOCAL_TESTING !== "true") {
+          const keapCreation = await createKeapUser(
+            values.email,
+            values.firstName,
+            lastName
+          );
 
-        if (keapCreation.success) logTest(keapCreation.value);
-        else logTest(keapCreation.error);
+          if (keapCreation.success) logTest(keapCreation.value);
+          else logTest(keapCreation.error);
+        }
 
         logTest("Name saved successfully");
 

@@ -4,7 +4,7 @@ import { logout, refreshUserToken } from "./auth/actions";
 import { LOCAL_TESTING } from "./utils-global";
 
 const validateAuthToken = async () => {
-  const cookiesStore = await cookies();
+  const cookiesStore = cookies();
 
   const authToken = cookiesStore.get("authToken")?.value;
   const startTime = cookiesStore.get("startAuth")?.value;

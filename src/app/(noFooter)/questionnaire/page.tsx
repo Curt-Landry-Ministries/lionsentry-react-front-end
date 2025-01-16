@@ -1,42 +1,58 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import Questionnaire from "./questionnaire";
+// import { useEffect, useState } from "react";
 import LoadingScreen from "@/components/Global/LoadingScreen";
-import { fetchQuestionsFromServer } from "@/lib/app/actions";
-import { useUserStore } from "@/app/providers/userContext";
-import { useRouter } from "next/navigation";
-import { AuthedPaths } from "@/lib/constants";
+import {
+  fetchAnswersFromServer,
+  fetchQuestionsFromServer,
+} from "@/lib/app/actions";
 
-const Pages: React.FC = () => {
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [loading, setLoading] = useState(true);
+import QuestionnaireForm from "@/components/Questionnaire/QuestionnaireForm";
 
-  const { whyStatements, isLoading } = useUserStore((s) => s);
-  const router = useRouter();
+// export const getStaticProps: GetStaticProps = async () => {
+//   const data = await fetchQuestionsFromServer();
 
-  useEffect(() => {
-    const getQuestions = async () => {
-      const data = await fetchQuestionsFromServer();
-      if (data.success) setQuestions(data.value);
-      setLoading(false);
-    };
+//   return {
+//     props: { data.value },
+//   };
+// };
 
-    getQuestions();
-  }, []);
+const Pages: React.FC = async () => {
+  // const [questions, setQuestions] = useState<Question[]>([]);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!isLoading && whyStatements.length > 0)
-      router.push(AuthedPaths.Dashboard);
-  }, [whyStatements]);
+  // const { whyStatements, isLoading } = useUserStore((s) => s);
+  // const router = useRouter();
+
+  // useEffect(() => {
+  //   console.log("in here outside");
+  //   const getQuestions = async () => {
+  //     const data = await fetchQuestionsFromServer();
+  //     console.log("in here inside");
+  //     console.log(data);
+
+  //     if (data.success) {
+  //       setQuestions(data.value);
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   getQuestions();
+  // }, []);
+
+  // useEffect(() => {
+  //   if (!isLoading && whyStatements.length > 0)
+  //     router.push(AuthedPaths.Dashboard);
+  // }, [whyStatements]);
+
+  const questionData = await fetchQuestionsFromServer();
+  // const answerData = await fetchAnswersFromServer();
 
   return (
     <div className="flex flex-col w-full bg-cloud dark:bg-black">
       <section className="flex items-center justify-center min-h-screen flex-shrink-0 flex-1">
-        {loading ? (
+        {!questionData.success ? (
           <LoadingScreen message="Loading your questionaire" />
         ) : (
-          <Questionnaire questions={questions} />
+          <QuestionnaireForm questions={questionData.value} />
         )}
       </section>
     </div>

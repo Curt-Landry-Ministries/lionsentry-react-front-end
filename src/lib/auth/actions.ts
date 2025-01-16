@@ -81,8 +81,8 @@ export const refreshUserToken = createServerAction(async (): Promise<any> => {
   }
 });
 
-export const logout = async (): Promise<void> => {
-  const cookiesStore = await cookies();
+export const logout = () => {
+  const cookiesStore = cookies();
 
   cookiesStore.delete("authToken");
   cookiesStore.delete("userID");
