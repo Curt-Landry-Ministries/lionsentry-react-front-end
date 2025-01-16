@@ -160,21 +160,24 @@ export const submitAnswerToServer = createServerAction(
   }
 );
 
-export const fetchAnswersFromServer = createServerAction(
-  async (authToken: string) => {
-    const resp = await fetch(`${BASE_URL}/get-answers`, {
+export const fetchAnswersFromServer = createServerAction(async () => {
+  const authToken = await validateAuthToken();
+
+  try {
+    const resp = await fetch(`${BASE_URL}/get-all-answers`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
     });
 
-    if (!resp.ok)
-      throw new ServerActionError("Failed to fetch answers from the server");
+    const respData = await resp.json();
 
-    return await resp.json();
+    return respData;
+  } catch (error: any) {
+    throw new ServerActionError(error.error || "Failed to fetch answers");
   }
-);
+});
 
 export const generateWhyStatementFromAnswers = createServerAction(
   async (questions: any[], answers: string[]) => {
