@@ -87,7 +87,7 @@ const QuestionnaireForm: React.FC<{
         ? currentQuestionIndex + direction
         : currentQuestionIndex;
 
-    if (nextIndex < questions.length && nextIndex > -1) {
+    if (nextIndex < questions.length && nextIndex >= -1) {
       setCurrentQuestionIndex(nextIndex);
       window.scrollTo(0, 0);
     }
