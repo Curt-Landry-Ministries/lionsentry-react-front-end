@@ -9,7 +9,7 @@ import Link from "next/link";
 import { login, signup, createKeapUser } from "@/lib/auth/actions";
 import { saveUserDataPoint } from "@/lib/app/actions";
 import { useRouter } from "next/navigation";
-import { AuthedPaths } from "@/lib/constants";
+import { AuthedPaths, Paths } from "@/lib/constants";
 import LoadingScreen from "../Global/LoadingScreen";
 import { useUserStore } from "@/app/providers/userContext";
 import { logTest } from "@/lib/utils";
@@ -158,8 +158,7 @@ const SignupForm = () => {
         <Input
           options={[
             {
-              label:
-                "I accept the <a class='gradient-text' href='#'>Terms and Conditions</a>",
+              label: `I accept the <a class='gradient-text' href='${Paths.Terms}' target="_blank">Terms and Conditions</a>`,
               value: "true",
             },
           ]}
