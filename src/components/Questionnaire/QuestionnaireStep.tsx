@@ -65,7 +65,7 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
             className={videoContainerStyle}
           />
           <div className="space-y-3">
-            <p>I’m excited to be on this journey with you.</p>
+            <p>I&apos;m excited to be on this journey with you.</p>
             <p>
               The first thing is developing your personal mission statement—your
               “why.”
@@ -76,16 +76,17 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
               become the best version of yourself.
             </p>
             <p>
-              Don't overthink it. Once you click “start,” you’ll go through a
-              series of questions, don’t overthink it. There’s no right or wrong
-              answer. Just jot down the first things that come to mind.
+              Don't overthink it. Once you click “start,” you&apos;ll go through
+              a series of questions, don&apos;t overthink it. There&apos;s no
+              right or wrong answer. Just jot down the first things that come to
+              mind.
             </p>
             <p>
               The point of this process is to simply draw out what God has
               deposited in you, how you are uniquely created, and to determine
               where you are most passionate.
             </p>
-            <p>Let’s get started!</p>
+            <p>Let&apos;s get started!</p>
           </div>
         </>
       )}

@@ -4,6 +4,7 @@ import { ThemeProvider } from "./providers/themeContext"; // Adjust the import p
 import { inter, astoria } from "../fonts/fonts";
 import { UserStoreProvider } from "./providers/userContext";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import SupportFloater from "@/components/Global/SupportFloater";
 
 export const metadata = {
   title: "Lionsentry",
@@ -23,6 +24,7 @@ export default function RootLayout({
       <html lang="en" className={`${inter.variable} ${astoria.variable}`}>
         <body>
           <UserStoreProvider>{children}</UserStoreProvider>
+          <SupportFloater />
         </body>
         <GoogleAnalytics gaId="G-MS69VFWLH5" />
       </html>

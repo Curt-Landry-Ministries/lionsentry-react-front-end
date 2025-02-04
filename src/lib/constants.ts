@@ -3,8 +3,8 @@ export enum Paths {
   Login = "/login",
   Signup = "/signup",
   ResetPassword = "/reset-password",
-  Terms = "#",
-  Privacy = "#",
+  Terms = "https://www.curtlandry.com/privacy-policy-terms-of-service/",
+  Privacy = "https://www.curtlandry.com/privacy-policy-terms-of-service/",
 }
 
 export enum AuthedPaths {
