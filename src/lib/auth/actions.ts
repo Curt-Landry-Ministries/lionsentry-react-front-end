@@ -1,6 +1,4 @@
 "use server";
-import "firebase/auth";
-import { getAuth } from "firebase/auth";
 import { jwtDecode } from "jwt-decode";
 import { getBaseUrl } from "../utils-global";
 import { logTest, validateAuthToken } from "../utils";
@@ -81,7 +79,7 @@ export const refreshUserToken = createServerAction(async (): Promise<any> => {
   }
 });
 
-export const logout = () => {
+export const logout = (toHome?: boolean) => {
   const cookiesStore = cookies();
 
   cookiesStore.delete("authToken");
@@ -91,7 +89,11 @@ export const logout = () => {
   cookiesStore.delete("startAuth");
   cookiesStore.delete("whyStatement");
 
-  redirect(Paths.Login);
+  if (toHome) {
+    redirect(Paths.Home);
+  } else {
+    redirect(Paths.Login);
+  }
 };
 
 export const signup = createServerAction(
@@ -119,7 +121,7 @@ export const signup = createServerAction(
 );
 
 export const fetchUserId = createServerAction(async (): Promise<any> => {
-  const cookiesStore = await cookies();
+  const cookiesStore = cookies();
 
   const resp = await fetch(`${BASE_URL}/get-id-token`);
   const respData = await resp.json();
@@ -167,30 +169,33 @@ export const createKeapUser = createServerAction(
   }
 );
 
-export const deleteUser = createServerAction(async (): Promise<void> => {
-  const auth = getAuth();
-  const currentUser = auth.currentUser;
+export const deleteUser = createServerAction(async () => {
+  const cookiesStore = cookies();
 
-  if (currentUser) {
-    const idToken = await currentUser.getIdToken();
-    const userID = currentUser.uid;
-
+  const userID = cookiesStore.get("userID")?.value;
+  const authToken = cookiesStore.get("authToken")?.value;
+  if (authToken && userID) {
     const resp = await fetch(`${BASE_URL}/delete-user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userID: userID, idToken: idToken }),
+      body: JSON.stringify({
+        userID: userID,
+        idToken: authToken,
+      }),
     });
 
     const respData = await resp.json();
 
     if (resp.ok) {
       logTest(`User deleted successfully: ${respData.message}`);
-      await logout();
+      return;
     } else {
       throw new ServerActionError(`Failed to delete user: ${respData.error}`);
     }
+  } else {
+    throw new ServerActionError(`Invalid request to delete user`);
   }
 });
 

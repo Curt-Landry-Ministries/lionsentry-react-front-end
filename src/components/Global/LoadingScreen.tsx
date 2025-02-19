@@ -22,7 +22,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({
       className={classNames(
         "flex justify-center items-center",
         {
-          "h-screen w-screen fixed z-50 top-0 left-0": isFullScreen,
+          "h-screen w-screen fixed z-50 top-0 left-0 bg-black": isFullScreen,
         },
         className
       )}

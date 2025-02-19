@@ -2,6 +2,7 @@ export enum Paths {
   Home = "/",
   Login = "/login",
   Signup = "/signup",
+  Outbound = "/outbound-service",
   ResetPassword = "/reset-password",
   Terms = "https://www.curtlandry.com/privacy-policy-terms-of-service/",
   Privacy = "https://www.curtlandry.com/privacy-policy-terms-of-service/",

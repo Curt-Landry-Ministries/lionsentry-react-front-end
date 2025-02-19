@@ -17,6 +17,8 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
   const whyStatement = !!cookiesStore.get("whyStatement")?.value;
 
+  if (url.pathname === Paths.Outbound) return NextResponse.next();
+
   if (url.pathname === "/" && !isAuthenticated) {
     url.pathname = "/home";
     return NextResponse.rewrite(url);
