@@ -79,7 +79,7 @@ const Home: React.FC = () => {
               </span>
               <span>Live with Intention</span>
             </h1>
-            <p className="text-center text-2xl leading-tight my-7">
+            <p className="text-center text-2xl leading-tight m-7">
               Transform your life with a personalized roadmap that helps you
               walk in your Kingdom purpose every day.
             </p>
