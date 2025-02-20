@@ -1,10 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { logout } from "@/lib/auth/actions";
 import { isLoggedIn } from "@/lib/utils";
 import Logo from "./Logo";
-import { AuthedPaths, MaxWindowSize, Paths } from "@/lib/constants";
+import { MaxWindowSize, Paths } from "@/lib/constants";
 import Button from "./Button";
 import ThemeToggler from "./ThemeToggler";
 import useWindowSize from "@/lib/hooks/useWindowSize";
@@ -16,7 +15,7 @@ import Image from "next/image";
 const Header = () => {
   const pathname = usePathname();
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [, setDropdownOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -28,7 +27,8 @@ const Header = () => {
     setTransparentHeader(
       pathname.includes("signup") ||
         pathname.includes("login") ||
-        pathname.includes("questionnaire")
+        pathname.includes("questionnaire") ||
+        pathname.includes("outbound-service")
     );
   }, [pathname]);
 
@@ -62,7 +62,7 @@ const Header = () => {
 
   return (
     <nav
-      className={classnames("z-50 w-full", {
+      className={classnames("z-40 w-full", {
         "bg-white dark:bg-black fixed": !transparentHeader,
         "bg-transparent absolute": transparentHeader,
       })}
@@ -74,13 +74,15 @@ const Header = () => {
           })}
           href="/"
         >
-          {pathname === Paths.Login || pathname === Paths.Signup ? (
+          {pathname === Paths.Login ||
+          pathname === Paths.Signup ||
+          pathname === Paths.Outbound ? (
             <Image
               src="/images/Logo-White.png"
               alt="Lionsentry White Logo"
               width={0}
               height={0}
-              sizes="100vw"
+              sizes="200vw"
               className="max-h-10"
               style={{ width: "auto", height: "100%" }}
             />

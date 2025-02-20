@@ -3,7 +3,7 @@ import Button from "../Global/Button";
 import Link from "next/link";
 import { AuthedPaths } from "@/lib/constants";
 
-const DevotionalNone = () => {
+const DevotionalNone = ({ hideButton = false }: { hideButton?: boolean }) => {
   return (
     <div className="text-center space-y-7 p-5">
       <Image
@@ -17,9 +17,11 @@ const DevotionalNone = () => {
         Once you set your goals, you will receive daily devotionals that help
         you further align to those goals you are currently working on.
       </p>
-      <Button standardBtn={"primary"}>
-        <Link href={AuthedPaths.Devotionals}>Generate Devotionals</Link>
-      </Button>
+      {!hideButton && (
+        <Button standardBtn={"primary"}>
+          <Link href={AuthedPaths.Devotionals}>Generate Devotionals</Link>
+        </Button>
+      )}
     </div>
   );
 };

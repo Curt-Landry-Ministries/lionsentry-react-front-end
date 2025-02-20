@@ -22,7 +22,12 @@ const Footer = () => {
         <div className="flex-1 flex flex-col justify-center">
           <div className="self-center">
             <div className="flex justify-center items-center flex-col md:flex-row flex-wrap gap-5 text-base md:text-xs px-10">
-              <Logo color={"gray"} />
+              <div>
+                <Logo color={"white"} />
+                <span className="block text-xs">
+                  A Curt Landry Ministries Platform
+                </span>
+              </div>
 
               <Link href="https://www.curtlandry.com/" target="_blank">
                 Curt Landry Ministries

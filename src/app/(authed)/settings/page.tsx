@@ -6,7 +6,8 @@ import Button from "@/components/Global/Button";
 import Input from "@/components/Global/Forms/Input";
 import ProfileModal from "@/components/Global/ProfileModal";
 import { fetchBasicData, saveUserDataPoint } from "@/lib/app/actions";
-// import { deleteUser } from "@/lib/auth/actions";
+import { deleteUser, logout } from "@/lib/auth/actions";
+import classNames from "classnames";
 import { Form, Formik, FormikProps, FormikValues } from "formik";
 import React, { useEffect, useRef, useState } from "react";
 import * as Yup from "yup";
@@ -26,14 +27,14 @@ const Settings = () => {
     ),
   });
 
-  // const deleteValidationSchema = Yup.object({
-  //   delete_confirm: Yup.string()
-  //     .oneOf(
-  //       ["Delete my account"],
-  //       'You must type "Delete my account" to confirm'
-  //     )
-  //     .required(),
-  // });
+  const deleteValidationSchema = Yup.object({
+    delete_confirm: Yup.string()
+      .oneOf(
+        ["Delete my account"],
+        'You must type "Delete my account" to confirm'
+      )
+      .required(),
+  });
 
   let initialValues: FormikValues = {
     firstName: firstName,
@@ -59,6 +60,11 @@ const Settings = () => {
     await fetchBasicData();
   };
 
+  const handleDeleteUser = async () => {
+    const resp = await deleteUser();
+
+    if (resp.success) logout();
+  };
   return (
     <ImageCropProvider>
       <div className="bg-white dark:bg-black mx-4 flex flex-col gap-8">
@@ -125,7 +131,7 @@ const Settings = () => {
             )}
           </Formik>
 
-          {/* <div className="border-t-2 pt-8 mt-4">
+          <div className="border-t-2 pt-8 mt-4">
             <h3>Delete account</h3>
             <p className="mb-4">
               Deleting your account will remove all of your information from our
@@ -137,7 +143,7 @@ const Settings = () => {
               initialValues={{
                 delete_confirm: "",
               }}
-              onSubmit={async () => await deleteUser()}
+              onSubmit={handleDeleteUser}
               validateOnChange
               validateOnMount
             >
@@ -151,7 +157,9 @@ const Settings = () => {
                   />
                   <Button
                     standardBtn={"text"}
-                    className="text-red-500 mb-5 !px-4"
+                    className={classNames("text-red-500 mb-5 !px-4", {
+                      "bg-red-500 text-white": isValid,
+                    })}
                     disabled={!isValid || isSubmitting}
                   >
                     Delete my account
@@ -159,7 +167,7 @@ const Settings = () => {
                 </Form>
               )}
             </Formik>
-          </div> */}
+          </div>
         </div>
       </div>
       <ProfileModal isOpen={openProfile} updateOpen={setOpenProfile} />

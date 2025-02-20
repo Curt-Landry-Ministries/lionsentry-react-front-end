@@ -17,7 +17,7 @@ import { useUserStore } from "@/app/providers/userContext";
 import { AuthedPaths } from "@/lib/constants";
 import { logTest } from "@/lib/utils";
 import useLoggedIn from "@/lib/hooks/useLoggedIn";
-import { refreshUserToken } from "@/lib/auth/actions";
+import { logout, refreshUserToken } from "@/lib/auth/actions";
 
 const QuestionnaireForm: React.FC<{
   questions: Question[];

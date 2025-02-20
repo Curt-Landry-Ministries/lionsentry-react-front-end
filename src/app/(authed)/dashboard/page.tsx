@@ -39,7 +39,7 @@ const Dashboard = () => {
             <h2 className="pb-5 mb-5 title-line-style">My Why</h2>
             {whyStatements.length > 0 && (
               <>
-                <p className="flex-1">
+                <p className="flex-1 tex-xl">
                   {whyStatements[whyStatements.length - 1] &&
                     whyStatements[
                       whyStatements.length - 1
