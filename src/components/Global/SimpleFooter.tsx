@@ -11,7 +11,7 @@ const SimpleFooter = ({ darkTheme = false }: { darkTheme?: boolean }) => {
         "border-t": !darkTheme,
       })}
     >
-      <div className="max-w-screen-xl flex justify-start items-center flex-col md:flex-row flex-wrap gap-5 text-base md:text-xs px-10">
+      <div className="max-w-screen-xl flex justify-start items-center flex-col md:flex-row flex-wrap gap-5 text-base md:text-xs px-10 [&>a]:text-inactive">
         <Logo color={"gray"} />
 
         <Link href="https://www.curtlandry.com/" target="_blank">

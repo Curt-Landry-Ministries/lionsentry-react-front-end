@@ -30,7 +30,7 @@ const MobileMenu = ({ darkHeader = false }) => {
     <>
       <button className="order-last" onClick={() => setToggleMenu(!toggleMenu)}>
         {toggleMenu ? (
-          <Cross1Icon width={30} height={30} />
+          <Cross1Icon width={30} height={30} className="text-primary" />
         ) : (
           <HamburgerMenuIcon width={30} height={30} className="text-primary" />
         )}
@@ -38,7 +38,7 @@ const MobileMenu = ({ darkHeader = false }) => {
 
       <div
         className={classNames(
-          "w-screen fixed inset-0 top-12 transition-all duration-700 bg-navy overflow-hidden",
+          "w-screen fixed inset-0 top-16 -z-10 transition-all duration-700 bg-navy overflow-hidden",
           {
             "translate-y-0": toggleMenu,
             "-translate-y-[200%]": !toggleMenu,
