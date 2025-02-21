@@ -101,6 +101,7 @@ const SignupForm = () => {
         await fetchBasicData();
 
         localStorage.setItem("showWelcomeModal", "false");
+        localStorage.removeItem("completedOnboardingGoal");
         // Redirect to the questionnaire or any other appropriate page
         router.push(AuthedPaths.Questionnaire);
       } else {
