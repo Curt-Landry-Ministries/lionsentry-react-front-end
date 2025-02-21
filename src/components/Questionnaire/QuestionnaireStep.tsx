@@ -76,10 +76,10 @@ const QuestionnaireStep: React.FC<QuestionnaireStepType> = ({
               become the best version of yourself.
             </p>
             <p>
-              Don't overthink it. Once you click “start,” you&apos;ll go through
-              a series of questions, don&apos;t overthink it. There&apos;s no
-              right or wrong answer. Just jot down the first things that come to
-              mind.
+              Don&apos;t overthink it. Once you click “start,” you&apos;ll go
+              through a series of questions, don&apos;t overthink it.
+              There&apos;s no right or wrong answer. Just jot down the first
+              things that come to mind.
             </p>
             <p>
               The point of this process is to simply draw out what God has

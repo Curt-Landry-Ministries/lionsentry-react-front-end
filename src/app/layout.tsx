@@ -3,7 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "./providers/themeContext"; // Adjust the import path if necessary
 import { inter, astoria } from "../fonts/fonts";
 import { UserStoreProvider } from "./providers/userContext";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import SupportFloater from "@/components/Global/SupportFloater";
 
 export const metadata = {
@@ -26,7 +26,7 @@ export default function RootLayout({
           <UserStoreProvider>{children}</UserStoreProvider>
           <SupportFloater />
         </body>
-        <GoogleAnalytics gaId="G-MS69VFWLH5" />
+        <GoogleTagManager gtmId="GTM-MXDZZH3D" />
       </html>
     </ThemeProvider>
   );

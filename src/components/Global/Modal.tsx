@@ -29,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({
       )}
       {...props}
     >
-      <div className="bg-white dark:text-white dark:bg-black dark:border-dark-mode-strong mx-4 md:p-8 p-4 border rounded-[20px] shadow-modal z-10 relative">
+      <div className="bg-white text-black dark:text-white dark:bg-black dark:border-dark-mode-strong mx-4 md:p-8 p-4 border rounded-[20px] shadow-modal z-10 relative">
         {hasCloseButton && (
           <button className="absolute right-8 top-8" onClick={onClose}>
             <Cross1Icon width={14} height={14} />

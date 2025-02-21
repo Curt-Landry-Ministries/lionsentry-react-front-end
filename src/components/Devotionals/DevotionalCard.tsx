@@ -12,11 +12,13 @@ export type DevotionalCard = DetailedHTMLProps<
   devotional?: Devotional;
   index?: number;
   showNone?: boolean;
+  hideGenerateButton?: boolean;
 };
 const DevotionalCard: React.FC<DevotionalCard> = ({
   devotional,
   index,
   showNone = false,
+  hideGenerateButton = false,
   ...props
 }) => {
   const devotionalDate = devotional && new Date(devotional.dateTimeCreated);
@@ -59,7 +61,7 @@ const DevotionalCard: React.FC<DevotionalCard> = ({
 
       <div className="mt-7 flex flex-col flex-1 justify-between z-10">
         {showNone ? (
-          <DevotionalNone />
+          <DevotionalNone hideButton={hideGenerateButton} />
         ) : (
           <>
             {devotional && (
