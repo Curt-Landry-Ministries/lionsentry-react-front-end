@@ -224,6 +224,10 @@ const DisclamerModal: React.FC<Props> = ({
       >
         Confirm
       </Button>
+
+      <Button standardBtn={"text"} onClick={onClose} className="text-sm ml-4">
+        I don&apos;t agree
+      </Button>
     </Modal>
   );
 };
