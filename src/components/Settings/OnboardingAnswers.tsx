@@ -1,11 +1,8 @@
 import { useUserStore } from "@/app/providers/userContext";
 import LoadingScreen from "../Global/LoadingScreen";
-import { useEffect } from "react";
 
 const OnboardingAnswers = () => {
   const { onboardingAnswers, questions, isLoading } = useUserStore((s) => s);
-
-  useEffect(() => console.log(questions), [questions]);
 
   return (
     <div className="flex flex-col">
@@ -17,7 +14,7 @@ const OnboardingAnswers = () => {
         <div className="flex flex-col gap-5">
           {onboardingAnswers.map((answer, index) => (
             <div
-              className="bg-cloud-dark flex flex-col p-6 rounded"
+              className="bg-cloud-dark flex flex-col p-6 rounded text-black"
               key={`answer-${answer.questionIndex}`}
             >
               <div className="font-semibold mb-2">{`${

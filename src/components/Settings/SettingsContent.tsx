@@ -15,7 +15,7 @@ const SettingsContent = () => {
           Settings
         </h1>
 
-        <ul className="flex md:flex-col mobile-only:border-b mobile-only:px-6 border-cloud-darker [&>li]:px-3 [&>li]:font-semibold [&>li]:py-2 [&>li]:cursor-pointer [&>li]:flex [&>li]:gap-2 md:[&>li]:rounded [&>li]:bg-transparent md:[&>li]:mb-2 md:[&>li.active]:bg-cloud-dark mobile-only:[&>li.active]:border-b-4 mobile-only:[&>li.active]:border-blue mobile-only:[&>li.active]:text-blue  [&>li]:transition-colors">
+        <ul className="flex md:flex-col mobile-only:border-b mobile-only:px-6 border-cloud-darker [&>li]:px-3 [&>li]:font-semibold [&>li]:py-2 [&>li]:cursor-pointer [&>li]:flex [&>li]:gap-2 md:[&>li]:rounded [&>li]:bg-transparent md:[&>li]:mb-2 md:[&>li.active]:bg-cloud-dark md:dark:[&>li.active]:text-black  mobile-only:[&>li.active]:border-b-4 mobile-only:[&>li.active]:border-blue mobile-only:[&>li.active]:text-blue  [&>li]:transition-colors">
           <li
             className={classNames({
               active: activeTab === "account",
