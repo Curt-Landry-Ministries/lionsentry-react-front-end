@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { createServerAction, ServerActionError } from "../action-utils";
 
 const BASE_URL = getBaseUrl(false);
+const CURRENT_AI_DISCLAIMER_VERSION = "1.0";
 const CONTENT_ENGINE: string = process.env.CONTENT_ENGINE
   ? process.env.CONTENT_ENGINE
   : "";
@@ -64,6 +65,7 @@ export const fetchUserData = createServerAction(async () => {
     whyStatements: [],
     onboardingAnswers: [],
     goals: [],
+    questions: [],
   };
 
   if (!userID || !authToken) throw new ServerActionError("Unauthorized Access");
@@ -81,6 +83,8 @@ export const fetchUserData = createServerAction(async () => {
     const whyStatementResp = await getLatestWhyStatementFromServer();
 
     const devotionalsResp = await fetchDevotionals();
+    const answers = await fetchAnswersFromServer();
+    const questions = await fetchQuestionsFromServer();
     const goalsResp = await fetchGoals();
 
     userData.devotionals = devotionalsResp.success
@@ -91,6 +95,14 @@ export const fetchUserData = createServerAction(async () => {
     userData.whyStatements = whyStatementResp.success
       ? [whyStatementResp.value]
       : [];
+
+    userData.onboardingAnswers = answers.success
+      ? answers.value.sort(
+          (a: any, b: any) => a.questionIndex - b.questionIndex
+        )
+      : [];
+
+    userData.questions = questions.success ? questions.value : [];
 
     return userData;
   } catch (error: any) {
@@ -315,6 +327,19 @@ export const saveUserDataPoint = createServerAction(
     return respData;
   }
 );
+
+export const setDisclaimerUserValues = createServerAction(async () => {
+  await saveUserDataPoint(
+    "ai_disclaimer_agreement",
+    CURRENT_AI_DISCLAIMER_VERSION,
+    "replace"
+  );
+  await saveUserDataPoint(
+    "ai_disclaimer_agreement_date",
+    new Date().toString(),
+    "replace"
+  );
+});
 
 export const uploadProfilePhoto = createServerAction(
   async (formData: FormData): Promise<any> => {

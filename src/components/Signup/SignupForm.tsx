@@ -13,7 +13,7 @@ import Input from "../Global/Forms/Input";
 import Button from "../Global/Button";
 import Link from "next/link";
 import { login, signup, createKeapUser } from "@/lib/auth/actions";
-import { saveUserDataPoint } from "@/lib/app/actions";
+import { saveUserDataPoint, setDisclaimerUserValues } from "@/lib/app/actions";
 import { useRouter } from "next/navigation";
 import { AuthedPaths, Paths } from "@/lib/constants";
 import LoadingScreen from "../Global/LoadingScreen";
@@ -83,7 +83,13 @@ const SignupForm = () => {
         if (values.lastName)
           await saveUserDataPoint("lastName", lastName, "replace");
 
-        await saveUserDataPoint("ai_disclaimer_agreement", "1.0", "replace");
+        await saveUserDataPoint(
+          "timeZone",
+          Intl.DateTimeFormat().resolvedOptions().timeZone,
+          "replace"
+        );
+
+        await setDisclaimerUserValues();
 
         if (process.env.NEXT_PUBLIC_LOCAL_TESTING !== "true") {
           const keapCreation = await createKeapUser(
