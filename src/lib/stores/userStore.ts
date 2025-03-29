@@ -13,6 +13,7 @@ export type User = {
   onboardingAnswers: OnboardingAnswer[];
   goals: Goal[];
   isLoading: boolean;
+  questions: Question[];
 };
 
 export type UserAction = {
@@ -45,6 +46,7 @@ export const defaultInitUserState: User = {
   whyStatements: [],
   onboardingAnswers: [],
   goals: [],
+  questions: [],
   isLoading: true,
 };
 
