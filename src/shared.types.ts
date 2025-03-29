@@ -37,12 +37,13 @@ type WhyStatement = {
 };
 
 type OnboardingAnswer = {
-  questionId: string;
-  answer: string;
   questionIndex: number;
-  dateTimeCreated: string;
-  forUser: string;
-  id: string;
+  userID: string;
+  question: string;
+  answers: {
+    answer: string;
+    dateTimeAnswered: string;
+  }[];
 };
 
 type Goal = {

@@ -24,7 +24,6 @@ export default function RootLayout({
       <html lang="en" className={`${inter.variable} ${astoria.variable}`}>
         <body>
           <UserStoreProvider>{children}</UserStoreProvider>
-          <SupportFloater />
         </body>
         <GoogleTagManager gtmId="GTM-MXDZZH3D" />
       </html>
