@@ -12,4 +12,13 @@ const getBaseUrl = (isAuth: boolean): string => {
     isAuth ? "auth_server" : "app_server"
   }`;
 };
-export { formatDate, getBaseUrl, LOCAL_TESTING };
+
+const isValidTimezone = (tz: string) => {
+  try {
+    Intl.DateTimeFormat(undefined, { timeZone: tz });
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
+export { formatDate, getBaseUrl, isValidTimezone, LOCAL_TESTING };

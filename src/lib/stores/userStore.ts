@@ -14,6 +14,8 @@ export type User = {
   goals: Goal[];
   isLoading: boolean;
   questions: Question[];
+  timeZone?: string;
+  ai_disclaimer_agreement?: string;
 };
 
 export type UserAction = {
@@ -48,6 +50,8 @@ export const defaultInitUserState: User = {
   goals: [],
   questions: [],
   isLoading: true,
+  ai_disclaimer_agreement: "",
+  timeZone: "",
 };
 
 export const initUserStore = (): User => {

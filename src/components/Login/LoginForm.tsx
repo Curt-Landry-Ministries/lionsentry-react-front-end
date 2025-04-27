@@ -30,10 +30,7 @@ const LoginForm = () => {
     password: "",
   };
 
-  const handleSubmit = async (
-    values: FormikValues,
-    actions: FormikHelpers<FormikValues>
-  ) => {
+  const handleSubmit = async (values: FormikValues) => {
     const resp = await login({
       email: values.email,
       password: values.password,
