@@ -9,9 +9,12 @@ import { deleteUser, logout } from "@/lib/auth/actions";
 import * as Yup from "yup";
 import { useUserStore } from "@/app/providers/userContext";
 import classNames from "classnames";
+import Select from "../Global/Forms/Select";
 
 const AccountInformation = () => {
-  const { firstName, lastName, email, fetchBasicData } = useUserStore((s) => s);
+  const { firstName, lastName, email, timeZone, fetchBasicData } = useUserStore(
+    (s) => s
+  );
 
   const [openProfile, setOpenProfile] = useState(false);
 
@@ -23,6 +26,7 @@ const AccountInformation = () => {
     email: Yup.string().matches(
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     ),
+    timeZone: Yup.string(),
   });
 
   const deleteValidationSchema = Yup.object({
@@ -38,6 +42,7 @@ const AccountInformation = () => {
     firstName: firstName,
     lastName: lastName,
     email: email,
+    timeZone: timeZone,
   };
 
   useEffect(() => {
@@ -45,8 +50,9 @@ const AccountInformation = () => {
       firstName: firstName,
       lastName: lastName,
       email: email,
+      timeZone: timeZone,
     };
-  }, [firstName, lastName, email]);
+  }, [firstName, lastName, email, timeZone]);
 
   const handleSubmit = async (values: FormikValues, actions: any) => {
     actions.resetForm();
@@ -109,6 +115,17 @@ const AccountInformation = () => {
                   id="email"
                   placeholder=""
                   className="rounded"
+                />
+
+                <Select
+                  name="timeZone"
+                  label="Your Timezone"
+                  options={Intl.supportedValuesOf("timeZone").map((tz) => ({
+                    value: tz,
+                    label: tz,
+                  }))}
+                  defaultOptionLabel="Select your timezone"
+                  className="!rounded"
                 />
 
                 <Button
