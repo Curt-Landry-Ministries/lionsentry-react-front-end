@@ -1,13 +1,16 @@
 "use server";
 import { User } from "../stores/userStore";
 import { logError, logTest, validateAuthToken } from "../utils";
-import { getBaseUrl, isValidTimezone } from "../utils-global";
+import {
+  CURRENT_AI_DISCLAIMER_VERSION,
+  getBaseUrl,
+  isValidTimezone,
+} from "../utils-global";
 import { cookies } from "next/headers";
 import { createServerAction, ServerActionError } from "../action-utils";
 
 const BASE_URL = getBaseUrl(false);
-const CURRENT_AI_DISCLAIMER_VERSION =
-  process.env.NEXT_PUBLIC_CURRENT_AI_DISCLAIMER_VERSION;
+
 const CONTENT_ENGINE: string = process.env.CONTENT_ENGINE
   ? process.env.CONTENT_ENGINE
   : "";

@@ -4,7 +4,6 @@ import { ThemeProvider } from "./providers/themeContext"; // Adjust the import p
 import { inter, astoria } from "../fonts/fonts";
 import { UserStoreProvider } from "./providers/userContext";
 import { GoogleTagManager } from "@next/third-parties/google";
-import SupportFloater from "@/components/Global/SupportFloater";
 
 export const metadata = {
   title: "Lionsentry",
