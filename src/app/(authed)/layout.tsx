@@ -8,6 +8,7 @@ import classNames from "classnames";
 import DisclamerModal from "@/components/Signup/DisclamerModal";
 import { logout } from "@/lib/auth/actions";
 import { setDisclaimerUserValues } from "@/lib/app/actions";
+import { CURRENT_AI_DISCLAIMER_VERSION } from "@/lib/utils-global";
 
 export default function AuthedLayout({
   children,
@@ -32,8 +33,7 @@ export default function AuthedLayout({
     if (!isLoading) {
       if (
         !ai_disclaimer_agreement ||
-        ai_disclaimer_agreement !==
-          process.env.NEXT_PUBLIC_CURRENT_AI_DISCLAIMER_VERSION
+        ai_disclaimer_agreement !== CURRENT_AI_DISCLAIMER_VERSION
       ) {
         setOpenDisclamer(true);
       } else {
