@@ -1,26 +1,27 @@
-# Use the official Node.js 22.x image
+# Use the official Node.js 22.x Alpine image
 FROM node:22-alpine
 
-# Set the working directory inside the container
+# Install required system libraries for sharp
+RUN apk add --no-cache libc6-compat
+
+# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json before other files for caching
+# Copy and install dependencies
 COPY package.json package-lock.json ./
-
-# Install all dependencies (production & dev)
 RUN npm install
 
-# Copy the rest of the application code
+# Copy source files
 COPY . .
 
 # Build the Next.js app
 RUN npm run build
 
-# Prune dev dependencies to reduce image size
+# Prune dev dependencies (safe since sharp is in dependencies)
 RUN npm prune --production
 
-# Expose the port Next.js runs on
+# Expose app port
 EXPOSE 3000
 
-# Start the Next.js app
+# Start the Next.js server
 CMD ["npm", "start"]
