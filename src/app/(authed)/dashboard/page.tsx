@@ -43,7 +43,7 @@ const Dashboard = () => {
                   {whyStatements[whyStatements.length - 1] &&
                     whyStatements[
                       whyStatements.length - 1
-                    ].whyStatement.replace('"Why Statement": ', "")}
+                    ].whyStatement?.replace('"Why Statement": ', "")}
                 </p>
               </>
             )}
