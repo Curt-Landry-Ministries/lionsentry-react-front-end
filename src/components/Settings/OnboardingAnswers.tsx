@@ -40,7 +40,7 @@ const OnboardingAnswers = () => {
               <p>{questions[index].subtitle}</p>
 
               <div className="border border-cloud-darker bg-white rounded px-3 py-2 mt-5">
-                {answer.answers[0]["answer"]}
+                {answer.answers[answer.answers.length - 1]["answer"]}
               </div>
             </div>
           ))}
