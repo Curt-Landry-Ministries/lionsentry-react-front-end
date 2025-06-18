@@ -3,6 +3,7 @@ import LoadingScreen from "@/components/Global/LoadingScreen";
 import { fetchQuestionsFromServer } from "@/lib/app/actions";
 
 import QuestionnaireForm from "@/components/Questionnaire/QuestionnaireForm";
+import { Suspense } from "react";
 
 const Pages: React.FC = async () => {
   const questionData = await fetchQuestionsFromServer();
@@ -13,7 +14,11 @@ const Pages: React.FC = async () => {
         {!questionData.success ? (
           <LoadingScreen message="Loading your questionaire" />
         ) : (
-          <QuestionnaireForm questions={questionData.value} />
+          <Suspense
+            fallback={<LoadingScreen message="Loading your questionaire" />}
+          >
+            <QuestionnaireForm questions={questionData.value} />
+          </Suspense>
         )}
       </section>
     </div>
