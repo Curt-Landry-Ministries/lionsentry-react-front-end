@@ -1,12 +1,16 @@
 "use server";
 import { User } from "../stores/userStore";
 import { logError, logTest, validateAuthToken } from "../utils";
-import { getBaseUrl } from "../utils-global";
+import {
+  CURRENT_AI_DISCLAIMER_VERSION,
+  getBaseUrl,
+  isValidTimezone,
+} from "../utils-global";
 import { cookies } from "next/headers";
 import { createServerAction, ServerActionError } from "../action-utils";
 
 const BASE_URL = getBaseUrl(false);
-const CURRENT_AI_DISCLAIMER_VERSION = "1.0";
+
 const CONTENT_ENGINE: string = process.env.CONTENT_ENGINE
   ? process.env.CONTENT_ENGINE
   : "";
@@ -25,20 +29,33 @@ export const fetchBasicData = createServerAction(async () => {
         Authorization: `Bearer ${authToken}`,
       },
     });
-    const respNameEmail = await resp.json();
+    const respUserData = await resp.json();
 
     let userData: Partial<User> = {
       firstName: "",
       lastName: "",
       email: "",
       profile_photo: "",
+      timeZone: "",
+      ai_disclaimer_agreement: "",
     };
 
-    userData.firstName = respNameEmail.firstName.replace(/['"]+/g, "");
-    userData.lastName = respNameEmail.lastName.replace(/['"]+/g, "");
+    userData.firstName = respUserData.firstName.replace(/['"]+/g, "");
+    userData.lastName = respUserData.lastName.replace(/['"]+/g, "");
 
-    userData.email = respNameEmail.email.replace(/['"]+/g, "");
-    userData.profile_photo = respNameEmail.photoURL;
+    userData.email = respUserData.email.replace(/['"]+/g, "");
+    userData.profile_photo = respUserData.photoURL;
+    userData.ai_disclaimer_agreement = respUserData.ai_disclaimer_agreement;
+
+    // if user time is not set, set it
+    if (respUserData.timeZone && isValidTimezone(respUserData.timeZone)) {
+      userData.timeZone = respUserData.timeZone;
+    } else {
+      const savedTimeZone = await setUserTimeZone();
+      if (savedTimeZone.success) {
+        userData.timeZone = savedTimeZone.value;
+      }
+    }
 
     return userData;
   } catch (error: any) {
@@ -341,6 +358,18 @@ export const setDisclaimerUserValues = createServerAction(async () => {
   );
 });
 
+export const setUserTimeZone = createServerAction(async (): Promise<string> => {
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  const resp = await saveUserDataPoint("timeZone", timeZone, "replace");
+
+  if (resp.success) {
+    return timeZone;
+  } else {
+    throw new ServerActionError("Failed to set timezone");
+  }
+});
+
 export const uploadProfilePhoto = createServerAction(
   async (formData: FormData): Promise<any> => {
     const cookiesStore = await cookies();
@@ -482,7 +511,6 @@ export const updateGoal = createServerAction(
 
       throw new ServerActionError("Failed to save your goal");
     }
-
     return respData;
   }
 );

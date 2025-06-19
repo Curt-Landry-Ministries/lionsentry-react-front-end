@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import LoadingScreen from "../Global/LoadingScreen";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import {
   fetchAnswersFromServer,
@@ -17,7 +17,7 @@ import { useUserStore } from "@/app/providers/userContext";
 import { AuthedPaths } from "@/lib/constants";
 import { logTest } from "@/lib/utils";
 import useLoggedIn from "@/lib/hooks/useLoggedIn";
-import { logout, refreshUserToken } from "@/lib/auth/actions";
+import { refreshUserToken } from "@/lib/auth/actions";
 
 const QuestionnaireForm: React.FC<{
   questions: Question[];
@@ -31,7 +31,10 @@ const QuestionnaireForm: React.FC<{
 
   const router = useRouter();
 
-  const { email, fetchBasicData } = useUserStore((s) => s);
+  const { email, fetchBasicData, updateWhyStatements } = useUserStore((s) => s);
+
+  const searchParams = useSearchParams();
+  const fromStart = searchParams.get("from_start");
 
   useEffect(() => {
     const asyncFetchData = async () => {
@@ -52,7 +55,7 @@ const QuestionnaireForm: React.FC<{
         });
 
         setAnswers(parseAnswers);
-        if (Object.keys(parseAnswers).length > 0)
+        if (Object.keys(parseAnswers).length > 0 && fromStart !== "true")
           setCurrentQuestionIndex(
             Math.max(...Object.keys(parseAnswers).map(Number))
           );
@@ -131,11 +134,13 @@ const QuestionnaireForm: React.FC<{
 
       // Redirect to the dashboard page
       if (generatedWhyStatement.success) {
+        updateWhyStatements(generatedWhyStatement.value);
         router.push(AuthedPaths.Dashboard);
       }
     } catch (error) {
       logTest(error);
     } finally {
+      setIsSubmitDisabled(false);
       setIsLoading(false); // Hide loading indicator after processing is done
     }
   };

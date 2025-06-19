@@ -4,7 +4,7 @@ import Modal from "../Global/Modal";
 
 interface Props {
   isOpen: boolean;
-  isLoading: boolean;
+  isLoading?: boolean;
   onConfirm: VoidFunction;
   onClose: VoidFunction;
 }
@@ -225,9 +225,9 @@ const DisclamerModal: React.FC<Props> = ({
         Confirm
       </Button>
 
-{/*       <Button standardBtn={"text"} onClick={onClose} className="text-sm ml-4">
+      <Button standardBtn={"text"} onClick={onClose} className="text-sm ml-4">
         I don&apos;t agree
-      </Button> */}
+      </Button>
     </Modal>
   );
 };
