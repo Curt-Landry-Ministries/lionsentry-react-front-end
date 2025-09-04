@@ -95,7 +95,8 @@ const SignupForm = () => {
           const keapCreation = await createKeapUser(
             values.email,
             values.firstName,
-            lastName
+            lastName,
+            Intl.DateTimeFormat().resolvedOptions().timeZone
           );
 
           if (keapCreation.success) logTest(keapCreation.value);

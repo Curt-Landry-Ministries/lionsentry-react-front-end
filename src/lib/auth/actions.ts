@@ -141,7 +141,7 @@ export const fetchUserId = createServerAction(async (): Promise<any> => {
 });
 
 export const createKeapUser = createServerAction(
-  async (email: string, firstName: string, lastName: string) => {
+  async (email: string, firstName: string, lastName: string, timeZone: string) => {
     const authToken = await validateAuthToken();
 
     const resp = await fetch(`${BASE_URL}/create-keap-user`, {
@@ -154,6 +154,7 @@ export const createKeapUser = createServerAction(
         email: email,
         firstName: firstName,
         lastName: lastName,
+        timeZone: timeZone
       }),
     });
 
