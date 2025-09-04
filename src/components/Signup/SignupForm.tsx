@@ -96,7 +96,7 @@ const SignupForm = () => {
             values.email,
             values.firstName,
             lastName,
-            values.timeZone
+            Intl.DateTimeFormat().resolvedOptions().timeZone
           );
 
           if (keapCreation.success) logTest(keapCreation.value);
