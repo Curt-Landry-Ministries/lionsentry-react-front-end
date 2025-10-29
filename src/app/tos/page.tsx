@@ -32,11 +32,9 @@ const TermsPage = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
           <p className="mb-4">
-            Welcome to www.mypurposequest.com, www.llonsentry.com. These Sites and corresponding apps, and artificial intelligence decisions are owned and operated by LionSentry, Inc. ("LionSentry," "we," or "us"). These Terms and Conditions ("Terms") govern your use of our Sites hereafter referred to as "the Site". These Terms include information about usage, licensing, and intellectual property. Please read these Terms carefully. By using the Site, you consent to these legally binding Terms as well as our Privacy Policy.
-          </p>
+            Welcome to www.mypurposequest.com, www.llonsentry.com. These Sites and corresponding apps, and artificial intelligence decisions are owned and operated by LionSentry, Inc. (&quot;LionSentry,&quot; &quot;we,&quot; or &quot;us&quot;). These Terms and Conditions (&quot;Terms&quot;) govern your use of our Sites hereafter referred to as &quot;the Site&quot;. These Terms include information about usage, licensing, and intellectual property. Please read these Terms carefully. By using the Site, you consent to these legally binding Terms as well as our Privacy Policy.          </p>
           <p className="mb-4">
-            This website utilizes an artificial intelligence system that collects, processes, and analyzes personal data to enhance user experience, provide personalized content, and improve our services. By accessing or using this website, you expressly and freely consent to the collection and use of your data as described in this disclaimer, including the indemnification provisions detailed below.
-          </p>
+            This website utilizes an artificial intelligence system that collects, processes, and analyzes personal data to enhance user experience, provide personalized content, and improve our services. By accessing or using this website, you expressly and freely consent to the collection and use of your data as described in this disclaimer, including the indemnification provisions detailed below.          </p>
         </section>
 
         {/* 2. Consent and Capacity */}
@@ -47,19 +45,16 @@ const TermsPage = () => {
             If you do not agree with these Terms, please discontinue your use of the Site. By using our services, you warrant that you are entering
             into a binding contract with LionSentry's Areas of the Site may also be subject to additional terms.           </p>
           <p className="mb-4">
-            By using this website, you are expressly and freely providing your informed consent to the collection, processing, and analysis of your personal data by our AI system, as described in this disclaimer and our Privacy Policy. You acknowledge that you have been provided with clear and comprehensive information regarding our data practices, and that your consent is given voluntarily without any coercion.
-          </p>
+            By using this website, you are expressly and freely providing your informed consent to the collection, processing, and analysis of your personal data by our AI system, as described in this disclaimer and our Privacy Policy. You acknowledge that you have been provided with clear and comprehensive information regarding our data practices, and that your consent is given voluntarily without any coercion.          </p>
         </section>
 
         {/* 3. AI System Description and Limitations */}
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4">3. AI System Description and Limitations</h2>
           <p className="mb-4">
-            Our AI system may collect personal data, which can include browsing behavior, device information, IP addresses, and any other information you voluntarily provide. The collected data is used for analytics, service improvement, personalization, and to ensure the security and functionality of our website.
-          </p>
+            Our AI system may collect personal data, which can include browsing behavior, device information, IP addresses, and any other information you voluntarily provide. The collected data is used for analytics, service improvement, personalization, and to ensure the security and functionality of our website.          </p>
           <p className="mb-4">
-            LionSentry and its Platforms and related websites integrate AI technologies to enhance service delivery, personalize user interactions, and optimize operational efficiency. We are committed to transparency and adhere to CCPA/CPRA by ensuring AI-driven data processing is secure, limited to necessary purposes, and subject to user consent where applicable. Our AI systems are designed to protect user privacy.
-          </p>
+            LionSentry and its Platforms and related websites integrate AI technologies to enhance service delivery, personalize user interactions, and optimize operational efficiency. We are committed to transparency and adhere to CCPA/CPRA by ensuring AI-driven data processing is secure, limited to necessary purposes, and subject to user consent where applicable. Our AI systems are designed to protect user privacy.          </p>
         </section>
 
         {/* 4. Intellectual Property Rights */}
@@ -69,12 +64,10 @@ const TermsPage = () => {
             LionSentry's trademarks, trade names, logos, and other intellectual property incorporated into the Site are the sole property of
             LionSentry,Inc. or its licensors and are protected under copyright, trademark, trade secret, and other intellectual property laws.
             Copying or distributing any material, illustrations, photographs, video, or content from the Site without consent is strictly prohibited.
-            Additionally, any use that constitutes an infringement of any of the above-stated intellectual property rights is prohibited.           </p>
-
+            Additionally, any use that constitutes an infringement of any of the above-stated intellectual property rights is prohibited. </p>
           <h3 className="text-xl font-semibold mb-3">Third Party Content</h3>
           <p className="mb-4">
-            Users should note that content from third parties or external sources is not necessarily endorsed by this Site, App, Affiliate, or Platform. Our Site may contain links to other sites whose information practices may be different than ours. Visitors should consult the other sites' privacy notices as we have no control over information that is submitted to, or collected by, these third parties.
-          </p>
+            Users should note that content from third parties or external sources is not necessarily endorsed by this Site, App, Affiliate, or Platform. Our Site may contain links to other sites whose information practices may be different than ours. Visitors should consult the other sites' privacy notices as we have no control over information that is submitted to, or collected by, these third parties.          </p>
         </section>
 
         {/* 5. User Responsibilities and Data Collection Consent */}
@@ -205,8 +198,7 @@ const TermsPage = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4">12. Limitation of Liability</h2>
           <p className="mb-4 font-semibold">
-            THE SITE, ITS CONTENT, AI SYSTEMS, AND ALL MATERIALS ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OR GUARANTEE. YOU ACCESS THE SITE AND USE OUR AI SERVICES AT YOUR OWN RISK. TO THE MAXIMUM EXTENT PROVIDED BY APPLICABLE LAW, LIONSENTRY, INC. DISCLAIMS ALL WARRANTIES AND DOES NOT ACCEPT LIABILITY FOR ANY LOSS OR DAMAGE, INCLUDING BUT NOT LIMITED TO:
-          </p>
+            THE SITE, ITS CONTENT, AI SYSTEMS, AND ALL MATERIALS ARE PROVIDED &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot; WITHOUT WARRANTY OR GUARANTEE. YOU ACCESS THE SITE AND USE OUR AI SERVICES AT YOUR OWN RISK. TO THE MAXIMUM EXTENT PROVIDED BY APPLICABLE LAW, LIONSENTRY, INC. DISCLAIMS ALL WARRANTIES AND DOES NOT ACCEPT LIABILITY FOR ANY LOSS OR DAMAGE, INCLUDING BUT NOT LIMITED TO:          </p>
           <ul className="list-disc pl-6 mb-4 space-y-2">
             <li>Direct, indirect, consequential, special, exemplary, incidental, actual, or punitive damages</li>
             <li>Personal injury, financial loss, data loss, or opportunity loss</li>

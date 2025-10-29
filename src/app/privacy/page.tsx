@@ -1,4 +1,4 @@
-const PrivacyPage: React.FC = () => {
+const PrivacyPage = () => {
   return (
     <main className="mx-auto px-4 py-8 max-w-7xl">
       <h1 className="text-3xl font-bold mb-6 text-center">Privacy Policy</h1>
@@ -102,7 +102,7 @@ const PrivacyPage: React.FC = () => {
 
           <h4 className="text-lg font-semibold mb-2">Do Not Track</h4>
           <p className="mb-4">
-            Browsers and devices allow individuals to send "do not track" signals to websites. If you would like to refuse some or all of the browser cookies, you can set your browser preferences accordingly. Please note that disabling cookies may cause portions of the site to be inaccessible or function incorrectly.
+            Browsers and devices allow individuals to send &quot;do not track&quot; signals to websites. If you would like to refuse some or all of the browser cookies, you can set your browser preferences accordingly. Please note that disabling cookies may cause portions of the site to be inaccessible or function incorrectly.
           </p>
 
           <h3 className="text-xl font-semibold mb-3">Information From Third Parties</h3>
@@ -110,7 +110,7 @@ const PrivacyPage: React.FC = () => {
             In some instances, we may receive information from our third-party partners and vendors about our users. We may also incorporate third-party marketing and analytic services, such as Google Analytics, to help us analyze how our Site is being used.
           </p>
           <p className="mb-4">
-            Our Privacy Policy only governs LionSentry's use of your information; however, we may use these third-party services to analyze and enhance your experience.
+            Our Privacy Policy only governs LionSentry&#39;s use of your information; however, we may use these third-party services to analyze and enhance your experience.
           </p>
         </section>
 
@@ -160,10 +160,10 @@ const PrivacyPage: React.FC = () => {
           </p>
           <ul className="list-disc pl-6 mb-4">
             <li>
-              <strong>Google Analytics.</strong> Google Analytics is a tool used to discover user demographics and behavior. You can reference Google's privacy policy regarding how they handle information collected by visiting https://policies.google.com/privacy.
+              <strong>Google Analytics.</strong> Google Analytics is a tool used to discover user demographics and behavior. You can reference Google&#39;s privacy policy regarding how they handle information collected by visiting https://policies.google.com/privacy.
             </li>
             <li>
-              <strong>Google Adsense.</strong> Google Adsense is an advertising program created by Google that allows website owners to display ads on their websites. You can learn more about Google's policy for handling information collected by visiting https://policies.google.com/privacy.
+              <strong>Google Adsense.</strong> Google Adsense is an advertising program created by Google that allows website owners to display ads on their websites. You can learn more about Google&#39;s policy for handling information collected by visiting https://policies.google.com/privacy.
             </li>
             <li>
               <strong>Stripe.</strong> Stripe is a secure payment platform to ensure all transactions are safe. https://stripe.com/legal/ssa and https://stripe.com/privacy
@@ -189,7 +189,7 @@ const PrivacyPage: React.FC = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4">Age Limits for Children</h2>
           <p className="mb-4">
-            We are committed to protecting the privacy and safety of children and fully comply with the Children's Online Privacy Protection Act (COPPA). Our website is not directed to children under the age of 17, and we do not knowingly collect personal information from them. Children under 17 are strictly prohibited from accessing or using the site.
+            We are committed to protecting the privacy and safety of children and fully comply with the Children&#39;s Online Privacy Protection Act (COPPA). Our website is not directed to children under the age of 17, and we do not knowingly collect personal information from them. Children under 17 are strictly prohibited from accessing or using the site.
           </p>
           <p className="mb-4">
             If you are a parent or guardian and believe that a child under 17 has provided us with personal information, please contact us at privacy@lionsentry.com or by mail at LionSentry Inc., 42 Business Centre Drive, Miramar Beach, FL 32550. We will take prompt action to remove the information from our records.
@@ -211,7 +211,7 @@ const PrivacyPage: React.FC = () => {
             This section is only applicable for individuals who reside in California and should be read in conjunction with our entire Privacy Policy. If you are a California resident, you have the right to
           </p>
           <ul className="list-disc pl-6 mb-4">
-            <li>obtain additional information about "personal information" (as defined in the California Consumer Privacy Act (CCPA));</li>
+            <li>obtain additional information about &quot;personal information&quot; (as defined in the California Consumer Privacy Act (CCPA));</li>
             <li>request that we disclose certain information collected, used, disclosed, and sold about you;</li>
             <li>request deletion of your personal information; and</li>
             <li>opt out of the sale of your personal information.</li>
