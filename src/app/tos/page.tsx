@@ -43,7 +43,7 @@ const TermsPage = () => {
           <p className="mb-4">
             In order to use our services, you must be at least Seventeen Your use of our services is conditioned on your acceptance of these Terms.
             If you do not agree with these Terms, please discontinue your use of the Site. By using our services, you warrant that you are entering
-            into a binding contract with LionSentry's Areas of the Site may also be subject to additional terms.           </p>
+            into a binding contract with LionSentry&#39;s Areas of the Site may also be subject to additional terms.           </p>
           <p className="mb-4">
             By using this website, you are expressly and freely providing your informed consent to the collection, processing, and analysis of your personal data by our AI system, as described in this disclaimer and our Privacy Policy. You acknowledge that you have been provided with clear and comprehensive information regarding our data practices, and that your consent is given voluntarily without any coercion.          </p>
         </section>
@@ -61,13 +61,13 @@ const TermsPage = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4">4. Intellectual Property Rights</h2>
           <p className="mb-4">
-            LionSentry's trademarks, trade names, logos, and other intellectual property incorporated into the Site are the sole property of
+            LionSentry&#39;s trademarks, trade names, logos, and other intellectual property incorporated into the Site are the sole property of
             LionSentry,Inc. or its licensors and are protected under copyright, trademark, trade secret, and other intellectual property laws.
             Copying or distributing any material, illustrations, photographs, video, or content from the Site without consent is strictly prohibited.
             Additionally, any use that constitutes an infringement of any of the above-stated intellectual property rights is prohibited. </p>
           <h3 className="text-xl font-semibold mb-3">Third Party Content</h3>
           <p className="mb-4">
-            Users should note that content from third parties or external sources is not necessarily endorsed by this Site, App, Affiliate, or Platform. Our Site may contain links to other sites whose information practices may be different than ours. Visitors should consult the other sites' privacy notices as we have no control over information that is submitted to, or collected by, these third parties.          </p>
+            Users should note that content from third parties or external sources is not necessarily endorsed by this Site, App, Affiliate, or Platform. Our Site may contain links to other sites whose information practices may be different than ours. Visitors should consult the other sites&#39; privacy notices as we have no control over information that is submitted to, or collected by, these third parties.          </p>
         </section>
 
         {/* 5. User Responsibilities and Data Collection Consent */}
@@ -78,11 +78,11 @@ const TermsPage = () => {
           </p>
           <ol className="list-decimal pl-6 mb-4 space-y-2">
             <li>You will keep your username and password confidential. You will not share this information with any other person.</li>
-            <li>You will not use another user's login and registration information.</li>
+            <li>You will not use another user&#39;s login and registration information.</li>
             <li>You will not create fake accounts for the purpose of spamming users or visitors, collecting personal information with or without consent, or any other deceptive practices.</li>
             <li>You will not circumvent, evade, disable, or otherwise interfere with the security of the Site.</li>
             <li>You will not infringe the intellectual property rights of others.</li>
-            <li>You agree to the collection and integration of your personal information in our Site's use of artificial intelligence.</li>
+            <li>You agree to the collection and integration of your personal information in our Site&#39;s use of artificial intelligence.</li>
             <li>You agree to access or use this website solely for lawful purposes. You further represent and warrant that your activities on this website will comply with all applicable local, state, national, and international laws, regulations, and ordinances. Any use of the website for illegal or unauthorized purposes is strictly prohibited.</li>
           </ol>
           <p className="mb-4">
@@ -97,7 +97,7 @@ const TermsPage = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4">6. Acceptable Use</h2>
           <p className="mb-4">
-            Users must abide by the platform's guidelines for appropriate content and behavior, avoiding any harmful, offensive, or illegal activities.
+            Users must abide by the platform&#39;s guidelines for appropriate content and behavior, avoiding any harmful, offensive, or illegal activities.
           </p>
         </section>
 
@@ -113,7 +113,7 @@ const TermsPage = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4">8. Notification of Issues</h2>
           <p className="mb-4">
-            Users should promptly report any suspicious activity or violations of this Site's terms and conditions to info@mypurposequest.co.
+            Users should promptly report any suspicious activity or violations of this Site&#39;s terms and conditions to info@mypurposequest.co.
           </p>
         </section>
 
@@ -215,7 +215,7 @@ const TermsPage = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4">13. Indemnification</h2>
           <p className="mb-4">
-            You agree to indemnify, defend, and hold harmless LionSentry Inc., its directors, shareholders, employees, representatives, agents, subsidiaries, assignors, and licensors from and against any lawsuits, disputes, claims, proceedings, demands, costs, or expenses (including reasonable attorneys' fees) arising out of or in any way connected with:
+            You agree to indemnify, defend, and hold harmless LionSentry Inc., its directors, shareholders, employees, representatives, agents, subsidiaries, assignors, and licensors from and against any lawsuits, disputes, claims, proceedings, demands, costs, or expenses (including reasonable attorneys&#39; fees) arising out of or in any way connected with:
           </p>
           <ul className="list-disc pl-6 mb-4 space-y-2">
             <li>Your use of the Site or AI services</li>
