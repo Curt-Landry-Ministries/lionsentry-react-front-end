@@ -4,8 +4,8 @@ export enum Paths {
   Signup = "/signup",
   Outbound = "/outbound-service",
   ResetPassword = "/reset-password",
-  Terms = "https://www.curtlandry.com/privacy-policy-terms-of-service/",
-  Privacy = "https://www.curtlandry.com/privacy-policy-terms-of-service/",
+  Terms = "/tos",
+  Privacy = "/privacy",
 }
 
 export enum AuthedPaths {
@@ -17,6 +17,7 @@ export enum AuthedPaths {
   Principles = "/goals/principles",
   OnboardingGoals = "/goals/onboarding",
   Settings = "/settings",
+  
 }
 
 export enum MaxWindowSize {

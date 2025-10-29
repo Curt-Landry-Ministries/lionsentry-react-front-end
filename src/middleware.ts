@@ -13,7 +13,9 @@ export async function middleware(request: NextRequest) {
   const loginOrSignup =
     pathname.startsWith(Paths.Login) ||
     pathname.startsWith(Paths.Signup) ||
-    pathname.startsWith(Paths.ResetPassword);
+    pathname.startsWith(Paths.ResetPassword) ||
+    pathname.startsWith(Paths.Privacy) ||
+    pathname.startsWith(Paths.Terms)
   const url = request.nextUrl.clone();
   const whyStatement = !!cookiesStore.get("whyStatement")?.value;
 
