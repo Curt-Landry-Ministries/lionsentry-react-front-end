@@ -15,7 +15,8 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith(Paths.Signup) ||
     pathname.startsWith(Paths.ResetPassword) ||
     pathname.startsWith(Paths.Privacy) ||
-    pathname.startsWith(Paths.Terms)
+    pathname.startsWith(Paths.Terms) ||
+    pathname.startsWith(Paths.Migrate)
   const url = request.nextUrl.clone();
   const whyStatement = !!cookiesStore.get("whyStatement")?.value;
 
@@ -46,7 +47,14 @@ export async function middleware(request: NextRequest) {
 
   // If user is authenticated and still goes to login or signup,
   // redirect to dashboard
-  if ((loginOrSignup || pathname === Paths.Home) && isAuthenticated) {
+  if (
+    (loginOrSignup || pathname === Paths.Home) &&
+    isAuthenticated &&
+    !pathname.startsWith(Paths.Terms) &&
+    !pathname.startsWith(Paths.Privacy) &&
+    !pathname.startsWith(Paths.Migrate)
+
+  ) {
     return !!whyStatement
       ? NextResponse.redirect(new URL(AuthedPaths.Dashboard, request.url))
       : NextResponse.redirect(new URL(AuthedPaths.Questionnaire, request.url));

@@ -6,6 +6,7 @@ export enum Paths {
   ResetPassword = "/reset-password",
   Terms = "/tos",
   Privacy = "/privacy",
+  Migrate = "/migrate",
 }
 
 export enum AuthedPaths {

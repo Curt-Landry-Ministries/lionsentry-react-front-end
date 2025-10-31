@@ -14,7 +14,6 @@ import SectionBoxCTA from "@/components/Home/SectionBoxCTA";
 import { motion, useScroll } from "framer-motion";
 import classnames from "classnames";
 import VideoComponent from "@/components/Global/VideoComponent";
-import Modal from "@/components/Home/Modal";
 
 const Home: React.FC = () => {
   const scrollRef = useRef(null);
@@ -263,7 +262,6 @@ const Home: React.FC = () => {
           </div>
         </div>
       </ImageBGSection>
-      <Modal />
     </section>
   );
 };

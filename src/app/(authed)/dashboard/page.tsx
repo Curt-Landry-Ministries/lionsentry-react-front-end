@@ -10,6 +10,7 @@ import GoalList from "@/components/Goals/GoalList";
 import Modal from "@/components/Global/Modal";
 import ProfilePhoto from "@/components/Global/ProflePhoto";
 import DevotionalDashboard from "@/components/Devotionals/DevotionalDashboard";
+import ModalForm from "@/components/Home/Modal";
 
 const Dashboard = () => {
   const { whyStatements, goals, devotionals, name, profile_photo } =
@@ -124,6 +125,7 @@ const Dashboard = () => {
           </div>
         </div>
       </Modal>
+      <ModalForm />
     </>
   );
 };

@@ -18,6 +18,7 @@ import { AuthedPaths } from "@/lib/constants";
 import { logTest } from "@/lib/utils";
 import useLoggedIn from "@/lib/hooks/useLoggedIn";
 import { refreshUserToken } from "@/lib/auth/actions";
+import Modal from "../Home/Modal";
 
 const QuestionnaireForm: React.FC<{
   questions: Question[];
@@ -86,7 +87,7 @@ const QuestionnaireForm: React.FC<{
 
     const nextIndex =
       currentQuestionIndex + direction >= -1 &&
-      currentQuestionIndex + direction <= 13
+        currentQuestionIndex + direction <= 13
         ? currentQuestionIndex + direction
         : currentQuestionIndex;
 
@@ -174,9 +175,8 @@ const QuestionnaireForm: React.FC<{
             <ProgressBar
               current={currentQuestionIndex + 1}
               max={questions.length}
-              subText={`Question ${currentQuestionIndex + 1}/${
-                questions.length
-              }`}
+              subText={`Question ${currentQuestionIndex + 1}/${questions.length
+                }`}
             />
           )}
 
@@ -232,6 +232,8 @@ const QuestionnaireForm: React.FC<{
           </div>
         </div>
       )}
+      <Modal />
+
     </div>
   );
 };
