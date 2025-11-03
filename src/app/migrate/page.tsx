@@ -5,7 +5,7 @@ const Migrate = () => {
             <div className="w-full max-w-[900px] aspect-video rounded-2xl overflow-hidden shadow-md">
                 <iframe
                     className="w-full h-full"
-                    src="https://lionsentry.s3.us-east-1.amazonaws.com/PQ+Transition+Video+V2.mp4"
+                    src="https://www.youtube.com/embed/mWIAPYuYRDo?si=3BTtV2r3OI8NQsa8"
                     title="LionSentry Migration Video"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
