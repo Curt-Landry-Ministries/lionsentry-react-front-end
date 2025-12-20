@@ -18,7 +18,8 @@ import { AuthedPaths } from "@/lib/constants";
 import { logTest } from "@/lib/utils";
 import useLoggedIn from "@/lib/hooks/useLoggedIn";
 import { refreshUserToken } from "@/lib/auth/actions";
-import Modal from "../Home/Modal";
+import SignedModal from "../Home/SignedModal";
+
 
 const QuestionnaireForm: React.FC<{
   questions: Question[];
@@ -232,8 +233,7 @@ const QuestionnaireForm: React.FC<{
           </div>
         </div>
       )}
-      <Modal />
-
+      <SignedModal />
     </div>
   );
 };

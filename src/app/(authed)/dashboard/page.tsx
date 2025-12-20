@@ -10,7 +10,7 @@ import GoalList from "@/components/Goals/GoalList";
 import Modal from "@/components/Global/Modal";
 import ProfilePhoto from "@/components/Global/ProflePhoto";
 import DevotionalDashboard from "@/components/Devotionals/DevotionalDashboard";
-import ModalForm from "@/components/Home/Modal";
+import SignedModal from "@/components/Home/SignedModal";
 
 const Dashboard = () => {
   const { whyStatements, goals, devotionals, name, profile_photo } =
@@ -116,7 +116,7 @@ const Dashboard = () => {
               Later
             </Button>
             <Button
-              onClick={() => {}}
+              onClick={() => { }}
               standardBtn={"primary"}
               className="flex-1"
             >
@@ -125,7 +125,7 @@ const Dashboard = () => {
           </div>
         </div>
       </Modal>
-      <ModalForm />
+      <SignedModal />
     </>
   );
 };

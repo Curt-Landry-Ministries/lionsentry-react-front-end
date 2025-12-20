@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import { useUserStore } from "@/app/providers/userContext";
 import classNames from "classnames";
 import Select from "../Global/Forms/Select";
+import DownloadData from "../Home/DownloadData";
 
 const AccountInformation = () => {
   const { firstName, lastName, email, timeZone, fetchBasicData } = useUserStore(
@@ -140,7 +141,8 @@ const AccountInformation = () => {
             </Form>
           )}
         </Formik>
-
+        
+        <DownloadData />
         <div className="border-t-2 pt-8 mt-4">
           <h3>Delete account</h3>
           <p className="mb-4">

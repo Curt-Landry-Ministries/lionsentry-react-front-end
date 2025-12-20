@@ -115,8 +115,8 @@ export const fetchUserData = createServerAction(async () => {
 
     userData.onboardingAnswers = answers.success
       ? answers.value.sort(
-          (a: any, b: any) => a.questionIndex - b.questionIndex
-        )
+        (a: any, b: any) => a.questionIndex - b.questionIndex
+      )
       : [];
 
     userData.questions = questions.success ? questions.value : [];
@@ -441,6 +441,24 @@ export const fetchQuestionsFromServer = createServerAction(
   }
 );
 
+export const fetchOnboaringFromServer = createServerAction(async () => {
+  const authToken = await validateAuthToken();
+  try {
+
+    const resp = await fetch(`${BASE_URL}/get-user-onboarding-profile`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    if (!resp.ok)
+      throw new ServerActionError("Failed to fetch onboarding from the server");
+
+    return await resp.json();
+  } catch (error: any) {
+    throw new ServerActionError(error.error || "Failed to fetch onboarding");
+  }
+});
 export const saveGoal = createServerAction(
   async ({
     goal,
