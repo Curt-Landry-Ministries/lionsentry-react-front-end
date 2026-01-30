@@ -116,5 +116,19 @@ const astoria = localFont({
     ],
     variable: '--font-astoria'
 });
-
-export { inter, astoria };
+const poppins = localFont({
+    src: [
+        {
+            path: './Poppins/Poppins-Regular.woff2',
+            weight: '900',
+            style: 'normal'
+        },
+        {
+            path: './Poppins/Poppins-Bold.woff2',
+            weight: '700',
+            style: 'normal'
+        }
+    ],
+    variable: '--font-poppins'
+})
+export { inter, astoria, poppins };

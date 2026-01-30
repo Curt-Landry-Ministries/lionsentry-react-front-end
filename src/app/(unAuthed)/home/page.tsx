@@ -1,19 +1,13 @@
 "use client";
-// src/app/pages/HomePage.tsx
 import React, { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import Button from "@/components/Global/Button";
 import TopBottom from "@/components/Global/Gradients/TopBottomGradient";
-import LeftRight from "@/components/Global/Gradients/LeftRightGradient";
-import { Paths } from "@/lib/constants";
-import TwoColumnText from "@/components/Home/TwoColumnText";
-import ImageBGSection from "@/components/Global/ImageBGSection";
 import Image from "next/image";
-import CTAContentImage from "@/components/Home/CTAContentImage";
-import SectionBoxCTA from "@/components/Home/SectionBoxCTA";
-import { motion, useScroll } from "framer-motion";
-import classnames from "classnames";
-import VideoComponent from "@/components/Global/VideoComponent";
+import {  useScroll } from "framer-motion";
+import HomeTop from "@/components/Home2/HomeTop";
+import MissionSection from "@/components/Home2/MissionSection";
+import WisdomSection from "@/components/Home2/WisdomSection";
+import FounderSection from "@/components/Home2/FounderSection";
+import PartnershipSection from "@/components/Home2/HowitWork";
 
 const Home: React.FC = () => {
   const scrollRef = useRef(null);
@@ -51,7 +45,7 @@ const Home: React.FC = () => {
   return (
     <section>
       <TopBottom>
-        <div className="relative h-full min-h-screen flex items-center w-full py-40">
+        <div className="relative h-[542px] flex items-center w-full py-40">
           <Image
             src="/images/hero-line-graphic-mobile.svg"
             width={0}
@@ -67,201 +61,31 @@ const Home: React.FC = () => {
             alt="Lionsentry line hero graphic"
           />
           <div className="max-w-[700px] mx-auto flex flex-col items-center justify-center h-full">
-            <Image
-              src={"/images/LS-logo.webp"}
-              width={70}
-              height={70}
-              alt="LionSentry Logo"
-            />
-            <h1 className="display-heading leading-[86%] mt-10 text-center font-medium">
-              <span className="text-gradient block">
-                Discover Your Kingdom Mission.
-              </span>
-              <span>Live with Intention</span>
-            </h1>
-            <p className="text-center text-2xl leading-tight m-7">
-              Transform your life with a personalized roadmap that helps you
-              walk in your Kingdom purpose every day.
-            </p>
-            <div className="flex justify-center gap-4">
-              <Link href="/signup">
-                <Button standardBtn={"primary"}>Begin</Button>
-              </Link>
-              <Link href="/login">
-                <Button standardBtn={"secondary"}>Sign In</Button>
-              </Link>
+            <div className="text-center">
+              <span className="font-bold md:text-base text-[12px]">Creators of PurposeQuest™ and PurposePlan™</span>
+              <h1 className="md:leading-[86%] leading-[120%] mt-3 text-center md:text-[64px] text-[30px] font-medium">
+                Innovating Pathways to Purpose
+
+              </h1>
             </div>
+            <p className="text-center md:text-[24px] text-[21px] md:leading-tight leading-[28px] tracking-normal mx-8 mt-5">
+              We develop transformative digital experiences that guide individuals to discover their divine design and guide purpose-driven living.
+            </p>
+
           </div>
         </div>
+
       </TopBottom>
       <div ref={scrollRef} className="relative">
-        <div
-          className={classnames(
-            "w-3 h-3 bottom-16 left-1/2 -ml-1.5 bg-blue rounded-full z-10 hidden md:block",
-            {
-              fixed: heightProgress < 1,
-              absolute: heightProgress === 1,
-            }
-          )}
-        />
-        <motion.div
-          className="absolute left-1/2 w-0.5 -ml-[0.05rem] h-16 top-0 bg-blue origin-[0%] z-10 hidden md:block"
-          style={{ height: heightProgress * 96.5 + "%" }}
-          viewport={{ root: scrollRef }}
-        />
+        <HomeTop />
+        <MissionSection />
+        <WisdomSection />
+        <FounderSection />
+        <PartnershipSection />
 
-        <VideoComponent
-          videoSrc="https://player.manage.broadcastcloud.tv/1efa8232-a5d5-6124-8d52-3bf9f65c553b/default?autoplay=false&debug=false&direct=true"
-          videoTitle="Lionsentry Homepage Video"
-          className="px-4 md:max-w-[90vw] lg:max-w-[950px] mx-auto [&>iframe]:min-h-[calc(100vw*0.5)] lg:[&>iframe]:min-h-[550px] [&>iframe]:w-full pt-24 md:pt-52 z-10 relative"
-        />
-
-        <CTAContentImage
-          title="Your Life’s Mission Will Inspire Others. But What Is It?"
-          content="<p>You were created by God <b>on purpose for a purpose.</b> Yet distractions and challenges can throw you off course, leaving you feeling unfulfilled and unfocused.</p><p>Discovering your mission—<b>your “why”</b>—gives you the <b>confidence and focus</b> you need to walk in <b>God’s purpose</b> every day and <b>impact the lives</b> of others.</p><p>Live a life transformed by your personal “why”—your life’s mission—and inspire others the way God designed you to do.</p>"
-          buttonText='Discover my "why"'
-          buttonLink="/signup"
-          image={"/images/discover-my-calling.gif"}
-        />
-
-        <CTAContentImage
-          title="Your Why. Your Path. Your Purpose."
-          content="<p>Knowing your “why” establishes a clear path forward and roadmap to fulfilling your purpose.</p><p>Everyone’s personal mission and journey in life is unique. This is why we developed a tool that walks you through developing a personalized “why” statement and provides clear direction for your life based on God’s Word.</p>"
-          buttonText='Discover my "why"'
-          buttonLink="/signup"
-          image={"/images/path-to-clarity.gif"}
-        />
-      </div>
-      <LeftRight className="py-24">
-        <div>
-          <Image
-            src="/images/top-line-graphic.svg"
-            width={0}
-            height={0}
-            alt="LionSentry Logo"
-            className="mb-6 w-[95%] h-auto absolute -top-24 left-0 -z-10 hidden md:block"
-          />
-          <div className="content-container">
-            <h1 className="text-center mb-16">How It Works</h1>
-
-            {howToUseContent.map((item, key) => (
-              <TwoColumnText
-                subText={item.subText}
-                title={item.title}
-                mainText={item.mainText}
-                key={key}
-              />
-            ))}
-
-            <div className="text-2xl space-y-10 mb-20">
-              <h2>Your Roadmap for Living with Intention</h2>
-              <p>
-                These simple steps lead you on the path of living with
-                intention. This roadmap keeps your focus on your mission with
-                every step and gives you the daily direction and encouragement
-                you need to make the impact you desire.
-              </p>
-              <p>
-                Because situations change and life has unexpected turns, you
-                goals do too--that’s okay! You can revisit and revise your goals
-                as needed. We’re here to help you grow—wherever you go. You
-                aren’t alone on this journey!
-              </p>
-            </div>
-
-            <div className="w-full text-center">
-              <Link href={Paths.Signup}>
-                <Button standardBtn={"primary"}>Let the journey begin</Button>
-              </Link>
-            </div>
-          </div>
-          <Image
-            src="/images/bottom-line-graphic.svg"
-            width={0}
-            height={0}
-            alt="LionSentry Logo"
-            className="mb-6 w-[95%] h-auto absolute bottom-0 right-0 -z-10 hidden md:block"
-          />
-        </div>
-      </LeftRight>
-      <SectionBoxCTA
-        title="Grow in Faith"
-        image={"/images/rabbi-and-christie-photo.jpg"}
-        buttonLink={Paths.Signup}
-        buttonText="Get Started Today"
-      >
-        <>
-          <p>
-            Our heart is to help you harness your God-given potential so you can
-            make the impact He designed you for! The daily personalized
-            devotions keep you right on track and deepen your faith, anchoring
-            you to your mission. As a result, you become more confident and feel
-            fulfilled.
-          </p>
-
-          <p>
-            One of our newest features is the Reflection Journal. This feature
-            allows you to jot down ideas, prayers, revelation, and scriptures
-            the Lord brings to mind as He takes you on your purpose journey! We
-            encourage you to use this feature to get even more out of your
-            goal-setting experience.
-          </p>
-        </>
-      </SectionBoxCTA>
-      <div className="pt-12 pb-16 px-4">
-        <div className="max-w-[620px] text-center mx-auto">
-          <div className="w-[150px] h-[1px] bg-gradient-1 opacity-70 mx-auto mb-14"></div>
-          <h1 className="mb-4">Make a Donation</h1>
-          <p className="mb-8 text-xl">
-            If you want to see others fulfill their God-given purposes and make
-            a great impact for His Kingdom, prayerfully consider donating. Every
-            donation helps to advance His Kingdom and His purposes!
-          </p>
-          <Link href="https://shop.curtlandry.com/donate/" target="_blank">
-            <Button standardBtn={"primary"}>Donate</Button>
-          </Link>
-        </div>
-        <div className="w-[150px] h-[1px] bg-gradient-1 opacity-70 mx-auto mt-14"></div>
       </div>
 
-      <ImageBGSection imageUrl="/images/bg-image.png">
-        <div className="content-container flex flex-col items-center text-center gap-4 text-white">
-          <Image
-            src="/images/LS-logo.webp"
-            width={80}
-            height={80}
-            alt="LionSentry Logo"
-            className="mb-6"
-          />
-          <h1>LionSentry’s “Why” Statement</h1>
-          <p className="text-lg">
-            We know that feeling stuck and without direction leaves you feeling
-            unfulfilled. We want to help Believers refocus and set their minds
-            and missions on the things that matter most, equipping them with the
-            confidence they need to make a great impact for the Kingdom.
-          </p>
-          <p className="text-lg">
-            This is LionSentry’s mission—our “why”—to provide a starting point
-            and a step-by-step direction and encouragement to help you grow in
-            faith and experience a more fulfilling and purposeful life.
-          </p>
-          <p className="text-lg">
-            The journey of discovering your God-given mission is worth it.
-            You’re worth it. And we trust that with the guidance and direction
-            you need, your life will make a great impact on others.
-          </p>
-          <div className="flex justify-center gap-4 mt-6">
-            <Link href="/signup">
-              <Button standardBtn={"primary"}>
-                Discover My &quot;Why&quot;
-              </Button>
-            </Link>
-            <Link href="/login">
-              <Button standardBtn={"secondary"}>Learn More</Button>
-            </Link>
-          </div>
-        </div>
-      </ImageBGSection>
+
     </section>
   );
 };

@@ -1,6 +1,5 @@
 // src/components/themeContext.tsx
 "use client";
-import { usePathname } from "next/navigation";
 import React, {
   createContext,
   useContext,
@@ -26,34 +25,15 @@ const ThemeContext = createContext<ThemeContextType | undefined>({
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const pathname = usePathname();
 
   const toggleTheme = () => {
     setIsDarkMode((prevMode) => !prevMode);
-    localStorage.setItem("theme", !isDarkMode ? "dark" : "light");
+    localStorage.setItem("theme","light");
   };
 
-  const checkTheme = () => {
-    const savedTheme = localStorage.getItem("theme");
 
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === "dark");
-    } else {
-      setIsDarkMode(window.matchMedia("(prefers-color-scheme: dark)").matches);
-    }
-  };
 
-  useEffect(() => checkTheme, []);
 
-  useEffect(() => {
-    checkTheme();
-
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [pathname, isDarkMode]);
 
   return (
     <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>

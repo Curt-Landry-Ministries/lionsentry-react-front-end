@@ -52,7 +52,7 @@ export async function middleware(request: NextRequest) {
     isAuthenticated &&
     !pathname.startsWith(Paths.Terms) &&
     !pathname.startsWith(Paths.Privacy) &&
-    !pathname.startsWith(Paths.Migrate)
+    !pathname.startsWith(Paths.Migrate) 
 
   ) {
     return !!whyStatement

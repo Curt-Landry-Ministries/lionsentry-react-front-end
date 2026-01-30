@@ -153,6 +153,7 @@ const config: Config = {
       fontFamily: {
         serif: ["var(--font-astoria)"],
         sans: ["var(--font-inter)"],
+        poppins:["var(--font-poppins)"]
       },
       gap: {
         "18": "4.5rem",
